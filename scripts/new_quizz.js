@@ -212,4 +212,5 @@ function buildNewQuizzPageDone(id) {
         });
 };
 
-buildNewQuizzPageStart();
+// buildNewQuizzPageStart();
+buildNewQuizzPageDone(1);

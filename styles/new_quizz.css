@@ -126,6 +126,7 @@
   display: none;
 }
 
+/* img with dark overlay */
 .new-quizz figure{
   position: relative;
   width: calc(100vw - 40px);
@@ -168,6 +169,8 @@
   word-wrap: break-word;
   width: calc(100% - 40px);
 }
+/* img with dark overlay */
+
 
 @media (max-width: 1100px){
   .new-quizz h2,
