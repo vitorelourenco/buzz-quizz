@@ -1,75 +1,5 @@
 let newQuizzObj;
 
-function makeValidationObj(bol, str){
-  return {isValid: bol, text: str}
-}
-
-function validate(callback, strValidationType, strSource){
-  const validationObj = callback(strValidationType);
-  if (!validationObj.isValid){
-    if (strSource !== undefined){
-      alert(`${strSource} : ${validationObj.text}`);
-    } else {
-      alert(`${validationObj.text}`);
-    }
-    return false;
-  }
-  return true;
-}
-
-function factoryURL(str){
-  if (typeof(str)!=='string') return makeValidationObj(false, 'invalid input source');
-  if (!(/^(http:\/\/)/.test(str) || /^(https:\/\/)/.test(str))) return makeValidationObj(false, 'URL da imagem deve comecar com http:// ou https://');
-  return makeValidationObj(true, str);
-}
-
-function factoryTitle(str){
-  if (typeof(str)!=='string') return makeValidationObj(false, 'invalid input source');
-  if (str.length < 20) return makeValidationObj(false, 'Titulo tem menos de 20 caracteres');
-  if (str.length > 65) return makeValidationObj(false, 'Titulo tem mais de 65 caracteres');
-  return makeValidationObj(true, str);
-}
-
-function factoryQuestions(str){
-  if (typeof(str)!=='string') return makeValidationObj(false, 'invalid input source');
-  if (str === '') return makeValidationObj(false, 'Numero de Perguntas esta vazio');
-  if (/\D/.test(str)) return makeValidationObj(false, 'Numero de Perguntas nao e um numero inteiro');
-  if (parseInt(str,10) < 3) return makeValidationObj(false, 'O quizz deve ter pelo menos 3 perguntas');
-  return makeValidationObj(true, str);
-}
-
-function factoryLevels(str){
-  if (typeof(str) !== 'string') return makeValidationObj(false, 'invalid input source');
-  if (str === '') return makeValidationObj(false, 'Numero de Niveis esta vazio');
-  if (/\D/.test(str)) return makeValidationObj(false, 'Numero de Niveis nao e um numero inteiro');
-  if (parseInt(str, 10) < 2) return makeValidationObj(false, 'O quizz deve ter pelo menos 2 niveis');
-  return makeValidationObj(true, str);
-}
-
-function factoryQuestionText(str){
-  if (typeof(str)!=='string') return makeValidationObj(false, 'invalid input source');
-  if (str.length < 20) return makeValidationObj(false, 'Texto da pergunta tem menos de 20 caracteres');
-  return makeValidationObj(true, str);
-}
-
-function factoryQuestionColor(str){
-  if (typeof(str)!=='string') return makeValidationObj(false, 'invalid input source');
-  if (!/^#[a-f0-9]{6}$/i.test(str)) return makeValidationObj(false, 'Cor invalida, formato esperado: #xxxxxx');
-  return makeValidationObj(true, str);
-}
-
-function factoryQuestionAnswer(str){
-  if (typeof(str)!=='string') return makeValidationObj(false, 'invalid input source');
-  if (str === '') return makeValidationObj(false, 'Texto esta vazio');
-  return makeValidationObj(true, str);
-}
-
-function factoryFakeAnswerCount(int){
-  if (!Number.isInteger(int)) return makeValidationObj(false, 'invalid input source');
-  if (int === 3) return makeValidationObj(false, 'Preencha pelo menos uma resposta incorreta');
-  return makeValidationObj(true, `${int}`);
-}
-
 function toggleCollapsed(elem){
   const parent = elem.parentNode;
   parent.classList.toggle('collapsed');
@@ -79,16 +9,11 @@ function handleStartSubmit(){
   objNewStart = document.querySelector('.new-quizz');
 
   const title = objNewStart.querySelector('.new-quizz-title').value;
-  if (!validate(factoryTitle, title)) return;
-
   const image = objNewStart.querySelector('.new-quizz-image').value;
-  if (!validate(factoryURL, image)) return;
-
   const strQuestions = objNewStart.querySelector('.new-quizz-nQuestions').value;
-  if (!validate(factoryQuestions, strQuestions)) return;
-
   const strLevels  = objNewStart.querySelector('.new-quizz-nLevels').value;
-  if (!validate(factoryLevels, strLevels)) return;
+
+  if (checkStartInput(title, image, strQuestions, strLevels) === false) return ;
 
   const nQuestions = parseInt(strQuestions, 10);
   const nLevels = parseInt(strLevels, 10);
@@ -99,56 +24,37 @@ function handleStartSubmit(){
 }
 
 function handleQuestionsSubmit(){
-  objNewQuestions = document.querySelector('.new-quizz');
-
+  const objNewQuestions = document.querySelector('.new-quizz');
   const questions = objNewQuestions.querySelectorAll('.collapsible');
 
-  for (let i=0; i<questions.length;i++){
-    const questionText = questions[i].querySelector('.question-title').value;
-    if (!validate(factoryQuestionText, questionText, `Pergunta ${i+1}`)) return;
-
-    const questionColor = questions[i].querySelector('.question-background').value;
-    if (!validate(factoryQuestionColor, questionColor, `Pergunta ${i+1}`)) return;
-
-    const questionAnswerText = questions[i].querySelector('.question-answer').value;
-    if (!validate(factoryQuestionAnswer, questionAnswerText, `Pergunta ${i+1} (Resposta correta)`)) return;
-
-    const questionAnswerImage = questions[i].querySelector('.question-image').value;
-    if (!validate(factoryURL, questionAnswerImage, `Pergunta ${i+1} (Resposta correta)`)) return;
-
-    const answers = questions[i].querySelectorAll('.question-answer');
-    const images = questions[i].querySelectorAll('.question-image');
-
-    let emptyCount = 0;
-    for (let j=1; j<4; j++){
-      if (answers[j].value === '' && images[j].value === ''){
-        emptyCount++;
-      } else {
-        if (!validate(factoryQuestionAnswer, answers[j].value, `Pergunta ${i+1} (Resposta incorreta ${j})`)) return;
-        if (!validate(factoryURL, images[j].value, `Pergunta ${i+1} (Resposta incorreta ${j})`)) return;
-      } 
-    }
-
-    if (!validate(factoryFakeAnswerCount, emptyCount, `Pergunta ${i+1}`)) return;
-  }
+  if (checkQuestionsInput(questions) === false) return;
 
   for (let i=0; i<questions.length;i++){
     const question = {};
+
     question.title = questions[i].querySelector('.question-title').value;
     question.image = questions[i].querySelector('.question-background').value;
+
     const answers = questions[i].querySelectorAll('.question-answer');
     const images = questions[i].querySelectorAll('.question-image');
     question.answers = [{text: answers[0].value, image: images[0].value, isCorrectAnswer: true }];
+    
     for (let j=1; j<4; j++){
       if (answers[j].value !== ''){
         question.answers.push({text: answers[j].value, image: images[j].value, isCorrectAnswer: false })
       }
     }
+
     newQuizzObj.questions[i] = question;
   }
 
   buildNewQuizzPageLevels();
 }
+
+function handleLevelsSubmit(){
+
+}
+
 
 function buildNewQuizzPageStart(){
   //replace test with the approptiate div later
@@ -182,26 +88,26 @@ function buildNewQuizzPageQuestions(){
   for (let i=0; i<newQuizzObj.questions.length; i++){
     section.innerHTML +=
     `
-      <div class="input-group collapsed">
-        <header onclick='toggleCollapsed(this)'>
-          <h3>Pergunta ${i+1}</h3>
-          <ion-icon name="aperture-outline"></ion-icon>
-        </header>
-        <div class="collapsible">
-          <input class="question-title" type="text" placeholder="Texto da pergunta">
-          <input class="question-background" type="text" placeholder="Cor de fundo da pergunta">
-          <h3>Resposta correta</h3>
-          <input class="question-answer" type="text" placeholder="Resposta correta">
-          <input class="question-image" type="text" placeholder="URL da imagem">
-          <h3>Respostas incorretas</h3>
-          <input class="question-answer" type="text" placeholder="Resposta incorreta 1">
-          <input class="question-image" type="text" placeholder="URL da imagem 1">
-          <input class="question-answer" type="text" placeholder="Resposta incorreta 2">
-          <input class="question-image" type="text" placeholder="URL da imagem 2">
-          <input class="question-answer" type="text" placeholder="Resposta incorreta 3">
-          <input class="question-image" type="text" placeholder="URL da imagem 3">
-        </div>
+    <div class="input-group collapsed">
+      <header onclick='toggleCollapsed(this)'>
+        <h3>Pergunta ${i+1}</h3>
+        <ion-icon name="aperture-outline"></ion-icon>
+      </header>
+      <div class="collapsible">
+        <input class="question-title" type="text" placeholder="Texto da pergunta">
+        <input class="question-background" type="text" placeholder="Cor de fundo da pergunta">
+        <h3>Resposta correta</h3>
+        <input class="question-answer" type="text" placeholder="Resposta correta">
+        <input class="question-image" type="text" placeholder="URL da imagem">
+        <h3>Respostas incorretas</h3>
+        <input class="question-answer" type="text" placeholder="Resposta incorreta 1">
+        <input class="question-image" type="text" placeholder="URL da imagem 1">
+        <input class="question-answer" type="text" placeholder="Resposta incorreta 2">
+        <input class="question-image" type="text" placeholder="URL da imagem 2">
+        <input class="question-answer" type="text" placeholder="Resposta incorreta 3">
+        <input class="question-image" type="text" placeholder="URL da imagem 3">
       </div>
+    </div>
     `
   }
 
@@ -211,7 +117,6 @@ function buildNewQuizzPageQuestions(){
   .classList
   .remove('collapsed');
 }
-
 
 function buildNewQuizzPageLevels(){
   //replace test with the approptiate div later
@@ -237,7 +142,7 @@ function buildNewQuizzPageLevels(){
           <input class="level-title" type="text" placeholder="Titulo do nivel">
           <input class="level-percentage" type="text" placeholder="% de acerto minima">
           <input class="level-image" type="text" placeholder="URL da imagem do nivel">
-          <textarea class="level-description" type="text" placeholder="Descicao do nivel"></textarea>
+          <textarea class="level-description" type="text" placeholder="Descricao do nivel"></textarea>
         </div>
       </div>
     `
@@ -250,6 +155,6 @@ function buildNewQuizzPageLevels(){
   .remove('collapsed');
 }
 
-
+// buildNewQuizzPageStart();
 buildNewQuizzPageLevels();
 // buildNewQuizzPageQuestions({title: 1, image: 1, questions: [1,2,3], levels: [1,2,3]})
