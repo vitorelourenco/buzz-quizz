@@ -186,7 +186,7 @@ function buildNewQuizzPageQuestions(){
     <div class="input-group collapsed">
       <header onclick='toggleCollapsed(this)'>
         <h3>Pergunta ${i+1}</h3>
-        <ion-icon name="aperture-outline"></ion-icon>
+        <img class="svg" src="assets/images/edit.svg">
       </header>
       <div class="collapsible">
         <input class="question-title" type="text" placeholder="Texto da pergunta">
@@ -231,7 +231,7 @@ function buildNewQuizzPageLevels(){
       <div class="input-group collapsed">
         <header onclick='toggleCollapsed(this)'>
           <h3>Nivel ${i+1}</h3>
-          <ion-icon name="aperture-outline"></ion-icon>
+          <img class="svg" src="assets/images/edit.svg">
         </header>
         <div class="collapsible">
           <input class="level-title" type="text" placeholder="Titulo do nivel">

@@ -102,12 +102,13 @@
   padding: 0 20px 20px 20px;
 }
 
-.new-quizz ion-icon{
+.new-quizz .svg{
   display: none;
-  font-size: 26px;
+  height: 26px;
+  width: 29px;
 }
 
-.new-quizz .collapsed ion-icon{
+.new-quizz .collapsed .svg{
   display: block;
 }
 
