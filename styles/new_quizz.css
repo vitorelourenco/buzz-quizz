@@ -1,11 +1,11 @@
 .new-quizz{
-  min-height: calc(100vh - 160px);
   background-color: #fafafa;
   width: 100%;
   max-width: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 20px;
 }
 
 .new-quizz h2{
@@ -24,7 +24,6 @@
 .new-quizz .input-group{
   background-color: white;
   box-shadow: 0 0 10px rgba(0,0,0,0.05);
-  padding: 21px 20px 24px 16px;
   width: 100%;
   margin-top: 27px;
 }
@@ -38,9 +37,15 @@
   padding-left: 23px;
 }
 
-.new-quizz input:not(:first-child){
+.new-quizz input{
   margin-top: 9px;
 }
+
+.new-quizz .question-background,
+.new-quizz .question-image:not(:last-child){
+  margin-bottom: 28px;
+}
+
 
 .new-quizz ::placeholder{
   color: #BABABA;
@@ -63,6 +68,31 @@
   width: calc(100% - 50px);
   margin-top: 85px;
   cursor: pointer;
+}
+
+.new-quizz header{
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  align-items: center;
+  padding: 20px;
+}
+
+.new-quizz .collapsible{
+  padding: 0 20px 20px 20px;
+}
+
+.new-quizz ion-icon{
+  display: none;
+  font-size: 26px;
+}
+
+.new-quizz .collapsed ion-icon{
+  display: block;
+}
+
+.new-quizz .collapsed .collapsible{
+  display: none;
 }
 
 .new-quizz .back-to-home{

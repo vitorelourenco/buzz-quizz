@@ -17,30 +17,30 @@ function validate(callback, strValidationType, strSource){
 }
 
 function validateURL(str){
-  if (typeof(str)!=='string') return makeValidationObj(false, 'Input nao e uma string');
+  if (typeof(str)!=='string') return makeValidationObj(false, 'ERR: invalid input source');
   if (!(/^(http:\/\/)/.test(str) || /^(https:\/\/)/.test(str))) return makeValidationObj(false, 'URL da imagem deve comecar com http:// ou https://');
   return makeValidationObj(true, str);
 }
 
 function validateTitle(str){
-  if (typeof(str)!=='string') return makeValidationObj(false, 'Input nao e uma string');
+  if (typeof(str)!=='string') return makeValidationObj(false, 'ERR: invalid input source');
   if (str.length < 20) return makeValidationObj(false, 'Titulo tem menos de 20 caracteres');
   if (str.length > 65) return makeValidationObj(false, 'Titulo tem mais de 65 caracteres');
   return makeValidationObj(true, str);
 }
 
 function validateQuestions(str){
-  if (typeof(str)!=='string') return makeValidationObj(false, 'Input de Perguntas  nao e uma string');
-  if (str === '') return makeValidationObj(false, 'Input de Perguntas nao e um numero inteiro');
-  if (/\D/.test(str)) return makeValidationObj(false, 'Input de Perguntas nao e um numero inteiro');
+  if (typeof(str)!=='string') return makeValidationObj(false, 'ERR: invalid input source');
+  if (str === '') return makeValidationObj(false, 'Numero de Perguntas esta vazio');
+  if (/\D/.test(str)) return makeValidationObj(false, 'Numero de Perguntas nao e um numero inteiro');
   if (parseInt(str,10) < 3) return makeValidationObj(false, 'O quizz deve ter pelo menos 3 perguntas');
   return makeValidationObj(true, str);
 }
 
 function validateLevels(str){
-  if (typeof(str) !== 'string') return makeValidationObj(false, 'Input de Niveis nao e uma string');
-  if (str === '') return makeValidationObj(false, 'Input de Niveis nao e um numero inteiro');
-  if (/\D/.test(str)) return makeValidationObj(false, 'Input de Niveis nao e um numero inteiro');
+  if (typeof(str) !== 'string') return makeValidationObj(false, 'ERR: invalid input source');
+  if (str === '') return makeValidationObj(false, 'Numero de Niveis esta vazio');
+  if (/\D/.test(str)) return makeValidationObj(false, 'Numero de Niveis nao e um numero inteiro');
   if (parseInt(str, 10) < 2) return makeValidationObj(false, 'O quizz deve ter pelo menos 2 niveis');
   return makeValidationObj(true, str);
 }
@@ -68,8 +68,15 @@ function handleStartSubmit(){
   buildNewQuizzPageQuestions(newQuizzObj);
 }
 
+function toggleCollapsed(elem){
+  const parent = elem.parentNode;
+  parent.classList.toggle('collapsed');
+}
+
 function buildNewQuizzPageStart(){
-  document.querySelector('BODY').innerHTML =
+  //replace test with the approptiate div later
+  const container = document.querySelector('.test');
+  container.innerHTML =
   `
   <section class="new-quizz">
     <h2>Comece pelo comeco</h2>
@@ -85,7 +92,48 @@ function buildNewQuizzPageStart(){
 }
 
 function buildNewQuizzPageQuestions(newQuizzObj){
-  console.log(newQuizzObj);
+  //replace test with the approptiate div later
+  const container = document.querySelector('.test');
+  container.innerHTML = 
+  `
+  <section class="new-quizz">
+    <h2>Crie suas perguntas</h2>
+  </section>
+  `;
+
+  const section = container.querySelector('SECTION');
+  newQuizzObj.questions.forEach((elem,i)=>{
+    section.innerHTML +=
+    `
+      <div class="input-group collapsed">
+        <header onclick='toggleCollapsed(this)'>
+          <h3>Pergunta ${i+1}</h3>
+          <ion-icon name="aperture-outline"></ion-icon>
+        </header>
+        <div class="collapsible">
+          <input class="question-title" type="text" placeholder="Texto da pergunta">
+          <input class="question-background" type="text" placeholder="Cor de fundo da pergunta">
+          <h3>Resposta correta</h3>
+          <input class="question-answer" type="text" placeholder="Resposta correta">
+          <input class="question-image" type="text" placeholder="URL da imagem">
+          <h3>Respostas incorretas</h3>
+          <input class="question-answer" type="text" placeholder="Resposta incorreta 1">
+          <input class="question-image" type="text" placeholder="URL da imagem 1">
+          <input class="question-answer" type="text" placeholder="Resposta incorreta 2">
+          <input class="question-image" type="text" placeholder="URL da imagem 2">
+          <input class="question-answer" type="text" placeholder="Resposta incorreta 3">
+          <input class="question-image" type="text" placeholder="URL da imagem 3">
+        </div>
+      </div>
+    `
+  });
+
+  section.innerHTML += "<button onclick='handleQuestionsSubmit()'>Prosseguir para criar niveis</button>"
+  container
+  .querySelector('.collapsed')
+  .classList
+  .remove('collapsed');
 }
 
-buildNewQuizzPageStart();
+// buildNewQuizzPageStart();
+buildNewQuizzPageQuestions({title: 1, image: 1, questions: [1,2,3], levels: [1,2,3]})
