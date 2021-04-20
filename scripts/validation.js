@@ -84,10 +84,14 @@ function factoryPercentage(str){
 
 function factoryDescription(str){
   if (typeof(str)!=='string') return makeValidationObj(false, 'invalid input source');
-  console.log(str);
-  console.log(str.length);
   if (str.length < 30) return makeValidationObj(false, 'Descricao tem menos de 30 caracteres');
   return makeValidationObj(true, str);
+}
+
+function factoryZeroPercentageCount(bol){
+  if (typeof(bol) !== 'boolean') return makeValidationObj(false, 'invalid input source');
+  if (bol === false) return makeValidationObj(false, 'Ao menos um nivel deve ter porcentagem minima 0');
+  return makeValidationObj(true, `${bol}`);
 }
 
 function checkStartInput(title, image, strQuestions, strLevels){
@@ -155,9 +159,6 @@ function checkLevelsInput(levels){
     if (checkLevelInput(i, levelTitle, levelPercentage, levelImage, levelDescription) === false) return false;
     if (levelPercentage === '0') foundZero = true;
   }
-  if (!foundZero) {
-    alert('Ao menos um nivel deve ter porcentagem minima 0')
-    return false;
-  }
+  if (!validate(factoryZeroPercentageCount, foundZero)) return false;
   return true;
 }

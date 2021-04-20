@@ -33,7 +33,7 @@ function handleQuestionsSubmit(){
     const question = {};
 
     question.title = questions[i].querySelector('.question-title').value;
-    question.image = questions[i].querySelector('.question-background').value;
+    question.color = questions[i].querySelector('.question-background').value;
 
     const answers = questions[i].querySelectorAll('.question-answer');
     const images = questions[i].querySelectorAll('.question-image');
@@ -57,7 +57,26 @@ function handleLevelsSubmit(){
 
   if (checkLevelsInput(levels) === false) return;
 
-  
+  for (let i=0; i< levels.length; i++){
+    const level = {};
+    level.title = levels[i].querySelector('.level-title').value;
+    level.image = levels[i].querySelector('.level-image').value;
+    level.text = levels[i].querySelector('.level-description').value;
+    level.minValue = parseInt(levels[i].querySelector('.level-percentage').value, 10);
+    newQuizzObj.levels[i] = level;
+  }
+
+  console.log(newQuizzObj);
+  axios
+  .post('https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes', newQuizzObj)
+  .then((response)=>{
+    console.log(response);
+    console.log('foi');
+  })
+  .catch((response)=>{
+    console.log(response);
+    console.log('deu ruim');
+  })
 }
 
 
@@ -160,6 +179,6 @@ function buildNewQuizzPageLevels(){
   .remove('collapsed');
 }
 
-// buildNewQuizzPageStart();
-buildNewQuizzPageLevels();
+buildNewQuizzPageStart();
+// buildNewQuizzPageLevels();
 // buildNewQuizzPageQuestions({title: 1, image: 1, questions: [1,2,3], levels: [1,2,3]})
