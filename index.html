@@ -6,19 +6,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BuzzQuizz</title>
+    <link rel="icon" type="image/png" href="assets/images/iconTitle.png">
     <link rel="stylesheet" href="styles/reset.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/home.css">
     <link rel="stylesheet" href="styles/ongoing_quizz.css">
     <link rel="stylesheet" href="styles/new_quizz.css">
 </head>
 
 <body>
-    <h1>hello buzz-quiz</h1>
+    <div class="main-header">BuzzQuizz</div>
 
-
-    <div class='test'></div>
+    <div class="page-container">
+        <div class="home-container">
+            <div class="user-quizzes">
+                <p>Você não criou nenhum<br> quizz ainda :(</p>
+                <button>Criar Quizz</button>
+            </div>
+            <div class="quizzes-list">
+                <p>Todos os Quizzes</p>
+            </div>
+        </div>
+    </div>
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="scripts/validation.js"></script>

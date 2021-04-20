@@ -1,161 +1,155 @@
 let newQuizzObj;
 
 
-newQuizzObj = 
-{
-	title: "Título do quizz",
-	image: "https://http.cat/411.jpg",
-	questions: [
-		{
-			title: "Título da pergunta 1",
-			color: "#123456",
-			answers: [
-				{
-					text: "Texto da resposta 1",
-					image: "https://http.cat/411.jpg",
-					isCorrectAnswer: true
-				},
-				{
-					text: "Texto da resposta 2",
-					image: "https://http.cat/412.jpg",
-					isCorrectAnswer: false
-				}
-			]
-		},
-		{
-			title: "Título da pergunta 2",
-			color: "#123456",
-			answers: [
-				{
-					text: "Texto da resposta 1",
-					image: "https://http.cat/411.jpg",
-					isCorrectAnswer: true
-				},
-				{
-					text: "Texto da resposta 2",
-					image: "https://http.cat/412.jpg",
-					isCorrectAnswer: false
-				}
-			]
-		},
-		{
-			title: "Título da pergunta 3",
-			color: "#123456",
-			answers: [
-				{
-					text: "Texto da resposta 1",
-					image: "https://http.cat/411.jpg",
-					isCorrectAnswer: true
-				},
-				{
-					text: "Texto da resposta 2",
-					image: "https://http.cat/412.jpg",
-					isCorrectAnswer: false
-				}
-			]
-		}
-	],
-	levels: [
-		{
-			title: "Título do nível 1",
-			image: "https://http.cat/411.jpg",
-			text: "Descrição do nível 1",
-			minValue: 0
-		},
-		{
-			title: "Título do nível 2",
-			image: "https://http.cat/412.jpg",
-			text: "Descrição do nível 2",
-			minValue: 50
-		}
-	]
+newQuizzObj = {
+    title: "Título do quizz",
+    image: "https://http.cat/411.jpg",
+    questions: [{
+            title: "Título da pergunta 1",
+            color: "#123456",
+            answers: [{
+                    text: "Texto da resposta 1",
+                    image: "https://http.cat/411.jpg",
+                    isCorrectAnswer: true
+                },
+                {
+                    text: "Texto da resposta 2",
+                    image: "https://http.cat/412.jpg",
+                    isCorrectAnswer: false
+                }
+            ]
+        },
+        {
+            title: "Título da pergunta 2",
+            color: "#123456",
+            answers: [{
+                    text: "Texto da resposta 1",
+                    image: "https://http.cat/411.jpg",
+                    isCorrectAnswer: true
+                },
+                {
+                    text: "Texto da resposta 2",
+                    image: "https://http.cat/412.jpg",
+                    isCorrectAnswer: false
+                }
+            ]
+        },
+        {
+            title: "Título da pergunta 3",
+            color: "#123456",
+            answers: [{
+                    text: "Texto da resposta 1",
+                    image: "https://http.cat/411.jpg",
+                    isCorrectAnswer: true
+                },
+                {
+                    text: "Texto da resposta 2",
+                    image: "https://http.cat/412.jpg",
+                    isCorrectAnswer: false
+                }
+            ]
+        }
+    ],
+    levels: [{
+            title: "Título do nível 1",
+            image: "https://http.cat/411.jpg",
+            text: "Descrição do nível 1",
+            minValue: 0
+        },
+        {
+            title: "Título do nível 2",
+            image: "https://http.cat/412.jpg",
+            text: "Descrição do nível 2",
+            minValue: 50
+        }
+    ]
 }
 
 
 
 
-function toggleCollapsed(elem){
-  const parent = elem.parentNode;
-  parent.classList.toggle('collapsed');
+function toggleCollapsed(elem) {
+    const parent = elem.parentNode;
+    parent.classList.toggle('collapsed');
 }
 
-function handleStartSubmit(){
-  objNewStart = document.querySelector('.new-quizz');
+function handleStartSubmit() {
+    objNewStart = document.querySelector('.new-quizz');
 
-  const title = objNewStart.querySelector('.new-quizz-title').value;
-  const image = objNewStart.querySelector('.new-quizz-image').value;
-  const strQuestions = objNewStart.querySelector('.new-quizz-nQuestions').value;
-  const strLevels  = objNewStart.querySelector('.new-quizz-nLevels').value;
+    const title = objNewStart.querySelector('.new-quizz-title').value;
+    const image = objNewStart.querySelector('.new-quizz-image').value;
+    const strQuestions = objNewStart.querySelector('.new-quizz-nQuestions').value;
+    const strLevels = objNewStart.querySelector('.new-quizz-nLevels').value;
 
-  if (checkStartInput(title, image, strQuestions, strLevels) === false) return ;
+    if (checkStartInput(title, image, strQuestions, strLevels) === false) return;
 
-  const nQuestions = parseInt(strQuestions, 10);
-  const nLevels = parseInt(strLevels, 10);
+    const nQuestions = parseInt(strQuestions, 10);
+    const nLevels = parseInt(strLevels, 10);
 
-  newQuizzObj = {title, image, questions: new Array(nQuestions), levels: new Array(nLevels)};
+    newQuizzObj = { title, image, questions: new Array(nQuestions), levels: new Array(nLevels) };
 
-  buildNewQuizzPageQuestions();
+    buildNewQuizzPageQuestions();
 }
 
-function handleQuestionsSubmit(){
-  const objNewQuestions = document.querySelector('.new-quizz');
-  const questions = objNewQuestions.querySelectorAll('.collapsible');
+function handleQuestionsSubmit() {
+    const objNewQuestions = document.querySelector('.new-quizz');
+    const questions = objNewQuestions.querySelectorAll('.collapsible');
 
-  if (checkQuestionsInput(questions) === false) return;
+    if (checkQuestionsInput(questions) === false) return;
 
-  for (let i=0; i<questions.length;i++){
-    const question = {};
+    for (let i = 0; i < questions.length; i++) {
+        const question = {};
 
-    question.title = questions[i].querySelector('.question-title').value;
-    question.color = questions[i].querySelector('.question-background').value;
+        question.title = questions[i].querySelector('.question-title').value;
+        question.color = questions[i].querySelector('.question-background').value;
 
-    const answers = questions[i].querySelectorAll('.question-answer');
-    const images = questions[i].querySelectorAll('.question-image');
-    question.answers = [{text: answers[0].value, image: images[0].value, isCorrectAnswer: true }];
-    
-    for (let j=1; j<4; j++){
-      if (answers[j].value !== ''){
-        question.answers.push({text: answers[j].value, image: images[j].value, isCorrectAnswer: false })
-      }
+        const answers = questions[i].querySelectorAll('.question-answer');
+        const images = questions[i].querySelectorAll('.question-image');
+        question.answers = [{ text: answers[0].value, image: images[0].value, isCorrectAnswer: true }];
+
+        for (let j = 1; j < 4; j++) {
+            if (answers[j].value !== '') {
+                question.answers.push({ text: answers[j].value, image: images[j].value, isCorrectAnswer: false })
+            }
+        }
+
+        newQuizzObj.questions[i] = question;
     }
 
-    newQuizzObj.questions[i] = question;
-  }
-
-  buildNewQuizzPageLevels();
+    buildNewQuizzPageLevels();
 }
 
-function handleLevelsSubmit(){
-  const objNewQuestions = document.querySelector('.new-quizz');
-  const levels = objNewQuestions.querySelectorAll('.collapsible');
+function handleLevelsSubmit() {
+    const objNewQuestions = document.querySelector('.new-quizz');
+    const levels = objNewQuestions.querySelectorAll('.collapsible');
 
-  if (checkLevelsInput(levels) === false) return;
+    if (checkLevelsInput(levels) === false) return;
 
-  for (let i=0; i< levels.length; i++){
-    const level = {};
-    level.title = levels[i].querySelector('.level-title').value;
-    level.image = levels[i].querySelector('.level-image').value;
-    level.text = levels[i].querySelector('.level-description').value;
-    level.minValue = parseInt(levels[i].querySelector('.level-percentage').value, 10);
-    newQuizzObj.levels[i] = level;
-  }
+    for (let i = 0; i < levels.length; i++) {
+        const level = {};
+        level.title = levels[i].querySelector('.level-title').value;
+        level.image = levels[i].querySelector('.level-image').value;
+        level.text = levels[i].querySelector('.level-description').value;
+        level.minValue = parseInt(levels[i].querySelector('.level-percentage').value, 10);
+        newQuizzObj.levels[i] = level;
+    }
 
-  axios
-  .post('https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes', newQuizzObj)
-  .then(({data})=>{
-    buildNewQuizzPageDone(data.id);
-  })
-  .catch((error)=>{
-    alert(`error ${error.response.status}`);
-  })
+    axios
+        .post('https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes', newQuizzObj)
+        .then(({ data }) => {
+            buildNewQuizzPageDone(data.id);
+        })
+        .catch((error) => {
+            alert(`error ${error.response.status}`);
+        })
 }
 
 
-function buildNewQuizzPageStart(){
-  //replace test with the approptiate div later
-  const container = document.querySelector('.test');
-  container.innerHTML =
-  `
+function buildNewQuizzPageStart() {
+    //replace test with the approptiate div later
+    const container = document.querySelector('.test');
+    container.innerHTML =
+        `
   <section class="new-quizz">
     <h2>Comece pelo comeco</h2>
     <div class="input-group padding-20">
@@ -169,20 +163,20 @@ function buildNewQuizzPageStart(){
   `
 }
 
-function buildNewQuizzPageQuestions(){
-  //replace test with the approptiate div later
-  const container = document.querySelector('.test');
-  container.innerHTML = 
-  `
+function buildNewQuizzPageQuestions() {
+    //replace test with the approptiate div later
+    const container = document.querySelector('.test');
+    container.innerHTML =
+        `
   <section class="new-quizz">
     <h2>Crie suas perguntas</h2>
   </section>
   `;
 
-  const section = container.querySelector('SECTION');
-  for (let i=0; i<newQuizzObj.questions.length; i++){
-    section.innerHTML +=
-    `
+    const section = container.querySelector('SECTION');
+    for (let i = 0; i < newQuizzObj.questions.length; i++) {
+        section.innerHTML +=
+            `
     <div class="input-group collapsed">
       <header onclick='toggleCollapsed(this)'>
         <h3>Pergunta ${i+1}</h3>
@@ -204,30 +198,30 @@ function buildNewQuizzPageQuestions(){
       </div>
     </div>
     `
-  }
+    }
 
-  section.innerHTML += `<button onclick='handleQuestionsSubmit()'>Prosseguir para criar niveis</button>`
-  container
-  .querySelector('.collapsed')
-  .classList
-  .remove('collapsed');
+    section.innerHTML += `<button onclick='handleQuestionsSubmit()'>Prosseguir para criar niveis</button>`
+    container
+        .querySelector('.collapsed')
+        .classList
+        .remove('collapsed');
 }
 
-function buildNewQuizzPageLevels(){
-  //replace test with the approptiate div later
-  const container = document.querySelector('.test');
-  container.innerHTML = 
-  `
+function buildNewQuizzPageLevels() {
+    //replace test with the approptiate div later
+    const container = document.querySelector('.test');
+    container.innerHTML =
+        `
   <section class="new-quizz">
     <h2>Agora, decida os niveis!</h2>
   </section>
   `;
 
-  const section = container.querySelector('SECTION');
-  // for (let i=0; i<newQuizzObj.questions.length; i++){
-  for (let i=0; i<2; i++){
-    section.innerHTML +=
-    `
+    const section = container.querySelector('SECTION');
+    // for (let i=0; i<newQuizzObj.questions.length; i++){
+    for (let i = 0; i < 2; i++) {
+        section.innerHTML +=
+            `
       <div class="input-group collapsed">
         <header onclick='toggleCollapsed(this)'>
           <h3>Nivel ${i+1}</h3>
@@ -241,27 +235,27 @@ function buildNewQuizzPageLevels(){
         </div>
       </div>
     `
-  }
+    }
 
-  section.innerHTML += `<button onclick='handleLevelsSubmit()'>Finalizar Quizz</button>`
-  container
-  .querySelector('.collapsed')
-  .classList
-  .remove('collapsed');
+    section.innerHTML += `<button onclick='handleLevelsSubmit()'>Finalizar Quizz</button>`
+    container
+        .querySelector('.collapsed')
+        .classList
+        .remove('collapsed');
 }
 
-function buildNewQuizzPageDone(id){
-  let imgSrc;
-  let title;
-  axios
-  .get('https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/1')
-  .then(({data})=>{
-    imgSrc = data.image;
-    title = data.title;
-    //replace test with the approptiate div later
-    const container = document.querySelector('.test');
-    container.innerHTML = 
-    `
+function buildNewQuizzPageDone(id) {
+    let imgSrc;
+    let title;
+    axios
+        .get('https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/1')
+        .then(({ data }) => {
+            imgSrc = data.image;
+            title = data.title;
+            //replace test with the approptiate div later
+            const container = document.querySelector('.test');
+            container.innerHTML =
+                `
     <section class="new-quizz">
       <h2>Seu quizz esta pronto!</h2>
       <figure>
@@ -272,15 +266,14 @@ function buildNewQuizzPageDone(id){
       <button class="back-to-home" onclick='goToHome()'>Voltar para home</button>
     </section>
     `;
-  })
-  .catch((error)=>{
-    alert(`error ${error.response.status}`);
-  });
+        })
+        .catch((error) => {
+            alert(`error ${error.response.status}`);
+        });
 
 };
 
-// buildNewQuizzPageDone(1)
+// buildNewQuizzPageDone(1);
 // buildNewQuizzPageStart();
 // buildNewQuizzPageLevels();
-buildNewQuizzPageQuestions({title: 1, image: 1, questions: [1,2,3], levels: [1,2,3]})
-
+// buildNewQuizzPageQuestions({ title: 1, image: 1, questions: [1, 2, 3], levels: [1, 2, 3] })

@@ -1,7 +1,29 @@
-body{
-  font-family: 'Roboto', sans-serif;
+body {
+    font-family: 'Roboto', sans-serif;
 }
 
-h1{
-  color: pink;
+h1 {
+    color: pink;
+}
+
+.main-header {
+    width: 100vw;
+    height: 69px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #EC362D;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-weight: 700;
+    font-size: 37px;
+    color: #fff;
+}
+
+.page-container {
+    margin-top: 70px;
+    display: flex;
+    justify-content: center;
 }
