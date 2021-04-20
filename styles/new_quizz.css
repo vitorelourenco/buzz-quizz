@@ -83,6 +83,15 @@
   margin-top: 9px;
 }
 
+.new-quizz .go-to-quizz,
+.new-quizz .back-to-home{
+  width: 220px;
+}
+
+.new-quizz .go-to-quizz{
+  margin-top: 45px;
+}
+
 .new-quizz button:last-child{
   margin-bottom: 20px;
 }
@@ -156,6 +165,8 @@
   font-size: 23px;
   line-height: 27px;
   z-index: 30;
+  word-wrap: break-word;
+  width: calc(100% - 40px);
 }
 
 @media (max-width: 1100px){
@@ -190,11 +201,6 @@
     font-size: 18px;
     line-height: 21px;
     margin-top: 29px;
-  }
-
-  .new-quizz .go-to-quizz,
-  .new-quizz .back-to-home{
-    width: 220px;
   }
 
   .new-quizz .go-to-quizz{
