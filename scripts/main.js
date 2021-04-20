@@ -17,51 +17,57 @@ function validate(callback, strValidationType, strSource){
   return true;
 }
 
-function validateURL(str){
-  if (typeof(str)!=='string') return makeValidationObj(false, 'ERR: invalid input source');
+function factoryURL(str){
+  if (typeof(str)!=='string') return makeValidationObj(false, 'invalid input source');
   if (!(/^(http:\/\/)/.test(str) || /^(https:\/\/)/.test(str))) return makeValidationObj(false, 'URL da imagem deve comecar com http:// ou https://');
   return makeValidationObj(true, str);
 }
 
-function validateTitle(str){
-  if (typeof(str)!=='string') return makeValidationObj(false, 'ERR: invalid input source');
+function factoryTitle(str){
+  if (typeof(str)!=='string') return makeValidationObj(false, 'invalid input source');
   if (str.length < 20) return makeValidationObj(false, 'Titulo tem menos de 20 caracteres');
   if (str.length > 65) return makeValidationObj(false, 'Titulo tem mais de 65 caracteres');
   return makeValidationObj(true, str);
 }
 
-function validateQuestions(str){
-  if (typeof(str)!=='string') return makeValidationObj(false, 'ERR: invalid input source');
+function factoryQuestions(str){
+  if (typeof(str)!=='string') return makeValidationObj(false, 'invalid input source');
   if (str === '') return makeValidationObj(false, 'Numero de Perguntas esta vazio');
   if (/\D/.test(str)) return makeValidationObj(false, 'Numero de Perguntas nao e um numero inteiro');
   if (parseInt(str,10) < 3) return makeValidationObj(false, 'O quizz deve ter pelo menos 3 perguntas');
   return makeValidationObj(true, str);
 }
 
-function validateLevels(str){
-  if (typeof(str) !== 'string') return makeValidationObj(false, 'ERR: invalid input source');
+function factoryLevels(str){
+  if (typeof(str) !== 'string') return makeValidationObj(false, 'invalid input source');
   if (str === '') return makeValidationObj(false, 'Numero de Niveis esta vazio');
   if (/\D/.test(str)) return makeValidationObj(false, 'Numero de Niveis nao e um numero inteiro');
   if (parseInt(str, 10) < 2) return makeValidationObj(false, 'O quizz deve ter pelo menos 2 niveis');
   return makeValidationObj(true, str);
 }
 
-function validateQuestionText(str){
-  if (typeof(str)!=='string') return makeValidationObj(false, 'ERR: invalid input source');
+function factoryQuestionText(str){
+  if (typeof(str)!=='string') return makeValidationObj(false, 'invalid input source');
   if (str.length < 20) return makeValidationObj(false, 'Texto da pergunta tem menos de 20 caracteres');
   return makeValidationObj(true, str);
 }
 
-function validateQuestionColor(str){
-  if (typeof(str)!=='string') return makeValidationObj(false, 'ERR: invalid input source');
+function factoryQuestionColor(str){
+  if (typeof(str)!=='string') return makeValidationObj(false, 'invalid input source');
   if (!/^#[a-f0-9]{6}$/i.test(str)) return makeValidationObj(false, 'Cor invalida, formato esperado: #xxxxxx');
   return makeValidationObj(true, str);
 }
 
-function validateQuestionAnswer(str){
-  if (typeof(str)!=='string') return makeValidationObj(false, 'ERR: invalid input source');
+function factoryQuestionAnswer(str){
+  if (typeof(str)!=='string') return makeValidationObj(false, 'invalid input source');
   if (str === '') return makeValidationObj(false, 'Texto esta vazio');
   return makeValidationObj(true, str);
+}
+
+function factoryFakeAnswerCount(int){
+  if (!Number.isInteger(int)) return makeValidationObj(false, 'invalid input source');
+  if (int === 3) return makeValidationObj(false, 'Preencha pelo menos uma resposta incorreta');
+  return makeValidationObj(true, `${int}`);
 }
 
 function toggleCollapsed(elem){
@@ -73,23 +79,23 @@ function handleStartSubmit(){
   objNewStart = document.querySelector('.new-quizz');
 
   const title = objNewStart.querySelector('.new-quizz-title').value;
-  if (!validate(validateTitle, title)) return;
+  if (!validate(factoryTitle, title)) return;
 
   const image = objNewStart.querySelector('.new-quizz-image').value;
-  if (!validate(validateURL, image)) return;
+  if (!validate(factoryURL, image)) return;
 
   const strQuestions = objNewStart.querySelector('.new-quizz-nQuestions').value;
-  if (!validate(validateQuestions, strQuestions)) return;
+  if (!validate(factoryQuestions, strQuestions)) return;
 
   const strLevels  = objNewStart.querySelector('.new-quizz-nLevels').value;
-  if (!validate(validateLevels, strLevels)) return;
+  if (!validate(factoryLevels, strLevels)) return;
 
   const nQuestions = parseInt(strQuestions, 10);
   const nLevels = parseInt(strLevels, 10);
 
   newQuizzObj = {title, image, questions: new Array(nQuestions), levels: new Array(nLevels)}
 
-  buildNewQuizzPageQuestions(newQuizzObj);
+  buildNewQuizzPageQuestions();
 }
 
 function handleQuestionsSubmit(){
@@ -97,29 +103,36 @@ function handleQuestionsSubmit(){
 
   const questions = objNewQuestions.querySelectorAll('.collapsible');
 
-  
   for (let i=0; i<questions.length;i++){
     const questionText = questions[i].querySelector('.question-title').value;
-    if (!validate(validateQuestionText, questionText, `err Pergunta ${i+1}`)) return;
+    if (!validate(factoryQuestionText, questionText, `err Pergunta ${i+1}`)) return;
 
     const questionColor = questions[i].querySelector('.question-background').value;
-    if (!validate(validateQuestionColor, questionColor, `err Pergunta ${i+1}`)) return;
+    if (!validate(factoryQuestionColor, questionColor, `err Pergunta ${i+1}`)) return;
 
     const questionAnswerText = questions[i].querySelector('.question-answer').value;
-    if (!validate(validateQuestionAnswer, questionAnswerText, `err Pergunta ${i+1} (Resposta correta)`)) return;
+    if (!validate(factoryQuestionAnswer, questionAnswerText, `err Pergunta ${i+1} (Resposta correta)`)) return;
 
     const questionAnswerImage = questions[i].querySelector('.question-image').value;
-    if (!validate(validateURL, questionAnswerImage, `err Pergunta ${i+1} (Resposta correta)`)) return;
+    if (!validate(factoryURL, questionAnswerImage, `err Pergunta ${i+1} (Resposta correta)`)) return;
 
     const answers = questions[i].querySelectorAll('.question-answer');
     const images = questions[i].querySelectorAll('.question-image');
 
-    for (let j=1; j<3; j++){
-
+    let emptyCount = 0;
+    for (let j=1; j<4; j++){
+      if (answers[j].value === '' && images[j].value === ''){
+        emptyCount++;
+      } else {
+        if (!validate(factoryQuestionAnswer, answers[j].value, `err Pergunta ${i+1} (Resposta incorreta ${j})`)) return;
+        if (!validate(factoryURL, images[j].value, `err Pergunta ${i+1} (Resposta incorreta ${j})`)) return;
+      } 
     }
-    
+
+    if (!validate(factoryFakeAnswerCount, emptyCount, `err Pergunta ${i+1}`)) return;
   }
 
+  //populate the object HERE
 }
 
 function buildNewQuizzPageStart(){
