@@ -1,6 +1,5 @@
 let newQuizzObj;
 
-
 newQuizzObj = 
 {
 	title: "Título do quizz",
@@ -295,6 +294,6 @@ function buildNewQuizzPageDone(id){
 
 // buildNewQuizzPageDone(1)
 // buildNewQuizzPageStart();
-buildNewQuizzPageLevels();
-// buildNewQuizzPageQuestions({title: 1, image: 1, questions: [1,2,3], levels: [1,2,3]})
+// buildNewQuizzPageLevels();
+buildNewQuizzPageQuestions({title: 1, image: 1, questions: [1,2,3], levels: [1,2,3]})
 
