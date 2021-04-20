@@ -52,7 +52,12 @@ function handleQuestionsSubmit(){
 }
 
 function handleLevelsSubmit(){
+  const objNewQuestions = document.querySelector('.new-quizz');
+  const levels = objNewQuestions.querySelectorAll('.collapsible');
 
+  if (checkLevelsInput(levels) === false) return;
+
+  
 }
 
 

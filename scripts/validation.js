@@ -68,6 +68,28 @@ function factoryFakeAnswerCount(int){
   return makeValidationObj(true, `${int}`);
 }
 
+function factoryLevelTitle(str){
+  if (typeof(str)!=='string') return makeValidationObj(false, 'invalid input source');
+  if (str.length < 10) return makeValidationObj(false, 'Titulo do nivel tem menos de 10 caracteres');
+  return makeValidationObj(true, str);
+}
+
+function factoryPercentage(str){
+  if (typeof(str) !== 'string') return makeValidationObj(false, 'invalid input source');
+  if (str === '') return makeValidationObj(false, 'Campo de porcentagem esta vazio');
+  if (/\D/.test(str)) return makeValidationObj(false, 'Porcentagem deve ser um numero inteiro');
+  if (parseInt(str, 10) < 0 || parseInt(str, 10) > 100) return makeValidationObj(false, 'A porcentagem deve ser entre 0 e 100');
+  return makeValidationObj(true, str);
+}
+
+function factoryDescription(str){
+  if (typeof(str)!=='string') return makeValidationObj(false, 'invalid input source');
+  console.log(str);
+  console.log(str.length);
+  if (str.length < 30) return makeValidationObj(false, 'Descricao tem menos de 30 caracteres');
+  return makeValidationObj(true, str);
+}
+
 function checkStartInput(title, image, strQuestions, strLevels){
   if (!validate(factoryTitle, title)) return false;
   if (!validate(factoryURL, image)) return false;
@@ -84,7 +106,7 @@ function checkQuestionCore(i, questionText, questionColor, questionAnswerText, q
   return true;
 }
 
-function checkFakeAnswers(i, j, answer, image){
+function checkQuestionFakeAnswer(i, j, answer, image){
   if (!validate(factoryQuestionAnswer, answer, `Pergunta ${i+1} (Resposta incorreta ${j})`)) return false;
   if (!validate(factoryURL, image, `Pergunta ${i+1} (Resposta incorreta ${j})`)) return false;
   return true;
@@ -107,11 +129,35 @@ function checkQuestionsInput(questions){
       if (answers[j].value === '' && images[j].value === ''){
         emptyCount++;
       } else {
-        if (checkFakeAnswers(i, j, answers[j].value, images[j].value) === false) return false;
+        if (checkQuestionFakeAnswer(i, j, answers[j].value, images[j].value) === false) return false;
       } 
     }
 
     if (!validate(factoryFakeAnswerCount, emptyCount, `Pergunta ${i+1}`)) return false;
+  }
+  return true;
+}
+
+function checkLevelInput(i, levelTitle, levelPercentage, levelImage, levelDescription){
+  if (!validate(factoryLevelTitle, levelTitle, `Nivel ${i+1}`)) return false;
+  if (!validate(factoryPercentage, levelPercentage, `Nivel ${i+1}`)) return false;
+  if (!validate(factoryURL, levelImage, `Nivel ${i+1}`)) return false;
+  if (!validate(factoryDescription, levelDescription, `Nivel ${i+1}`)) return false;
+}
+
+function checkLevelsInput(levels){
+  let foundZero = false;
+  for (let i=0;i<levels.length;i++){
+    const levelTitle = levels[i].querySelector('.level-title').value;
+    const levelPercentage = levels[i].querySelector('.level-percentage').value;
+    const levelImage = levels[i].querySelector('.level-image').value;
+    const levelDescription = levels[i].querySelector('.level-description').value;
+    if (checkLevelInput(i, levelTitle, levelPercentage, levelImage, levelDescription) === false) return false;
+    if (levelPercentage === '0') foundZero = true;
+  }
+  if (!foundZero) {
+    alert('Ao menos um nivel deve ter porcentagem minima 0')
+    return false;
   }
   return true;
 }
