@@ -71,13 +71,27 @@ newQuizzObj =
 	]
 }
 
+function selectUnique(domElem){
+  const headNode = document.querySelector('.new-quizz');
 
+  if (headNode.querySelector('.input-group:not(.collapsed)') !== null) {
+    const oldSelected = headNode.querySelector('.input-group:not(.collapsed)');
+    console.log(oldSelected);
+    oldSelected.classList.add('collapsed');
+  }
 
-
-function toggleCollapsed(elem){
-  const parent = elem.parentNode;
-  parent.classList.toggle('collapsed');
+  let currentNode = domElem;
+  while (!currentNode.classList.contains('input-group')){
+    currentNode = currentNode.parentNode;
+  }
+  console.log(currentNode);
+  currentNode.classList.remove('collapsed');
 }
+
+// function toggleCollapsed(elem){
+//   const parent = elem.parentNode;
+//   parent.classList.toggle('collapsed');
+// }
 
 function handleStartSubmit(){
   objNewStart = document.querySelector('.new-quizz');
@@ -184,7 +198,7 @@ function buildNewQuizzPageQuestions(){
     section.innerHTML +=
     `
     <div class="input-group collapsed">
-      <header onclick='toggleCollapsed(this)'>
+      <header onclick='selectUnique(this)'>
         <h3>Pergunta ${i+1}</h3>
         <img class="svg" src="assets/images/edit.svg">
       </header>
@@ -229,7 +243,7 @@ function buildNewQuizzPageLevels(){
     section.innerHTML +=
     `
       <div class="input-group collapsed">
-        <header onclick='toggleCollapsed(this)'>
+        <header onclick='selectUnique(this)'>
           <h3>Nivel ${i+1}</h3>
           <img class="svg" src="assets/images/edit.svg">
         </header>
@@ -281,6 +295,6 @@ function buildNewQuizzPageDone(id){
 
 // buildNewQuizzPageDone(1)
 // buildNewQuizzPageStart();
-// buildNewQuizzPageLevels();
-buildNewQuizzPageQuestions({title: 1, image: 1, questions: [1,2,3], levels: [1,2,3]})
+buildNewQuizzPageLevels();
+// buildNewQuizzPageQuestions({title: 1, image: 1, questions: [1,2,3], levels: [1,2,3]})
 
