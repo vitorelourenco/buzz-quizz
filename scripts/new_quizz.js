@@ -92,7 +92,7 @@ function handleLevelsSubmit() {
 function buildNewQuizzPageStart() {
     const container = document.querySelector('.page-container');
     container.innerHTML =
-    `
+        `
     <section class="new-quizz">
       <h2>Comece pelo comeco</h2>
       <div class="input-group padding-20">
@@ -109,7 +109,7 @@ function buildNewQuizzPageStart() {
 function buildNewQuizzPageQuestions() {
     const container = document.querySelector('.page-container');
     container.innerHTML =
-    `
+        `
     <section class="new-quizz">
       <h2>Crie suas perguntas</h2>
     </section>
@@ -118,7 +118,7 @@ function buildNewQuizzPageQuestions() {
     const section = container.querySelector('SECTION');
     for (let i = 0; i < newQuizzObj.questions.length; i++) {
         section.innerHTML +=
-        `
+            `
         <div class="input-group collapsed">
           <header onclick='selectUnique(this)'>
             <h3>Pergunta ${i+1}</h3>
@@ -152,7 +152,7 @@ function buildNewQuizzPageQuestions() {
 function buildNewQuizzPageLevels() {
     const container = document.querySelector('.page-container');
     container.innerHTML =
-    `
+        `
     <section class="new-quizz">
       <h2>Agora, decida os niveis!</h2>
     </section>
@@ -162,7 +162,7 @@ function buildNewQuizzPageLevels() {
     // for (let i=0; i<newQuizzObj.questions.length; i++){
     for (let i = 0; i < 2; i++) {
         section.innerHTML +=
-        `
+            `
         <div class="input-group collapsed">
           <header onclick='selectUnique(this)'>
             <h3>Nivel ${i+1}</h3>
@@ -195,7 +195,7 @@ function buildNewQuizzPageDone(id) {
             title = data.title;
             const container = document.querySelector('.page-container');
             container.innerHTML =
-            `
+                `
             <section class="new-quizz">
               <h2>Seu quizz esta pronto!</h2>
               <figure>
@@ -213,4 +213,4 @@ function buildNewQuizzPageDone(id) {
 };
 
 // buildNewQuizzPageStart();
-buildNewQuizzPageDone(1);
+// buildNewQuizzPageDone(1);

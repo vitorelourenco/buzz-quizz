@@ -1,21 +1,35 @@
-.home-container {
+.hidden {
+    display: none;
+}
+
+.created-quizzes {
     margin: 77px 0px;
     width: 1051px;
     height: 181px;
+}
+
+.empty {
+    width: 100%;
+    height: 100%;
     border: 1px dashed #d5d5d5;
     border-radius: 5px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
 }
 
-.home-container p {
+.empty.hidden {
+    display: none;
+}
+
+.empty p {
     font-size: 20px;
     color: #b9b9b9;
 }
 
-.home-container button {
+.empty button {
     margin-top: 30px;
     background: #fff;
     border-radius: 50px;
@@ -24,4 +38,60 @@
     font-size: 21px;
     width: 151px;
     height: 40px;
+}
+
+.section-title {
+    font-weight: 700;
+    font-size: 20px;
+    color: #000;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.section-title ion-icon {
+    color: #EC362D;
+    font-size: 44px;
+    margin-left: 12px;
+}
+
+.quizzes-list {
+    width: 1066px;
+    height: 181px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.quizz-thumb {
+    width: 340px;
+    height: 181px;
+    border-radius: 5px;
+    position: relative;
+    z-index: 100;
+    margin-right: 15px;
+    margin-bottom: 12px;
+}
+
+.quizz-thumb>div {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%);
+    border-radius: 5px;
+}
+
+.quizz-thumb p {
+    font-size: 17px;
+    color: #fff;
+    position: absolute;
+    left: 18px;
+    bottom: 12px;
+}
+
+.quizz-thumb img {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
 }
