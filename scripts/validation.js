@@ -95,6 +95,18 @@ function factoryZeroPercentageCount(bol){
   return makeValidationObj(true, `${bol}`);
 }
 
+function factoryAnswersOrder(question){
+  if (typeof(question) !== 'object') return makeValidationObj(false, 'invalid input source');
+  let str = '';
+  const answers = question.querySelectorAll('.question-answer');
+  for (let i = 1; i<4; i++){
+    if (answers[i].value !== '') str+= '1';
+    else str += '0';
+  }
+  if (/01/.test(str)) return makeValidationObj(false, 'Coloque as respostas em ordem');
+  return makeValidationObj(true, str);
+}
+
 function checkStartInput(title, image, strQuestions, strLevels){
   if (!validate(factoryTitle, title)) return false;
   if (!validate(factoryURL, image)) return false;
@@ -114,6 +126,11 @@ function checkQuestionCore(i, questionText, questionColor, questionAnswerText, q
 function checkQuestionFakeAnswer(i, j, answer, image){
   if (!validate(factoryQuestionAnswer, answer, `Pergunta ${i+1} (Resposta incorreta ${j})`)) return false;
   if (!validate(factoryURL, image, `Pergunta ${i+1} (Resposta incorreta ${j})`)) return false;
+  return true;
+}
+
+function checkAnswersOrder(i, question){
+  if (!validate(factoryAnswersOrder, question, `Pergunta ${i+1}`)) return false;
   return true;
 }
 
@@ -139,6 +156,7 @@ function checkQuestionsInput(questions){
     }
 
     if (!validate(factoryFakeAnswerCount, emptyCount, `Pergunta ${i+1}`)) return false;
+    if (checkAnswersOrder(i, questions[i]) === false) return false;
   }
   return true;
 }
