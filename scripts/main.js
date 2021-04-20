@@ -1,4 +1,5 @@
-//replace body with something else later
+let newQuizzObj;
+
 function makeValidationObj(bol, str){
   return {isValid: bol, text: str}
 }
@@ -45,6 +46,29 @@ function validateLevels(str){
   return makeValidationObj(true, str);
 }
 
+function validateQuestionText(str){
+  if (typeof(str)!=='string') return makeValidationObj(false, 'ERR: invalid input source');
+  if (str.length < 20) return makeValidationObj(false, 'Texto da pergunta tem menos de 20 caracteres');
+  return makeValidationObj(true, str);
+}
+
+function validateQuestionColor(str){
+  if (typeof(str)!=='string') return makeValidationObj(false, 'ERR: invalid input source');
+  if (!/^#[a-f0-9]{6}$/i.test(str)) return makeValidationObj(false, 'Cor invalida, formato esperado: #xxxxxx');
+  return makeValidationObj(true, str);
+}
+
+function validateQuestionAnswer(str){
+  if (typeof(str)!=='string') return makeValidationObj(false, 'ERR: invalid input source');
+  if (str === '') return makeValidationObj(false, 'Texto esta vazio');
+  return makeValidationObj(true, str);
+}
+
+function toggleCollapsed(elem){
+  const parent = elem.parentNode;
+  parent.classList.toggle('collapsed');
+}
+
 function handleStartSubmit(){
   objNewStart = document.querySelector('.new-quizz');
 
@@ -63,14 +87,39 @@ function handleStartSubmit(){
   const nQuestions = parseInt(strQuestions, 10);
   const nLevels = parseInt(strLevels, 10);
 
-  const newQuizzObj = {title, image, questions: new Array(nQuestions), levels: new Array(nLevels)}
+  newQuizzObj = {title, image, questions: new Array(nQuestions), levels: new Array(nLevels)}
 
   buildNewQuizzPageQuestions(newQuizzObj);
 }
 
-function toggleCollapsed(elem){
-  const parent = elem.parentNode;
-  parent.classList.toggle('collapsed');
+function handleQuestionsSubmit(){
+  objNewQuestions = document.querySelector('.new-quizz');
+
+  const questions = objNewQuestions.querySelectorAll('.collapsible');
+
+  
+  for (let i=0; i<questions.length;i++){
+    const questionText = questions[i].querySelector('.question-title').value;
+    if (!validate(validateQuestionText, questionText, `err Pergunta ${i+1}`)) return;
+
+    const questionColor = questions[i].querySelector('.question-background').value;
+    if (!validate(validateQuestionColor, questionColor, `err Pergunta ${i+1}`)) return;
+
+    const questionAnswerText = questions[i].querySelector('.question-answer').value;
+    if (!validate(validateQuestionAnswer, questionAnswerText, `err Pergunta ${i+1} (Resposta correta)`)) return;
+
+    const questionAnswerImage = questions[i].querySelector('.question-image').value;
+    if (!validate(validateURL, questionAnswerImage, `err Pergunta ${i+1} (Resposta correta)`)) return;
+
+    const answers = questions[i].querySelectorAll('.question-answer');
+    const images = questions[i].querySelectorAll('.question-image');
+
+    for (let j=1; j<3; j++){
+
+    }
+    
+  }
+
 }
 
 function buildNewQuizzPageStart(){
@@ -80,7 +129,7 @@ function buildNewQuizzPageStart(){
   `
   <section class="new-quizz">
     <h2>Comece pelo comeco</h2>
-    <div class="input-group">
+    <div class="input-group padding-20">
         <input class="new-quizz-title" type="text" placeholder="Titulo do seu quizz">
         <input class="new-quizz-image" type="text" placeholder="URL da imagem do seu quizz">
         <input class="new-quizz-nQuestions" type="text" placeholder="Quantidade de perguntas do quizz">
@@ -128,7 +177,7 @@ function buildNewQuizzPageQuestions(newQuizzObj){
     `
   });
 
-  section.innerHTML += "<button onclick='handleQuestionsSubmit()'>Prosseguir para criar niveis</button>"
+  section.innerHTML += `<button onclick='handleQuestionsSubmit()'>Prosseguir para criar niveis</button>`
   container
   .querySelector('.collapsed')
   .classList

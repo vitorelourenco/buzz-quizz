@@ -39,6 +39,11 @@
 
 .new-quizz input{
   margin-top: 9px;
+  margin-bottom: 9px;
+}
+
+.padding-20{
+  padding: 20px;
 }
 
 .new-quizz .question-background,
