@@ -1,5 +1,79 @@
 let newQuizzObj;
 
+
+newQuizzObj = 
+{
+	title: "Título do quizz",
+	image: "https://http.cat/411.jpg",
+	questions: [
+		{
+			title: "Título da pergunta 1",
+			color: "#123456",
+			answers: [
+				{
+					text: "Texto da resposta 1",
+					image: "https://http.cat/411.jpg",
+					isCorrectAnswer: true
+				},
+				{
+					text: "Texto da resposta 2",
+					image: "https://http.cat/412.jpg",
+					isCorrectAnswer: false
+				}
+			]
+		},
+		{
+			title: "Título da pergunta 2",
+			color: "#123456",
+			answers: [
+				{
+					text: "Texto da resposta 1",
+					image: "https://http.cat/411.jpg",
+					isCorrectAnswer: true
+				},
+				{
+					text: "Texto da resposta 2",
+					image: "https://http.cat/412.jpg",
+					isCorrectAnswer: false
+				}
+			]
+		},
+		{
+			title: "Título da pergunta 3",
+			color: "#123456",
+			answers: [
+				{
+					text: "Texto da resposta 1",
+					image: "https://http.cat/411.jpg",
+					isCorrectAnswer: true
+				},
+				{
+					text: "Texto da resposta 2",
+					image: "https://http.cat/412.jpg",
+					isCorrectAnswer: false
+				}
+			]
+		}
+	],
+	levels: [
+		{
+			title: "Título do nível 1",
+			image: "https://http.cat/411.jpg",
+			text: "Descrição do nível 1",
+			minValue: 0
+		},
+		{
+			title: "Título do nível 2",
+			image: "https://http.cat/412.jpg",
+			text: "Descrição do nível 2",
+			minValue: 50
+		}
+	]
+}
+
+
+
+
 function toggleCollapsed(elem){
   const parent = elem.parentNode;
   parent.classList.toggle('collapsed');
@@ -66,16 +140,13 @@ function handleLevelsSubmit(){
     newQuizzObj.levels[i] = level;
   }
 
-  console.log(newQuizzObj);
   axios
   .post('https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes', newQuizzObj)
-  .then((response)=>{
-    console.log(response);
-    console.log('foi');
+  .then(({data})=>{
+    buildNewQuizzPageDone(data.id);
   })
-  .catch((response)=>{
-    console.log(response);
-    console.log('deu ruim');
+  .catch((error)=>{
+    alert(`error ${error.response.status}`);
   })
 }
 
@@ -179,6 +250,37 @@ function buildNewQuizzPageLevels(){
   .remove('collapsed');
 }
 
-buildNewQuizzPageStart();
+function buildNewQuizzPageDone(id){
+  let imgSrc;
+  let title;
+  axios
+  .get('https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/1')
+  .then(({data})=>{
+    imgSrc = data.image;
+    title = data.title;
+    //replace test with the approptiate div later
+    const container = document.querySelector('.test');
+    container.innerHTML = 
+    `
+    <section class="new-quizz">
+      <h2>Seu quizz esta pronto!</h2>
+      <figure>
+        <img src="${imgSrc}" alt=${title}>
+        <figcaption>${title}</figcaption>
+      </figure>
+      <button class="go-to-quizz" onclick='goToQuizz(${id})'>Acessar Quizz</button>
+      <button class="back-to-home" onclick='goToHome()'>Voltar para home</button>
+    </section>
+    `;
+  })
+  .catch((error)=>{
+    alert(`error ${error.response.status}`);
+  });
+
+};
+
+// buildNewQuizzPageDone(1)
+// buildNewQuizzPageStart();
 // buildNewQuizzPageLevels();
-// buildNewQuizzPageQuestions({title: 1, image: 1, questions: [1,2,3], levels: [1,2,3]})
+buildNewQuizzPageQuestions({title: 1, image: 1, questions: [1,2,3], levels: [1,2,3]})
+
