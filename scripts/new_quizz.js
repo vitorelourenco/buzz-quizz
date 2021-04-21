@@ -1,5 +1,18 @@
 let newQuizzObj;
 
+function scrollQuizz(domElem){
+  const getY = function(elem){
+    const rect = elem.getBoundingClientRect();
+    const scrollTop = window.pageYOffset;
+    return rect.top + scrollTop;;
+  }
+  const header = document.querySelector('.main-header');
+  const headerHeight =  header.offsetHeight;
+  window.requestAnimationFrame(()=>{
+    window.scrollTo(0, getY(domElem) - headerHeight);
+  });
+}
+
 function selectUnique(domElem) {
     const headNode = document.querySelector('.new-quizz');
 
@@ -15,6 +28,7 @@ function selectUnique(domElem) {
     }
     console.log(currentNode);
     currentNode.classList.remove('collapsed');
+    scrollQuizz(currentNode);
 }
 
 function handleStartSubmit() {
@@ -104,6 +118,7 @@ function buildNewQuizzPageStart() {
       <button onclick='handleStartSubmit()'>Prosseguir para criar perguntas</button>
     </section>
     `;
+    scrollQuizz(container);
 }
 
 function buildNewQuizzPageQuestions() {
@@ -147,6 +162,8 @@ function buildNewQuizzPageQuestions() {
         .querySelector('.collapsed')
         .classList
         .remove('collapsed');
+    scrollQuizz(container);
+
 }
 
 function buildNewQuizzPageLevels() {
@@ -182,6 +199,7 @@ function buildNewQuizzPageLevels() {
         .querySelector('.collapsed')
         .classList
         .remove('collapsed');
+    scrollQuizz(container);
 }
 
 function buildNewQuizzPageDone(id) {
@@ -209,7 +227,9 @@ function buildNewQuizzPageDone(id) {
         .catch((error) => {
             alert(`error ${error.response.status}`);
         });
+    scrollQuizz(container);
 };
 
 // buildNewQuizzPageStart();
 // buildNewQuizzPageDone(1);
+// buildNewQuizzPageQuestions(newQuizzObj = {title:'a', image:'a', questions:[{},{},{}], levels:[{},{}]});
