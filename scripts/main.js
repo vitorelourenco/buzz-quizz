@@ -3,23 +3,22 @@ function getQuizzes() {
     promisse.then(buildQuizzList);
 }
 
-function buildHomePage() {
+function buildHomePage(isThereQuiz) {
+    getQuizzes();
     const element = document.querySelector(".page-container");
     element.innerHTML = `<div class="home-container">
             <div class="created-quizzes">
-                <div class="empty">
+                <div class="empty ${isThereQuiz?"hidden":""}">
                     <p>Você não criou nenhum<br> quizz ainda :(</p>
                     <button onclick="buildNewQuizzPageStart()">Criar Quizz</button>
                 </div>
-                <div class="not-empty hidden">
-                    <p onclick="buildNewQuizzPageStart()" class="section-title">Seus Quizzes<span><ion-icon name="add-circle"></ion-icon></span></p>
-
+                <div class="not-empty ${isThereQuiz?"":"hidden"}">
+                    <p class="section-title">Seus Quizzes<span><ion-icon onclick="buildNewQuizzPageStart()" name="add-circle"></ion-icon></span></p>
                     <ul class="quizzes-list user-quizzes">
                     </ul>
                 </div>
             </div>
             <p class="section-title">Todos os Quizzes</p>
-
             <ul class="quizzes-list all-quizzes"></ul>
         </div>`
 }
@@ -38,5 +37,4 @@ function buildQuizzList(resposta) {
     }
 }
 
-buildHomePage();
-getQuizzes();
+buildHomePage(false);

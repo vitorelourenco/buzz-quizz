@@ -203,7 +203,7 @@ function buildNewQuizzPageDone(id) {
                 <figcaption>${title}</figcaption>
               </figure>
               <button class="go-to-quizz" onclick='goToQuizz(${id})'>Acessar Quizz</button>
-              <button class="back-to-home" onclick='goToHome()'>Voltar para home</button>
+              <button class="back-to-home" onclick='buildHomePage(true)'>Voltar para home</button>
             </section>
             `;
         })
