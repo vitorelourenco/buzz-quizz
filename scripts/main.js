@@ -20,8 +20,8 @@ function buildHomePage(isThereQuiz) {
             <p class="section-title">Todos os Quizzes</p>
             <ul class="quizzes-list all-quizzes"></ul>
         </div>`
-    // i think it makes more sense for a function that uses .all-quizzes  
-    // to execute only after .all-quizzes is created regardless of async safety
+        // i think it makes more sense for a function that uses .all-quizzes  
+        // to execute only after .all-quizzes is created regardless of async safety
     getQuizzes();
 }
 
@@ -39,4 +39,4 @@ function buildQuizzList(resposta) {
     }
 }
 
-buildHomePage(false);
+// buildHomePage(true);

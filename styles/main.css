@@ -4,6 +4,7 @@ html {
 
 body {
     font-family: 'Roboto', sans-serif;
+    background: #efefef;
 }
 
 h1 {
@@ -28,7 +29,7 @@ h1 {
 }
 
 .page-container {
-    margin-top: 70px;
+    margin-top: 69px;
     display: flex;
     justify-content: center;
 }
