@@ -62,6 +62,7 @@
 
 .answer {
     width: calc(50% - 10px);
+    cursor: pointer;
 }
 
 .answer-section {
@@ -87,7 +88,8 @@
 /* daqui pra baixo feito por vitor */
 
 .choice.revealed {
-    opacity: 0.3
+    opacity: 0.3;
+    cursor: auto;
 }
 
 .choice.picked {
@@ -95,9 +97,9 @@
 }
 
 .choice.right-choice.revealed p {
-    color: #FF0B0B;
+    color: #009C22;
 }
 
 .choice.wrong-choice.revealed p {
-    color: #009C22;
+    color: #FF0B0B;
 }

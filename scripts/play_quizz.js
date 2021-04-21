@@ -28,7 +28,8 @@ function buildQuizz(resposta) {
         let answerElement = element.querySelectorAll(".answer-section")[i];
         elem.answers.forEach(function(answer) {
             answerElement.innerHTML += `
-            <div onclick='pickOption(pickAnswer, this, ".choice", ".answer-section", ".play-container")' class="answer choice ${answer.isCorrectAnswer?"right-choice":"wrong-choice"}">
+            <div onclick='pickOption(pickAnswer, this, ".choice", ".question-section", ".play-container")'
+            class="answer choice ${answer.isCorrectAnswer?"right-choice":"wrong-choice"}">
               <div class="img-wrapper">
                 <img src="${answer.image}" alt="answer image">
               </div>
@@ -41,16 +42,17 @@ function buildQuizz(resposta) {
 // daqui pra baixo vitor
 
 function pickOption(callback, domElem, targetSelector, headSelector, superSelector) {
+
     let headNode = domElem;
-    while (!headNode.classList.contains(headSelector)) {
+    while (!headNode.classList.contains(headSelector.replace('.',''))) {
         if (headNode === document.body) break;
         headNode = headNode.parentNode;
     }
 
     let superNode = headNode;
-    while (!headNode.classList.contains(superSelector)) {
+    while (!headNode.classList.contains(superSelector.replace('.',''))) {
         if (superNode === document.body) break;
-        superNode = headNode.parentNode;
+        superNode = superNode.parentNode;
     }
 
     const headOptions = headNode.querySelectorAll(targetSelector);
@@ -60,8 +62,12 @@ function pickOption(callback, domElem, targetSelector, headSelector, superSelect
 }
 
 function pickAnswer(picked, arrChoices, arrQuestions, headNode, superNode, headSelector, targetSelector) {
+    let callerIndex = 0;
+    while (arrQuestions[callerIndex] !== headNode){
+      callerIndex++;
+      if (callerIndex == 1000) break;
+    }
 
-    const callerIndex = arrQuestions.indexOf(headNode);
     const callerQuestion = arrQuestions[callerIndex];
     if (callerQuestion.querySelector('.picked') !== null) return;
 
@@ -80,6 +86,7 @@ function goToNextQuestion(callerIndex, arrQuestions) {
     });
 
     if (quizzStatusList.indexOf(0) === -1) {
+        console.log('the end');
         endQuizz();
         return;
     }
@@ -88,11 +95,18 @@ function goToNextQuestion(callerIndex, arrQuestions) {
     const nextAhead = ahead.indexOf(0);
     const nextBehind = quizzStatusList.indexOf(0);
 
+    let targetElement;
     if (nextAhead !== -1) {
-        scrollQuizz(arrQuestions[nextAhead], 2000)
+        targetElement = arrQuestions[callerIndex + nextAhead].querySelector('.question');
     } else {
-        scrollQuizz(arrQuestions[nextBehind], 2000)
+        targetElement = arrQuestions[nextBehind].querySelector('.question');
     }
+
+    scrollQuizz(targetElement, 2000)
+}
+
+function endQuizz(){
+
 }
 
 getQuizz(1);
