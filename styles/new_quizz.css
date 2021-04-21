@@ -112,6 +112,28 @@
   padding: 0 20px 20px 20px;
 }
 
+/* collpase animation */
+
+.new-quizz .collapsible{
+  overflow: hidden;
+  transition-property: max-height, padding-bottom;
+  transition-duration: 500ms, 250ms;
+  transition-timing-function: linear, linear;
+  transition-delay: 0s, 250ms;
+}
+
+.new-quizz :not(.collapsed) .collapsible{
+  max-height: 762px;
+  padding-bottom: 20px;
+}
+
+.new-quizz .collapsed .collapsible{
+  max-height: 0;
+  padding-bottom: 0;
+}
+
+/* collpase animation */
+
 .new-quizz .svg{
   display: none;
   height: 26px;
@@ -122,9 +144,9 @@
   display: block;
 }
 
-.new-quizz .collapsed .collapsible{
+/* .new-quizz .collapsed .collapsible{
   display: none;
-}
+} */
 
 /* img with dark overlay */
 .new-quizz figure{
