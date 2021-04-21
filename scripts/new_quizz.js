@@ -28,7 +28,7 @@ function selectUnique(domElem) {
     }
     console.log(currentNode);
     currentNode.classList.remove('collapsed');
-    scrollQuizz(currentNode,510);
+    scrollQuizz(currentNode,520);
 }
 
 function handleStartSubmit() {
@@ -233,3 +233,4 @@ function buildNewQuizzPageDone(id) {
 // buildNewQuizzPageStart();
 // buildNewQuizzPageDone(1);
 // buildNewQuizzPageQuestions(newQuizzObj = {title:'a', image:'a', questions:[{},{},{}], levels:[{},{}]});
+// buildNewQuizzPageLevels(newQuizzObj = {title:'a', image:'a', questions:[{},{},{},{}], levels:[{},{},{},{}]});
