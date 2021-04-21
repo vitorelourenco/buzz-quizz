@@ -1,5 +1,7 @@
 let newQuizzObj;
 
+//i didnt use scroll intoview because it doesnt
+//take the fixed header into account
 function scrollQuizz(domElem,delay){
   const getY = function(elem){
     const rect = elem.getBoundingClientRect();
@@ -13,8 +15,8 @@ function scrollQuizz(domElem,delay){
   },delay);
 }
 
-function selectUnique(domElem) {
-    const headNode = document.querySelector('.new-quizz');
+function selectUnique(domElem, headSelector) {
+    const headNode = document.querySelector(headSelector);
 
     if (headNode.querySelector('.input-group:not(.collapsed)') !== null) {
         const oldSelected = headNode.querySelector('.input-group:not(.collapsed)');
@@ -135,7 +137,7 @@ function buildNewQuizzPageQuestions() {
         section.innerHTML +=
         `
         <div class="input-group collapsed">
-          <header onclick='selectUnique(this)'>
+          <header onclick='selectUnique(this, ".new-quizz")'>
             <h3>Pergunta ${i+1}</h3>
             <img class="svg" src="assets/images/edit.svg">
           </header>
@@ -180,7 +182,7 @@ function buildNewQuizzPageLevels() {
       section.innerHTML +=
       `
       <div class="input-group collapsed">
-        <header onclick='selectUnique(this)'>
+        <header onclick='selectUnique(this, ".new-quizz")'>
           <h3>Nivel ${i+1}</h3>
           <img class="svg" src="assets/images/edit.svg">
         </header>
