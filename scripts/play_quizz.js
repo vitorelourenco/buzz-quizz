@@ -10,22 +10,30 @@ function buildQuizz(resposta) {
     let element = document.querySelector(".page-container");
     element.innerHTML = `<div class="play-container"></div>`;
     element = document.querySelector(".play-container");
-    element.innerHTML = `<div class="cover">
+    element.innerHTML = `
+      <div class="cover">
         <img src="${quizz.image}" alt="image cover">
         <div class="shadow"></div>
         <p>${quizz.title}</p>
       </div>`;
-    quizz.questions.forEach(function(elem) {
-        element.innerHTML += `<div class="question-section">
-        <div class="question"><p>${elem.title}</p></div>
-        <div class="answer-section"></div>
-    </div>`;
-        let answerElement = element.querySelector(".answer-section");
+    quizz.questions.forEach(function(elem, i) {
+        element.innerHTML += `
+        <div class="question-section">
+          <div class="question">
+            <p>${elem.title}</p>
+          </div>
+          <div class="answer-section">
+          </div>
+        </div>`;
+        let answerElement = element.querySelectorAll(".answer-section")[i];
         elem.answers.forEach(function(answer) {
-            answerElement.innerHTML += `<div class="answer choice ${answer.isCorrectAnswer?"right-choice":"wrong-choice"}">
-                                                <img src="${answer.image}" alt="answer image">
-                                                <p>${answer.text}</p>
-                                            </div>`;
+            answerElement.innerHTML += `
+            <div class="answer choice ${answer.isCorrectAnswer?"right-choice":"wrong-choice"}">
+              <div class="img-wrapper">
+                <img src="${answer.image}" alt="answer image">
+              </div>
+              <p>${answer.text}</p>
+            </div>`;
         });
     });
 }

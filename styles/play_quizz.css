@@ -60,16 +60,28 @@
     font-weight: 700;
 }
 
+.answer {
+    width: calc(50% - 10px);
+}
+
 .answer-section {
     display: flex;
-    column-gap: 24px;
+    column-gap: 20px;
     flex-wrap: wrap;
 }
 
-.answer img {
-    height: 175px;
+.img-wrapper{
+  position: relative;
+  width: 100%;
+  padding-bottom: 53%;
 }
 
+.img-wrapper img{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
 /* daqui pra baixo feito por vitor */
 
