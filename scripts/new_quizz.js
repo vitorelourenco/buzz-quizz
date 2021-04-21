@@ -118,7 +118,7 @@ function buildNewQuizzPageQuestions() {
     const section = container.querySelector('SECTION');
     for (let i = 0; i < newQuizzObj.questions.length; i++) {
         section.innerHTML +=
-            `
+        `
         <div class="input-group collapsed">
           <header onclick='selectUnique(this)'>
             <h3>Pergunta ${i+1}</h3>
@@ -159,23 +159,22 @@ function buildNewQuizzPageLevels() {
     `;
 
     const section = container.querySelector('SECTION');
-    // for (let i=0; i<newQuizzObj.questions.length; i++){
-    for (let i = 0; i < 2; i++) {
-        section.innerHTML +=
-            `
-        <div class="input-group collapsed">
-          <header onclick='selectUnique(this)'>
-            <h3>Nivel ${i+1}</h3>
-            <img class="svg" src="assets/images/edit.svg">
-          </header>
-          <div class="collapsible">
-            <input class="level-title" type="text" placeholder="Titulo do nivel">
-            <input class="level-percentage" type="text" placeholder="% de acerto minima">
-            <input class="level-image" type="text" placeholder="URL da imagem do nivel">
-            <textarea class="level-description" type="text" placeholder="Descricao do nivel"></textarea>
-          </div>
+    for (let i=0; i<newQuizzObj.levels.length; i++){
+      section.innerHTML +=
+      `
+      <div class="input-group collapsed">
+        <header onclick='selectUnique(this)'>
+          <h3>Nivel ${i+1}</h3>
+          <img class="svg" src="assets/images/edit.svg">
+        </header>
+        <div class="collapsible">
+          <input class="level-title" type="text" placeholder="Titulo do nivel">
+          <input class="level-percentage" type="text" placeholder="% de acerto minima">
+          <input class="level-image" type="text" placeholder="URL da imagem do nivel">
+          <textarea class="level-description" type="text" placeholder="Descricao do nivel"></textarea>
         </div>
-        `
+      </div>
+      `
     }
 
     section.innerHTML += `<button onclick='handleLevelsSubmit()'>Finalizar Quizz</button>`
