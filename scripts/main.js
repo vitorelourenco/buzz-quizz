@@ -29,9 +29,9 @@ function buildQuizzList(resposta) {
     quizzContainer.innerHTML = "";
     for (i = 0; i < quizzList.length; i++) {
         console.log(quizzList[i]);
-        quizzContainer.innerHTML += ` <li onclick="playQuizz(${quizzList[i].id})" class="quizz-thumb">
+        quizzContainer.innerHTML += ` <li onclick="getQuizz(${quizzList[i].id})" class="quizz-thumb">
                                 <div></div>
-                                <img src=${quizzList[i].image}" alt="example thumbnail">
+                                <img src=${quizzList[i].image}" alt="quizz thumbnail">
                                 <p>${quizzList[i].title}</p>
                             </li>`
     }
