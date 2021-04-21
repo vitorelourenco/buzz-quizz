@@ -59,3 +59,19 @@
     font-size: 23px;
     font-weight: 700;
 }
+
+.choice.revealed {
+    opacity: 0.3
+}
+
+.choice.picked {
+    opacity: 1;
+}
+
+.choice.right-choice.revealed p {
+    color: #FF0B0B;
+}
+
+.choice.wrong-choice.revealed p {
+    color: #009C22;
+}
