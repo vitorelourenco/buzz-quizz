@@ -18,12 +18,19 @@ function buildQuizz(resposta) {
     quizz.questions.forEach(function(elem) {
         element.innerHTML += `<div class="question-section">
         <div class="question"><p>${elem.title}</p></div>
-        <div class="answer-section">${}</div>
+        <div class="answer-section"></div>
     </div>`;
+        let answerElement = element.querySelector(".answer-section");
+        elem.answers.forEach(function(answer) {
+            answerElement.innerHTML += `<div class="answer choice ${answer.isCorrectAnswer?"right-choice":"wrong-choice"}">
+                                                <img src="${answer.image}" alt="answer image">
+                                                <p>${answer.text}</p>
+                                            </div>`;
+        });
     });
 }
 
-getQuizz(1);
+// daqui pra baixo vitor
 
 function pickOption(callback, domElem, targetSelector, headSelector, superSelector) {
     let headNode = domElem;
@@ -79,3 +86,5 @@ function goToNextQuestion(callerIndex, arrQuestions) {
         scrollQuizz(arrQuestions[nextBehind], 2000)
     }
 }
+
+getQuizz(1);

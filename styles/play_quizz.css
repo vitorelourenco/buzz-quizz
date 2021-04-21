@@ -60,6 +60,19 @@
     font-weight: 700;
 }
 
+.answer-section {
+    display: flex;
+    column-gap: 24px;
+    flex-wrap: wrap;
+}
+
+.answer img {
+    height: 175px;
+}
+
+
+/* daqui pra baixo feito por vitor */
+
 .choice.revealed {
     opacity: 0.3
 }
