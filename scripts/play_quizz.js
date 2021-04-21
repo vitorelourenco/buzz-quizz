@@ -11,10 +11,10 @@ function buildQuizz(resposta) {
         <img src="${quizz.image}" alt="image cover">
         <p>${quizz.title}</p>
       </div>`;
-    quizz.forEach(quizz.questions => {
+    quizz.questions.forEach(function (elem){
         element.innerHTML += `<div class="question-section">
-        <div class="question"><p>${quizz.questions[i].title}</p></div>
-      </div>;`
+        <div class="question"><p>${elem.title}</p></div>
+      </div>`;
     });
     // em construção... fiquei com sono rsrs
 }
