@@ -67,6 +67,7 @@
 .answer-section {
     display: flex;
     column-gap: 20px;
+    row-gap: 20px;
     flex-wrap: wrap;
 }
 

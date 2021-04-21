@@ -28,7 +28,7 @@ function buildQuizz(resposta) {
         let answerElement = element.querySelectorAll(".answer-section")[i];
         elem.answers.forEach(function(answer) {
             answerElement.innerHTML += `
-            <div class="answer choice ${answer.isCorrectAnswer?"right-choice":"wrong-choice"}">
+            <div onclick='pickOption(pickAnswer, this, ".choice", ".answer-section", ".play-container")' class="answer choice ${answer.isCorrectAnswer?"right-choice":"wrong-choice"}">
               <div class="img-wrapper">
                 <img src="${answer.image}" alt="answer image">
               </div>
