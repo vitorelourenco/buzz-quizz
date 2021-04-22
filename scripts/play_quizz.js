@@ -19,12 +19,13 @@ function buildQuizz(resposta) {
     quizz.questions.forEach(function(elem, i) {
         element.innerHTML += `
         <div class="question-section">
-          <div class="question">
+          <div style="background-color: ${elem.color}" class="question">
             <p>${elem.title}</p>
           </div>
           <div class="answer-section">
           </div>
         </div>`;
+
         let answerElement = element.querySelectorAll(".answer-section")[i];
         elem.answers.forEach(function(answer) {
             answerElement.innerHTML += `

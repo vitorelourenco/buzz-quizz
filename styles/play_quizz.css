@@ -46,7 +46,6 @@
 
 .question {
     width: 100%;
-    background: rebeccapurple;
     height: 138px;
     display: flex;
     justify-content: center;
@@ -56,8 +55,16 @@
 
 .question p {
     color: #fff;
-    font-size: 23px;
+    font-size: 20px;
+    line-height: 23px;
     font-weight: 700;
+}
+
+.answer-section {
+    display: flex;
+    column-gap: 20px;
+    row-gap: 20px;
+    flex-wrap: wrap;
 }
 
 .answer {
@@ -65,13 +72,11 @@
     cursor: pointer;
 }
 
-.answer p {}
-
-.answer-section {
-    display: flex;
-    column-gap: 20px;
-    row-gap: 20px;
-    flex-wrap: wrap;
+.answer p {
+    font-size: 20px;
+    line-height: 23px;
+    font-weight: bold;
+    margin: 10px 0px;
 }
 
 .img-wrapper {

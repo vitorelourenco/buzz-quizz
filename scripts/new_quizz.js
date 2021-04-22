@@ -20,7 +20,6 @@ function selectUnique(domElem, headSelector) {
 
     if (headNode.querySelector('.input-group:not(.collapsed)') !== null) {
         const oldSelected = headNode.querySelector('.input-group:not(.collapsed)');
-        console.log(oldSelected);
         oldSelected.classList.add('collapsed');
     }
 
@@ -28,7 +27,6 @@ function selectUnique(domElem, headSelector) {
     while (!currentNode.classList.contains('input-group')) {
         currentNode = currentNode.parentNode;
     }
-    console.log(currentNode);
     currentNode.classList.remove('collapsed');
     scrollQuizz(currentNode,520);
 }
