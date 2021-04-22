@@ -37,7 +37,8 @@
 }
 
 .question-section {
-    width: 759px;
+    max-width: 759px;
+    width: 100%;
     max-height: 679px;
     background: #fff;
     margin-bottom: 42px;
@@ -117,7 +118,6 @@
 
 @media(max-width:1100px) {
     .question-section {
-        width: 375px;
         padding: 16px;
         margin-bottom: 28px;
     }
