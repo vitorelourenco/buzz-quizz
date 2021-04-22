@@ -15,12 +15,10 @@ function scrollQuizz(domElem, delay) {
     }, delay);
 }
 
-function getQuizzes() {
-    const promisse = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes");
-    promisse.then(buildQuizzList);
-}
-
-function buildHomePage(isThereQuiz) {
+function buildHomePage() {
+    //change this line when i get the function that returns the local IDs list
+    const arrLocalIds = [1,2,3];
+    const isThereQuiz = !!arrLocalIds.length;
     const element = document.querySelector(".page-container");
     element.innerHTML = `<div class="home-container">
             <div class="created-quizzes">
@@ -38,20 +36,34 @@ function buildHomePage(isThereQuiz) {
             <ul class="quizzes-list all-quizzes"></ul>
         </div>`
     scrollQuizz(container, 0);
-    getQuizzes();
+    getQuizzes(arrLocalIds);
 }
 
-function buildQuizzList(resposta) {
+function getQuizzes(arrLocalIds) {
+    const promisse = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes");
+    promisse.then((resposta)=>buildQuizzList(resposta, arrLocalIds));
+}
+
+function buildQuizzList(resposta, arrLocalIds) {
     const quizzList = resposta.data;
     let quizzContainer = document.querySelector(".all-quizzes");
+    const localQuizzContainer = document.querySelector(".user-quizzes");
+    localQuizzContainer.innerHTML = "";
     quizzContainer.innerHTML = "";
     for (i = 0; i < quizzList.length; i++) {
-        // console.log(quizzList[i]);
-        quizzContainer.innerHTML += ` <li onclick="getQuizz(${quizzList[i].id})" class="quizz-thumb">
-                                <div></div>
-                                <img src=${quizzList[i].image}" alt="quizz thumbnail">
-                                <p>${quizzList[i].title}</p>
-                            </li>`
+        if (arrLocalIds.indexOf(quizzList[i].id) !== -1){
+            localQuizzContainer.innerHTML += ` <li onclick="getQuizz(${quizzList[i].id})" class="quizz-thumb">
+                                    <div></div>
+                                    <img src=${quizzList[i].image}" alt="quizz thumbnail">
+                                    <p>${quizzList[i].title}</p>
+                                </li>`
+        } else {
+            quizzContainer.innerHTML += ` <li onclick="getQuizz(${quizzList[i].id})" class="quizz-thumb">
+                                    <div></div>
+                                    <img src=${quizzList[i].image}" alt="quizz thumbnail">
+                                    <p>${quizzList[i].title}</p>
+                                </li>`
+        }
     }
 }
 
