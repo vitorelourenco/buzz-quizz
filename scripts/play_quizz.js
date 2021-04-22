@@ -5,6 +5,10 @@ function getQuizz(id) {
     promisse.then(buildQuizz);
 }
 
+function comparador() { 
+	return Math.random() - 0.5; 
+}
+
 function buildQuizz(resposta) {
     const quizz = resposta.data;
     let element = document.querySelector(".page-container");
@@ -25,9 +29,10 @@ function buildQuizz(resposta) {
           <div class="answer-section">
           </div>
         </div>`;
-
+        let randozimedAnswers = elem.answers.slice();
+        randozimedAnswers.sort(comparador);
         let answerElement = element.querySelectorAll(".answer-section")[i];
-        elem.answers.forEach(function(answer) {
+        randozimedAnswers.forEach(function(answer) {
             answerElement.innerHTML += `
             <div onclick='pickOption(pickAnswer, this, ".choice", ".question-section", ".play-container")'
             class="answer choice ${answer.isCorrectAnswer?"right-choice":"wrong-choice"}">
