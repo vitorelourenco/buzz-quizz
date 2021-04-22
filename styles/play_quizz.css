@@ -58,6 +58,8 @@
     font-size: 20px;
     line-height: 23px;
     font-weight: 700;
+    word-wrap: break-word;
+
 }
 
 .answer-section {
@@ -72,17 +74,18 @@
     cursor: pointer;
 }
 
-.answer p {
-    font-size: 20px;
-    line-height: 23px;
-    font-weight: bold;
-    margin: 10px 0px;
+.answer p{
+  font-size: 20px;
+  line-height: 23px;
+  font-weight: bold;
+  margin: 10px 0px;
+  word-wrap: break-word;
 }
 
-.img-wrapper {
-    position: relative;
-    width: 100%;
-    padding-bottom: 53%;
+.img-wrapper{
+  position: relative;
+  width: 100%;
+  padding-bottom: 53%;
 }
 
 .img-wrapper img {
