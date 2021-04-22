@@ -1,4 +1,5 @@
 let newQuizzObj;
+let idList = [];
 
 function selectUnique(domElem, headSelector) {
     const headNode = document.querySelector(headSelector);
@@ -186,6 +187,7 @@ function buildNewQuizzPageLevels() {
 }
 
 function buildNewQuizzPageDone(id) {
+    storeUserQuizz(id);
     let imgSrc;
     let title;
     axios
@@ -212,6 +214,19 @@ function buildNewQuizzPageDone(id) {
 
     scrollQuizz(container, 0);
 };
+
+
+function storeUserQuizz(id) {
+    idList.push(id);
+    let stringId = JSON.stringify("id", idList);
+    localStorage.setItem(stringId);
+}
+
+function getUserQuizz(id) {
+    let stringId = localStorage.getItem("id");
+    idList = JSON.parse(stringId);
+    return idList;
+}
 
 // buildNewQuizzPageStart();
 // buildNewQuizzPageDone(1);
