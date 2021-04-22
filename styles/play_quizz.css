@@ -46,7 +46,6 @@
 
 .question {
     width: 100%;
-    background: rebeccapurple;
     height: 138px;
     display: flex;
     justify-content: center;
@@ -56,13 +55,10 @@
 
 .question p {
     color: #fff;
-    font-size: 23px;
+    font-size: 20px;
+    line-height: 23px;
     font-weight: 700;
-}
 
-.answer {
-    width: calc(50% - 10px);
-    cursor: pointer;
 }
 
 .answer-section {
@@ -71,6 +67,20 @@
     row-gap: 20px;
     flex-wrap: wrap;
 }
+
+.answer {
+  width: calc(50% - 10px);
+  cursor: pointer;
+}
+
+
+.answer p{
+  font-size: 20px;
+  line-height: 23px;
+  font-weight: bold;
+  margin: 10px 0px;
+}
+
 
 .img-wrapper{
   position: relative;
