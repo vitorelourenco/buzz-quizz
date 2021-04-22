@@ -222,7 +222,7 @@ function storeUserQuizz(id) {
     localStorage.setItem(stringId);
 }
 
-function getUserQuizz(id) {
+function getUserQuizzes(id) {
     let stringId = localStorage.getItem("id");
     idList = JSON.parse(stringId);
     return idList;
