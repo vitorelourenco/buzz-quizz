@@ -121,7 +121,7 @@
     position: relative;
 }
 
-.level-title {
+.play-container .level-title {
     width: 100%;
     height: 138px;
     display: flex;
@@ -131,7 +131,7 @@
     background: #EC362D;
 }
 
-.level-title p {
+.play-container .level-title p {
     color: #fff;
     font-size: 20px;
     line-height: 23px;
@@ -139,33 +139,33 @@
     word-wrap: break-word;
 }
 
-.level-image {
+.play-container .level-image {
     position: relative;
     width: 50%;
     padding-bottom: 36%;
 }
 
-.level-image img {
+.play-container .level-image img {
     position: absolute;
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.level-description {
+.play-container .level-description {
     position: absolute;
     left: 52%;
     bottom: 40%
 }
 
-.level-description p {
+.play-container .level-description p {
     font-weight: 700;
     font-size: 19px;
     color: #484848;
     line-height: 25px;
 }
 
-button {
+.play-container button {
     font-size: 21px;
     line-height: 25px;
     border-radius: 15px;
@@ -182,19 +182,19 @@ button {
     cursor: pointer;
 }
 
-.back-to-home {
+.play-container .back-to-home {
     color: #818181;
-    background-color: #efefef;
+    background-color: #fafafa;
     margin-top: 9px;
     margin-bottom: 20px;
 }
 
-.go-to-quizz,
-.back-to-home {
+.play-container .go-to-quizz,
+.play-container .back-to-home {
     width: 220px;
 }
 
-.go-to-quizz {
+.play-container .go-to-quizz {
     margin-top: 38px;
 }
 
@@ -230,26 +230,26 @@ button {
         padding: 16px;
         margin-bottom: 28px;
     }
-    .level-title {
+    .play-container .level-title {
         text-align: center;
         margin-bottom: 9px;
     }
-    .level-title p {
+    .play-container .level-title p {
         font-size: 18px;
     }
-    .level-image {
+    .play-container .level-image {
         width: 100%;
         padding-bottom: 58%;
     }
-    .level-description {
+    .play-container .level-description {
         margin: 15px 0px 8px 0px;
         position: static;
     }
-    .level-description p {
+    .play-container .level-description p {
         font-size: 17px;
         line-height: 20px;
     }
-    .go-to-quizz {
+    .play-container .go-to-quizz {
         margin-top: 28px;
     }
     @media(max-width: 376px) {
