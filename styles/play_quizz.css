@@ -111,3 +111,30 @@
 .choice.wrong-choice.revealed p {
     color: #FF0B0B;
 }
+
+@media(max-width:1100px) {
+    .question-section {
+        width: 375px;
+        padding: 16px;
+        margin-bottom: 28px;
+    }
+    .question {
+        text-align: center;
+        margin-bottom: 12px;
+    }
+    .answer-section {
+        column-gap: 20px;
+        row-gap: 4px;
+    }
+    .answer p {
+        font-size: 13px;
+        margin: 4px 0px;
+    }
+    .cover p {
+        font-size: 19px;
+        text-align: center;
+    }
+    .cover {
+        margin-bottom: 24px;
+    }
+}
