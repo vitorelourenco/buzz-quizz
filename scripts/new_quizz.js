@@ -2,17 +2,17 @@ let newQuizzObj;
 
 //i didnt use scroll intoview because it doesnt
 //take the fixed header into account
-function scrollQuizz(domElem,delay){
-  const getY = function(elem){
-    const rect = elem.getBoundingClientRect();
-    const scrollTop = window.pageYOffset;
-    return rect.top + scrollTop;;
-  }
-  const header = document.querySelector('.main-header');
-  const headerHeight =  header.offsetHeight;
-  setTimeout(()=>{
-    window.scrollTo(0, getY(domElem) - headerHeight);
-  },delay);
+function scrollQuizz(domElem, delay) {
+    const getY = function(elem) {
+        const rect = elem.getBoundingClientRect();
+        const scrollTop = window.pageYOffset;
+        return rect.top + scrollTop;;
+    }
+    const header = document.querySelector('.main-header');
+    const headerHeight = header.offsetHeight;
+    setTimeout(() => {
+        window.scrollTo(0, getY(domElem) - headerHeight);
+    }, delay);
 }
 
 function selectUnique(domElem, headSelector) {
@@ -28,7 +28,7 @@ function selectUnique(domElem, headSelector) {
         currentNode = currentNode.parentNode;
     }
     currentNode.classList.remove('collapsed');
-    scrollQuizz(currentNode,520);
+    scrollQuizz(currentNode, 520);
 }
 
 function handleStartSubmit() {
@@ -118,7 +118,7 @@ function buildNewQuizzPageStart() {
       <button onclick='handleStartSubmit()'>Prosseguir para criar perguntas</button>
     </section>
     `;
-    scrollQuizz(container,0);
+    scrollQuizz(container, 0);
 }
 
 function buildNewQuizzPageQuestions() {
@@ -133,7 +133,7 @@ function buildNewQuizzPageQuestions() {
     const section = container.querySelector('SECTION');
     for (let i = 0; i < newQuizzObj.questions.length; i++) {
         section.innerHTML +=
-        `
+            `
         <div class="input-group collapsed">
           <header onclick='selectUnique(this, ".new-quizz")'>
             <h3>Pergunta ${i+1}</h3>
@@ -162,7 +162,7 @@ function buildNewQuizzPageQuestions() {
         .querySelector('.collapsed')
         .classList
         .remove('collapsed');
-    scrollQuizz(container,0);
+    scrollQuizz(container, 0);
 
 }
 
@@ -176,9 +176,9 @@ function buildNewQuizzPageLevels() {
     `;
 
     const section = container.querySelector('SECTION');
-    for (let i=0; i<newQuizzObj.levels.length; i++){
-      section.innerHTML +=
-      `
+    for (let i = 0; i < newQuizzObj.levels.length; i++) {
+        section.innerHTML +=
+            `
       <div class="input-group collapsed">
         <header onclick='selectUnique(this, ".new-quizz")'>
           <h3>Nivel ${i+1}</h3>
@@ -199,7 +199,7 @@ function buildNewQuizzPageLevels() {
         .querySelector('.collapsed')
         .classList
         .remove('collapsed');
-    scrollQuizz(container,0);
+    scrollQuizz(container, 0);
 }
 
 function buildNewQuizzPageDone(id) {
@@ -219,7 +219,7 @@ function buildNewQuizzPageDone(id) {
                 <img src="${imgSrc}" alt=${title}>
                 <figcaption>${title}</figcaption>
               </figure>
-              <button class="go-to-quizz" onclick='goToQuizz(${id})'>Acessar Quizz</button>
+              <button class="go-to-quizz" onclick='getQuizz(${id})'>Acessar Quizz</button>
               <button class="back-to-home" onclick='buildHomePage(true)'>Voltar para home</button>
             </section>
             `;
@@ -227,7 +227,7 @@ function buildNewQuizzPageDone(id) {
         .catch((error) => {
             alert(`error ${error.response.status}`);
         });
-    scrollQuizz(container,0);
+    scrollQuizz(container, 0);
 };
 
 // buildNewQuizzPageStart();

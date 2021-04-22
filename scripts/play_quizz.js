@@ -1,16 +1,18 @@
 let currentQuestion = 0;
+let quizz;
 
 function getQuizz(id) {
+    //this line should be scrolling the page up, in case you clicked the button to play again, which is in the end of the page.
     const promisse = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/" + id);
     promisse.then(buildQuizz);
 }
 
-function comparador() { 
-	return Math.random() - 0.5; 
+function comparador() {
+    return Math.random() - 0.5;
 }
 
 function buildQuizz(resposta) {
-    const quizz = resposta.data;
+    quizz = resposta.data;
     let element = document.querySelector(".page-container");
     element.innerHTML = `<div class="play-container"></div>`;
     element = document.querySelector(".play-container");
@@ -44,8 +46,6 @@ function buildQuizz(resposta) {
         });
     });
 }
-
-// daqui pra baixo vitor
 
 function pickOption(callback, domElem, targetSelector, headSelector, superSelector) {
 
@@ -112,6 +112,32 @@ function goToNextQuestion(callerIndex, arrQuestions) {
 }
 
 function endQuizz() {
+    console.log(quizz.levels);
+    let idLevel = 0;
+    const nCorrectAnswers = document.querySelectorAll(".picked.right-choice").length;
+    const nQuestions = quizz.questions.length;
+    const score = Math.round((100 / nQuestions) * nCorrectAnswers);
+    const element = document.querySelector(".play-container");
+    quizz.levels.forEach(function(elem, i) {
+        if (score < elem.minValue) {} else {
+            idLevel = i;
+        }
+    })
+    console.log(idLevel)
+    element.innerHTML += `
+        <div class="score-section">
+            <div class="level-title">
+                <p>${score}% de acerto: ${quizz.levels[idLevel].title}</p>
+            </div>
+            <div class="level-image">
+                <img src="${quizz.levels[idLevel].image}" alt="score result image">
+            </div>
+            <div class="level-description">
+                <p>${quizz.levels[idLevel].text}</p>
+            </div>
+        </div>
+        <button class="go-to-quizz" onclick="getQuizz(${quizz.id})">Reiniciar Quiz</button>
+        <button class="back-to-home" onclick="buildHomePage(true)">Voltar para home</button>`
 
 }
 
