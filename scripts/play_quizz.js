@@ -44,13 +44,13 @@ function buildQuizz(resposta) {
 function pickOption(callback, domElem, targetSelector, headSelector, superSelector) {
 
     let headNode = domElem;
-    while (!headNode.classList.contains(headSelector.replace('.',''))) {
+    while (!headNode.classList.contains(headSelector.replace('.', ''))) {
         if (headNode === document.body) break;
         headNode = headNode.parentNode;
     }
 
     let superNode = headNode;
-    while (!headNode.classList.contains(superSelector.replace('.',''))) {
+    while (!headNode.classList.contains(superSelector.replace('.', ''))) {
         if (superNode === document.body) break;
         superNode = superNode.parentNode;
     }
@@ -63,9 +63,9 @@ function pickOption(callback, domElem, targetSelector, headSelector, superSelect
 
 function pickAnswer(picked, arrChoices, arrQuestions, headNode, superNode, headSelector, targetSelector) {
     let callerIndex = 0;
-    while (arrQuestions[callerIndex] !== headNode){
-      callerIndex++;
-      if (callerIndex == 1000) break;
+    while (arrQuestions[callerIndex] !== headNode) {
+        callerIndex++;
+        if (callerIndex == 1000) break;
     }
 
     const callerQuestion = arrQuestions[callerIndex];
@@ -105,7 +105,7 @@ function goToNextQuestion(callerIndex, arrQuestions) {
     scrollQuizz(targetElement, 2000)
 }
 
-function endQuizz(){
+function endQuizz() {
 
 }
 

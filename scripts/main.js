@@ -40,3 +40,4 @@ function buildQuizzList(resposta) {
 }
 
 // buildHomePage(true);
+// buildNewQuizzPageQuestions(newQuizzObj = { title: 'a', image: 'a', questions: [{}, {}, {}], levels: [{}, {}] });
