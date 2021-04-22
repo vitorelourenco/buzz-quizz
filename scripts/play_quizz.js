@@ -93,7 +93,6 @@ function goToNextQuestion(callerIndex, arrQuestions) {
     });
 
     if (quizzStatusList.indexOf(0) === -1) {
-        console.log('the end');
         endQuizz();
         return;
     }
@@ -153,4 +152,4 @@ function endQuizz() {
     scrollQuizz(scoreSection, 2000);
 }
 
-getQuizz(1);
+// getQuizz(1);

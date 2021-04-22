@@ -55,5 +55,5 @@ function buildQuizzList(resposta) {
     }
 }
 
-// buildHomePage(true);
+buildHomePage();
 // buildNewQuizzPageQuestions(newQuizzObj = { title: 'a', image: 'a', questions: [{}, {}, {}], levels: [{}, {}] });
