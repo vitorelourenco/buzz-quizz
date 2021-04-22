@@ -46,7 +46,7 @@ function buildQuizzList(resposta) {
     let quizzContainer = document.querySelector(".all-quizzes");
     quizzContainer.innerHTML = "";
     for (i = 0; i < quizzList.length; i++) {
-        console.log(quizzList[i]);
+        // console.log(quizzList[i]);
         quizzContainer.innerHTML += ` <li onclick="getQuizz(${quizzList[i].id})" class="quizz-thumb">
                                 <div></div>
                                 <img src=${quizzList[i].image}" alt="quizz thumbnail">

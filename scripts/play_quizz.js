@@ -113,18 +113,27 @@ function goToNextQuestion(callerIndex, arrQuestions) {
 }
 
 function endQuizz() {
-    console.log(quizz.levels);
+    // console.log(quizz.levels);
     let idLevel = 0;
     const nCorrectAnswers = document.querySelectorAll(".picked.right-choice").length;
     const nQuestions = quizz.questions.length;
     const score = Math.round((100 / nQuestions) * nCorrectAnswers);
     const element = document.querySelector(".play-container");
-    quizz.levels.forEach(function(elem, i) {
-        if (score < elem.minValue) {} else {
+
+    let threshold = 0;
+    quizz.levels.forEach(function(level,i){
+        if (score >= level.minValue && level.minValue >= threshold){
+            threshold = level.minValue;
             idLevel = i;
         }
-    })
-    console.log(idLevel)
+    });
+
+    // quizz.levels.forEach(function(elem, i) {
+    //     if (score < elem.minValue) {} else {
+    //         idLevel = i;
+    //     }
+    // })
+    // console.log(idLevel)
     element.innerHTML += `
         <div class="score-section">
             <div class="level-title">
