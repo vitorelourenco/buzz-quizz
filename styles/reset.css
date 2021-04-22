@@ -56,4 +56,6 @@ a {
 * {
   box-sizing: border-box;
 	font-family: inherit;
+	word-wrap: break-word;
+	max-width: 100%;
 }
