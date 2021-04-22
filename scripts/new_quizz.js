@@ -1,20 +1,5 @@
 let newQuizzObj;
 
-//i didnt use scroll intoview because it doesnt
-//take the fixed header into account
-function scrollQuizz(domElem, delay) {
-    const getY = function(elem) {
-        const rect = elem.getBoundingClientRect();
-        const scrollTop = window.pageYOffset;
-        return rect.top + scrollTop;;
-    }
-    const header = document.querySelector('.main-header');
-    const headerHeight = header.offsetHeight;
-    setTimeout(() => {
-        window.scrollTo(0, getY(domElem) - headerHeight);
-    }, delay);
-}
-
 function selectUnique(domElem, headSelector) {
     const headNode = document.querySelector(headSelector);
 
@@ -104,7 +89,6 @@ function handleLevelsSubmit() {
 
 
 function buildNewQuizzPageStart() {
-    const container = document.querySelector('.page-container');
     container.innerHTML =
         `
     <section class="new-quizz">
@@ -122,7 +106,6 @@ function buildNewQuizzPageStart() {
 }
 
 function buildNewQuizzPageQuestions() {
-    const container = document.querySelector('.page-container');
     container.innerHTML =
         `
     <section class="new-quizz">
@@ -162,12 +145,11 @@ function buildNewQuizzPageQuestions() {
         .querySelector('.collapsed')
         .classList
         .remove('collapsed');
-    scrollQuizz(container, 0);
 
+    scrollQuizz(container, 0);
 }
 
 function buildNewQuizzPageLevels() {
-    const container = document.querySelector('.page-container');
     container.innerHTML =
         `
     <section class="new-quizz">
@@ -199,6 +181,7 @@ function buildNewQuizzPageLevels() {
         .querySelector('.collapsed')
         .classList
         .remove('collapsed');
+
     scrollQuizz(container, 0);
 }
 
@@ -210,7 +193,6 @@ function buildNewQuizzPageDone(id) {
         .then(({ data }) => {
             imgSrc = data.image;
             title = data.title;
-            const container = document.querySelector('.page-container');
             container.innerHTML =
                 `
             <section class="new-quizz">
@@ -227,6 +209,7 @@ function buildNewQuizzPageDone(id) {
         .catch((error) => {
             alert(`error ${error.response.status}`);
         });
+
     scrollQuizz(container, 0);
 };
 

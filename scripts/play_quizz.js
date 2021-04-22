@@ -45,6 +45,7 @@ function buildQuizz(resposta) {
             </div>`;
         });
     });
+    scrollQuizz(container, 0);
 }
 
 function pickOption(callback, domElem, targetSelector, headSelector, superSelector) {
@@ -137,8 +138,10 @@ function endQuizz() {
             </div>
         </div>
         <button class="go-to-quizz" onclick="getQuizz(${quizz.id})">Reiniciar Quiz</button>
-        <button class="back-to-home" onclick="buildHomePage(true)">Voltar para home</button>`
-
+        <button class="back-to-home" onclick="buildHomePage(true)">Voltar para home</button>
+        `;
+    const scoreSection = document.querySelector('.score-section');
+    scrollQuizz(scoreSection, 2000);
 }
 
 getQuizz(1);

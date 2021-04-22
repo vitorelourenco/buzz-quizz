@@ -1,3 +1,20 @@
+const container = document.querySelector('.page-container');
+
+//i didnt use scrollintoview because it doesnt
+//take the fixed header into account
+function scrollQuizz(domElem, delay) {
+    const getY = function(elem) {
+        const rect = elem.getBoundingClientRect();
+        const scrollTop = window.pageYOffset;
+        return rect.top + scrollTop;;
+    }
+    const header = document.querySelector('.main-header');
+    const headerHeight = header.offsetHeight;
+    setTimeout(() => {
+        window.scrollTo(0, getY(domElem) - headerHeight);
+    }, delay);
+}
+
 function getQuizzes() {
     const promisse = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes");
     promisse.then(buildQuizzList);
@@ -20,6 +37,7 @@ function buildHomePage(isThereQuiz) {
             <p class="section-title">Todos os Quizzes</p>
             <ul class="quizzes-list all-quizzes"></ul>
         </div>`
+    scrollQuizz(container, 0);
     getQuizzes();
 }
 
