@@ -144,4 +144,4 @@ function endQuizz() {
     scrollQuizz(scoreSection, 2000);
 }
 
-getQuizz(1);
+// getQuizz(1);
