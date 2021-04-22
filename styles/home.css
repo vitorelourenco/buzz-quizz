@@ -39,6 +39,7 @@
     font-size: 21px;
     width: 151px;
     height: 40px;
+    cursor: pointer;
 }
 
 .section-title {
@@ -54,6 +55,7 @@
     color: #EC362D;
     font-size: 44px;
     margin-left: 12px;
+    cursor: pointer;
 }
 
 
@@ -64,7 +66,6 @@
     max-width: 1051px;
     row-gap: 12px;
     column-gap: 15px;
-    
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -76,17 +77,13 @@
 }
 
 .quizz-thumb {
-    /* width: 340px; */
     width: 100%;
     max-width: 340px;
-
     height: 181px;
     border-radius: 5px;
     position: relative;
     z-index: 100;
-    /* margin-right: 15px;
-    margin-bottom: 12px; */
-    /* replaced with gap in the parent selector */
+    cursor: pointer;
 }
 
 .quizz-thumb>div {
@@ -107,7 +104,6 @@
     left: 18px;
     bottom: 12px;
     z-index: 20;
-
     /* so it doesnt break the layout */
     max-width: calc(100% - 36px);
     word-wrap: break-word;
@@ -132,9 +128,8 @@
     .section-title {
         justify-content: space-between;
     }
-
     /* add padding so the content doesnt hug the borders */
     .home-container {
-        padding: 0 18px 18px 18px; 
+        padding: 0 18px 18px 18px;
     }
 }

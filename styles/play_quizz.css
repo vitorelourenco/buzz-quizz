@@ -155,7 +155,8 @@
 .play-container .level-description {
     position: absolute;
     left: 52%;
-    bottom: 40%
+    top: 38%;
+    padding: 0px 14px 14px 0px;
 }
 
 .play-container .level-description p {
@@ -226,7 +227,6 @@
         margin-bottom: 24px;
     }
     .score-section {
-        width: 375px;
         padding: 16px;
         margin-bottom: 28px;
     }
@@ -243,6 +243,7 @@
     }
     .play-container .level-description {
         margin: 15px 0px 8px 0px;
+        padding: 0px;
         position: static;
     }
     .play-container .level-description p {
