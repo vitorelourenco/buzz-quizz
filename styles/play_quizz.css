@@ -58,7 +58,7 @@
     font-size: 20px;
     line-height: 23px;
     font-weight: 700;
-
+    word-wrap: break-word;
 }
 
 .answer-section {
@@ -79,8 +79,8 @@
   line-height: 23px;
   font-weight: bold;
   margin: 10px 0px;
+  word-wrap: break-word;
 }
-
 
 .img-wrapper{
   position: relative;
