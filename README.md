@@ -1,4 +1,4 @@
-# Chat room
+# Buzz-Quizz
 
 ![screenshot](./app_screenshot.png)
 
