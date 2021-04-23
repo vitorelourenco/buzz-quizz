@@ -22,15 +22,15 @@ function getUserQuizzes() {
 }
 
 function buildHomePage() {
-<<<<<<< HEAD
-    //change this line when i get the function that returns the local IDs list
-    const arrLocalIds = [1, 2, 3];
-=======
     const arrLocalIds = getUserQuizzes();
->>>>>>> 2020ba7e34f4a8842e014108eb332e6d7ee825aa
     const isThereQuiz = !!arrLocalIds.length;
     const element = document.querySelector(".page-container");
-    element.innerHTML = `<div class="home-container">
+    element.innerHTML = `
+        <div class="loading">
+            <img src="assets/images/loading2.gif" alt="loading gif">
+            <p>Carregando</p>
+        </div>
+        <div class="home-container hidden">
             <div class="created-quizzes">
                 <div class="empty ${isThereQuiz?"hidden":""}">
                     <p>Você não criou nenhum<br> quizz ainda :(</p>
@@ -55,6 +55,10 @@ function getQuizzes(arrLocalIds) {
 }
 
 function buildQuizzList(resposta, arrLocalIds) {
+    let element = document.querySelector(".loading");
+    element.parentNode.removeChild(element);
+    element = document.querySelector(".home-container");
+    element.classList.remove("hidden");
     const quizzList = resposta.data;
     let quizzContainer = document.querySelector(".all-quizzes");
     const localQuizzContainer = document.querySelector(".user-quizzes");

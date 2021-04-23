@@ -82,6 +82,7 @@ function handleLevelsSubmit() {
         .post('https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes', newQuizzObj)
         .then(({ data }) => {
             buildNewQuizzPageDone(data.id);
+            toggleLoading();
         })
         .catch((error) => {
             alert(`error ${error.response.status}`);
@@ -204,7 +205,7 @@ function buildNewQuizzPageDone(id) {
                 <figcaption>${title}</figcaption>
               </figure>
               <button class="go-to-quizz" onclick='getQuizz(${id})'>Acessar Quizz</button>
-              <button class="back-to-home" onclick='buildHomePage(true)'>Voltar para home</button>
+              <button class="back-to-home" onclick='buildHomePage()'>Voltar para home</button>
             </section>
             `;
         })
@@ -225,4 +226,4 @@ function storeUserQuizz(id) {
 // buildNewQuizzPageStart();
 // buildNewQuizzPageDone(1);
 // buildNewQuizzPageQuestions(newQuizzObj = {title:'a', image:'a', questions:[{},{},{}], levels:[{},{}]});
-// buildNewQuizzPageLevels(newQuizzObj = {title:'a', image:'a', questions:[{},{},{},{}], levels:[{},{},{},{}]});
+// buildNewQuizzPageLevels(newQuizzObj = { title: 'a', image: 'a', questions: [{}, {}, {}, {}], levels: [{}, {}, {}, {}] });

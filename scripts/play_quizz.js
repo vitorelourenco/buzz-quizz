@@ -5,6 +5,7 @@ function getQuizz(id) {
     //this line should be scrolling the page up, in case you clicked the button to play again, which is in the end of the page.
     const promisse = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/" + id);
     promisse.then(buildQuizz);
+    toggleLoading();
 }
 
 function comparador() {
@@ -120,19 +121,13 @@ function endQuizz() {
     const element = document.querySelector(".play-container");
 
     let threshold = 0;
-    quizz.levels.forEach(function(level,i){
-        if (score >= level.minValue && level.minValue >= threshold){
+    quizz.levels.forEach(function(level, i) {
+        if (score >= level.minValue && level.minValue >= threshold) {
             threshold = level.minValue;
             idLevel = i;
         }
     });
 
-    // quizz.levels.forEach(function(elem, i) {
-    //     if (score < elem.minValue) {} else {
-    //         idLevel = i;
-    //     }
-    // })
-    // console.log(idLevel)
     element.innerHTML += `
         <div class="score-section">
             <div class="level-title">
@@ -146,7 +141,7 @@ function endQuizz() {
             </div>
         </div>
         <button class="go-to-quizz" onclick="getQuizz(${quizz.id})">Reiniciar Quiz</button>
-        <button class="back-to-home" onclick="buildHomePage(true)">Voltar para home</button>
+        <button class="back-to-home" onclick="buildHomePage()">Voltar para home</button>
         `;
     const scoreSection = document.querySelector('.score-section');
     scrollQuizz(scoreSection, 2000);
