@@ -105,6 +105,8 @@ function buildQuizzList(resposta, arrLocalIds) {
 
 function deleteQuizz(id, event) {
     event.stopPropagation();
+    const userAnswer = window.confirm("Você realmente quer deletar esse quizz?");
+    if (userAnswer === false) return;
     let key;
     const local = getUserQuizzes();
     local.forEach(elem=>{
