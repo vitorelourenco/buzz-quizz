@@ -3,13 +3,6 @@ let isEdit;
 let idEditing;
 let keyEditing;
 
-function deleteQuiz(id, key){
-    axios
-    .delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/${id}`, {headers: {'Secret-Key': key}})
-    .then(()=>{console.log(`deleted ${id}`)})
-    .catch((err)=>{console.log(err)})
-}
-
 function selectUnique(domElem, headSelector) {
     const headNode = document.querySelector(headSelector);
 
@@ -125,9 +118,8 @@ function handleLevelsSubmit() {
 
     if (isEdit){
         //in case its an edit
-        console.log(newQuizzObj);
         axios
-        .put('https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes', newQuizzObj, {headers: {'Secret-Key': keyEditing}})
+        .put(`https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/${idEditing}`, newQuizzObj, {headers: {'Secret-Key': keyEditing}})
         .then(({ data }) => {
             console.log(data.key);
             console.log(data.id);
@@ -180,7 +172,7 @@ function buildNewQuizzPageStart(id) {
         const local = getUserQuizzes();
         local.forEach(elem=>{
             if (elem.id === id){
-                keyEditing = elem.key;
+                keyEditing = `${elem.key}`;
             }
         })
 
@@ -402,7 +394,9 @@ function buildNewQuizzPageLevels() {
 
 //key must be a strign here
 function buildNewQuizzPageDone(id, key) {
-    storeUserQuizz(id, key);
+    if (!isEdit){
+        storeUserQuizz(id, key);
+    }
     let imgSrc;
     let title;
     axios
@@ -424,7 +418,7 @@ function buildNewQuizzPageDone(id, key) {
             `;
         })
         .catch((error) => {
-            alert(`error ${error.response.status}`);
+            console.log(error);
         });
 
     scrollQuizz(container, 0);
@@ -437,14 +431,15 @@ function storeUserQuizz(id, key) {
         let stringId = JSON.stringify(idList);
         localStorage.setItem("ids", stringId);
     } else {
-        localStorage.setItem("ids", `[${{id, key}}]`);
+        const obj = [{id, key}];
+        const str = JSON.stringify(obj);
+        localStorage.setItem("ids", str);
     }
 }
 
 function editQuizz(id, event) {
-    console.log("editando quizz");
     event.stopPropagation();
-
+    buildNewQuizzPageStart(id);
 }
 
 // buildNewQuizzPageStart();
