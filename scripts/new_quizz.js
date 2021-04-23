@@ -1,4 +1,5 @@
 let newQuizzObj;
+let isEdit;
 let idList = [];
 
 function selectUnique(domElem, headSelector) {
@@ -68,7 +69,6 @@ function handleStartSubmit() {
     const nLevels = parseInt(objLevels.value, 10);
 
     newQuizzObj = { title : objTitle.value, image : objImage.value, questions: getArrQuestions(nQuestions), levels: getArrLevels(nLevels) };
-    console.log(newQuizzObj);
     buildNewQuizzPageQuestions();
 }
 
@@ -151,9 +151,11 @@ function buildNewQuizzPageStart(id) {
     }
 
     if (id === -1) {
+        isEdit = false;
         newQuizzObj = {};
         buildHTML();
     } else {
+        isEdit = true;
         const promisse = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/" + id);
         promisse.then(({data})=>{
             buildHTML();
@@ -166,7 +168,6 @@ function buildNewQuizzPageStart(id) {
             image.value = newQuizzObj.image;
             nQuestions.value = `${newQuizzObj.questions.length}`;
             nLevels.value = `${newQuizzObj.levels.length}`;
-            console.log(newQuizzObj);
         });
     }
 
@@ -292,6 +293,31 @@ function buildNewQuizzPageQuestions() {
 }
 
 function buildNewQuizzPageLevels() {
+    function getTitle(i){
+        if (newQuizzObj.levels[i].hasOwnProperty('title')){
+            return newQuizzObj.levels[i].title;
+        }
+        return '';
+    }
+    function getPercentage(i){
+        if (newQuizzObj.levels[i].hasOwnProperty('minValue')){
+            return newQuizzObj.levels[i].minValue;
+        }
+        return '';
+    }
+    function getImage(i){
+        if (newQuizzObj.levels[i].hasOwnProperty('image')){
+            return newQuizzObj.levels[i].image;
+        }
+        return '';
+    }
+    function getDescription(i){
+        if (newQuizzObj.levels[i].hasOwnProperty('text')){
+            return newQuizzObj.levels[i].text;
+        }
+        return '';
+    }
+
     container.innerHTML =
         `
     <section class="new-quizz">
@@ -322,7 +348,22 @@ function buildNewQuizzPageLevels() {
       `
     }
 
-    section.innerHTML += `<button onclick='handleLevelsSubmit()'>Finalizar Quizz</button>`
+    section.innerHTML += `<button onclick='handleLevelsSubmit()'>Finalizar Quizz</button>`;
+
+    for (let i = 0; i < newQuizzObj.levels.length; i++) {
+        const allDivs = section.querySelectorAll('.input-group');
+        const currentSection = allDivs[i];
+
+        const levelTitle = currentSection.querySelector('.level-title');
+        const levelPercentage = currentSection.querySelector('.level-percentage');
+        const levelImage = currentSection.querySelector('.level-image');
+        const levelDescription = currentSection.querySelector('.level-description');
+        levelTitle.value = getTitle(i);
+        levelPercentage.value = getPercentage(i);
+        levelImage.value = getImage(i);
+        levelDescription.value = getDescription(i);
+    }
+
     container
         .querySelector('.collapsed')
         .classList
@@ -341,7 +382,7 @@ function buildNewQuizzPageDone(id) {
             imgSrc = data.image;
             title = data.title;
             container.innerHTML =
-                `
+            `
             <section class="new-quizz">
               <h2>Seu quizz esta pronto!</h2>
               <figure>
