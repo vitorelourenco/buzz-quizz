@@ -6,9 +6,6 @@ function validate(callback, objSource, str){
     objSource.classList.add('error-field')
     arrErr.forEach((err)=>{
       divErr.innerHTML+=`<p class="error-message">${err}</p>`
-      console.log('a')
-      console.log(err)
-      console.log('a')
     })
     return false;
   }
