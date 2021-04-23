@@ -15,6 +15,8 @@ function scrollQuizz(domElem, delay) {
     }, delay);
 }
 
+let idList = [];
+
 function getUserQuizzes() {
     let stringId = localStorage.getItem("ids");
     idList = JSON.parse(stringId);
@@ -25,8 +27,13 @@ function buildHomePage() {
     const arrLocalIds = getUserQuizzes();
     const isThereQuiz = !!arrLocalIds.length;
     const element = document.querySelector(".page-container");
-    //buildNewQuizzPageStart(-1) builds A NEW QUIZZ id = -1, [0...n] are existing quizes;
-    element.innerHTML = `<div class="home-container">
+
+    element.innerHTML = `
+        <div class="loading">
+            <img src="assets/images/loading2.gif" alt="loading gif">
+            <p>Carregando</p>
+        </div>
+        <div class="home-container hidden">
             <div class="created-quizzes">
                 <div class="empty ${isThereQuiz?"hidden":""}">
                     <p>Você não criou nenhum<br> quizz ainda :(</p>
@@ -47,30 +54,50 @@ function buildHomePage() {
 
 function getQuizzes(arrLocalIds) {
     const promisse = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes");
-    promisse.then((resposta)=>buildQuizzList(resposta, arrLocalIds));
+    promisse.then((resposta) => buildQuizzList(resposta, arrLocalIds));
 }
 
 function buildQuizzList(resposta, arrLocalIds) {
+    let element = document.querySelector(".loading");
+    element.parentNode.removeChild(element);
+    element = document.querySelector(".home-container");
+    element.classList.remove("hidden");
     const quizzList = resposta.data;
     let quizzContainer = document.querySelector(".all-quizzes");
     const localQuizzContainer = document.querySelector(".user-quizzes");
     localQuizzContainer.innerHTML = "";
     quizzContainer.innerHTML = "";
     for (i = 0; i < quizzList.length; i++) {
-        if (arrLocalIds.indexOf(quizzList[i].id) !== -1){
-            localQuizzContainer.innerHTML += ` <li onclick="getQuizz(${quizzList[i].id})" class="quizz-thumb">
+        if (arrLocalIds.indexOf(quizzList[i].id) !== -1) {
+            localQuizzContainer.innerHTML += ` 
+                                <li onclick="getQuizz(${quizzList[i].id})" class="quizz-thumb">
                                     <div></div>
+                                    <span class="label">
+                                        <span class="edit">
+                                            <img src="assets/images/edit-white.svg">
+                                        </span>
+                                        <ion-icon name="trash-outline"></ion-icon>
+                                    </span>
                                     <img src=${quizzList[i].image}" alt="quizz thumbnail">
                                     <p>${quizzList[i].title}</p>
                                 </li>`
         } else {
-            quizzContainer.innerHTML += ` <li onclick="getQuizz(${quizzList[i].id})" class="quizz-thumb">
+            quizzContainer.innerHTML += ` 
+                                <li onclick="getQuizz(${quizzList[i].id})" class="quizz-thumb">
                                     <div></div>
                                     <img src=${quizzList[i].image}" alt="quizz thumbnail">
                                     <p>${quizzList[i].title}</p>
                                 </li>`
         }
     }
+}
+
+function toggleLoading() {
+    document.querySelector(".page-container").innerHTML = `
+    <div class="loading">
+        <img src="assets/images/loading2.gif" alt="loading gif">
+        <p>Carregando</p>
+    </div>`
 }
 
 buildHomePage();

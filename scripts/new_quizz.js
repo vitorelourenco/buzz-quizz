@@ -1,6 +1,5 @@
 let newQuizzObj;
 let isEdit;
-let idList = [];
 
 function selectUnique(domElem, headSelector) {
     const headNode = document.querySelector(headSelector);
@@ -124,6 +123,7 @@ function handleLevelsSubmit() {
                 buildNewQuizzPageDone(data.id);
             })
             .catch((error) => {
+                console.log(error);
             })
     }
 }
@@ -389,7 +389,7 @@ function buildNewQuizzPageDone(id) {
                 <figcaption>${title}</figcaption>
               </figure>
               <button class="go-to-quizz" onclick='getQuizz(${id})'>Acessar Quizz</button>
-              <button class="back-to-home" onclick='buildHomePage(true)'>Voltar para home</button>
+              <button class="back-to-home" onclick='buildHomePage()'>Voltar para home</button>
             </section>
             `;
         })
@@ -402,7 +402,17 @@ function buildNewQuizzPageDone(id) {
 
 
 function storeUserQuizz(id) {
-    idList.push(id);
-    let stringId = JSON.stringify("id", idList);
-    localStorage.setItem(stringId);
+    if (idList !== null){
+        idList.push(id);
+        let stringId = JSON.stringify(idList);
+        localStorage.setItem("ids", stringId);
+    } else {
+        localStorage.setItem("ids", `[${id}]`);
+    }
 }
+
+// buildNewQuizzPageStart();
+// buildNewQuizzPageDone(1);
+// buildNewQuizzPageQuestions(newQuizzObj = {title:'a', image:'a', questions:[{},{},{}], levels:[{},{}]});
+// buildNewQuizzPageLevels(newQuizzObj = { title: 'a', image: 'a', questions: [{}, {}, {}, {}], levels: [{}, {}, {}, {}] });
+
