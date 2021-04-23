@@ -72,8 +72,10 @@ function buildQuizzList(resposta, arrLocalIds) {
                                 <li onclick="getQuizz(${quizzList[i].id})" class="quizz-thumb">
                                     <div></div>
                                     <span class="label">
-                                        <img src="assets/images/edit-white.svg">
-                                        <ion-icon name="trash"></ion-icon>
+                                        <span class="edit">
+                                            <img src="assets/images/edit-white.svg">
+                                        </span>
+                                        <ion-icon name="trash-outline"></ion-icon>
                                     </span>
                                     <img src=${quizzList[i].image}" alt="quizz thumbnail">
                                     <p>${quizzList[i].title}</p>

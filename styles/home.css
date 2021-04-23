@@ -3,7 +3,7 @@
 }
 
 .created-quizzes {
-    margin: 77px 0px;
+    margin: 60px 0px 46px 0px;
     max-width: 1051px;
     width: 100%;
     height: auto;
@@ -19,6 +19,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    margin: 77px 0px;
 }
 
 .empty.hidden {
@@ -46,7 +47,7 @@
     font-weight: 700;
     font-size: 20px;
     color: #000;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     display: flex;
     align-items: center;
 }
@@ -88,6 +89,7 @@
 
 .label {
     position: absolute;
+    z-index: 10;
     background: #EC362D;
     right: 0;
     top: 7%;
@@ -97,7 +99,7 @@
     width: 43px;
     height: 87px;
     border-radius: 10px 0px 0px 11px;
-    align-items: space-between;
+    align-items: space-evenly;
 }
 
 .label .svg {
@@ -105,6 +107,9 @@
 }
 
 .label ion-icon {
+    position: absolute;
+    bottom: 12px;
+    left: 10px;
     font-size: 24px;
 }
 
