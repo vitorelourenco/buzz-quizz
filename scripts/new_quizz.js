@@ -173,9 +173,38 @@ function buildNewQuizzPageStart(id) {
 }
 
 function buildNewQuizzPageQuestions() {
-    // function getText(index){
-    //     newQuizzObj.questions[index]
-    // }
+    function getTitle(i){
+        if (newQuizzObj.questions[i].hasOwnProperty('title')){
+            return newQuizzObj.questions[i].title;
+        }
+        return '';
+    }
+
+    function getColor(i){
+        if (newQuizzObj.questions[i].hasOwnProperty('color')){
+            return newQuizzObj.questions[i].color;
+        }
+        return '';
+    }
+
+    function getAnswerText(i,j){
+        if (newQuizzObj.questions[i].hasOwnProperty('answers')){
+            if (newQuizzObj.questions[i].answers[j] !== undefined ){
+                return newQuizzObj.questions[i].answers[j].text;
+            }
+        }
+        return '';
+    }
+
+    function getAnswerImage(i,j){
+        if (newQuizzObj.questions[i].hasOwnProperty('answers')){
+            if (newQuizzObj.questions[i].answers[j] !== undefined){
+                return newQuizzObj.questions[i].answers[j].image;
+            }
+        }
+        return '';
+    }
+
     container.innerHTML =
         `
     <section class="new-quizz">
@@ -186,7 +215,7 @@ function buildNewQuizzPageQuestions() {
     const section = container.querySelector('SECTION');
     for (let i = 0; i < newQuizzObj.questions.length; i++) {
         section.innerHTML +=
-            `
+        `
         <div class="input-group collapsed">
           <header onclick='selectUnique(this, ".new-quizz")'>
             <h3>Pergunta ${i+1}</h3>
@@ -227,10 +256,33 @@ function buildNewQuizzPageQuestions() {
             </div>
           </div>
         </div>
-        `
+        `;
     }
 
     section.innerHTML += `<button onclick='handleQuestionsSubmit()'>Prosseguir para criar niveis</button>`
+    
+    for (let i = 0; i < newQuizzObj.questions.length; i++) {
+
+        const allDivs = section.querySelectorAll('.input-group');
+        const currentSection = allDivs[i];
+
+        const questionTitle = currentSection.querySelector('.question-title');
+        const questionColor = currentSection.querySelector('.question-background');
+        questionTitle.value = getTitle(i);
+        questionColor.value = getColor(i);
+        console.log(questionTitle.value);
+        console.log(questionColor.value);
+        const answers = currentSection.querySelectorAll('.sub-group');
+        for(let j=1; j<5; j++){
+            const answer = answers[j].querySelector('.question-answer');
+            const image = answers[j].querySelector('.question-image');
+            answer.value = getAnswerText(i, j-1);
+            image.value = getAnswerImage(i, j-1);
+            console.log(answer.value);
+            console.log(image.value);
+        }
+    }
+    
     container
         .querySelector('.collapsed')
         .classList
