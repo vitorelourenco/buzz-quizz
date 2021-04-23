@@ -25,6 +25,7 @@ function buildHomePage() {
     const arrLocalIds = getUserQuizzes();
     const isThereQuiz = !!arrLocalIds.length;
     const element = document.querySelector(".page-container");
+    //buildNewQuizzPageStart(-1) builds A NEW QUIZZ id = -1, [0...n] are existing quizes;
     element.innerHTML = `<div class="home-container">
             <div class="created-quizzes">
                 <div class="empty ${isThereQuiz?"hidden":""}">

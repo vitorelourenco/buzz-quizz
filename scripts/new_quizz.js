@@ -68,7 +68,7 @@ function handleStartSubmit() {
     const nLevels = parseInt(objLevels.value, 10);
 
     newQuizzObj = { title : objTitle.value, image : objImage.value, questions: getArrQuestions(nQuestions), levels: getArrLevels(nLevels) };
-
+    console.log(newQuizzObj);
     buildNewQuizzPageQuestions();
 }
 
@@ -173,6 +173,9 @@ function buildNewQuizzPageStart(id) {
 }
 
 function buildNewQuizzPageQuestions() {
+    // function getText(index){
+    //     newQuizzObj.questions[index]
+    // }
     container.innerHTML =
         `
     <section class="new-quizz">
