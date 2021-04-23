@@ -88,6 +88,24 @@
 
 .label {
     position: absolute;
+    background: #EC362D;
+    right: 0;
+    top: 7%;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    width: 43px;
+    height: 87px;
+    border-radius: 10px 0px 0px 11px;
+    align-items: space-between;
+}
+
+.label .svg {
+    color: #fff;
+}
+
+.label ion-icon {
+    font-size: 24px;
 }
 
 .quizz-thumb>div {
