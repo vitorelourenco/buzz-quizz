@@ -80,11 +80,11 @@ function handleLevelsSubmit() {
     axios
         .post('https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes', newQuizzObj)
         .then(({ data }) => {
+            console.log(data);
             buildNewQuizzPageDone(data.id);
             toggleLoading();
         })
         .catch((error) => {
-            console.log(error);
             alert(`error ${error.response.status}`);
         })
 }
@@ -216,9 +216,14 @@ function buildNewQuizzPageDone(id) {
     scrollQuizz(container, 0);
 };
 
+function editQuizz(id, event) {
+    console.log("editando quizz");
+    event.stopPropagation();
+
+}
 
 function storeUserQuizz(id) {
-    if (idList !== null){
+    if (idList !== null) {
         idList.push(id);
         let stringId = JSON.stringify(idList);
         localStorage.setItem("ids", stringId);
