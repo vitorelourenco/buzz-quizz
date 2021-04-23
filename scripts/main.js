@@ -24,7 +24,12 @@ function getUserQuizzes() {
 }
 
 function buildHomePage() {
-    const arrLocalIds = getUserQuizzes();
+    const ids = getUserQuizzes();
+    const arrLocalIds = [];
+    ids.forEach(elem =>{
+        arrLocalIds.push(elem.id);
+    })
+    
     const isThereQuiz = !!arrLocalIds.length;
     const element = document.querySelector(".page-container");
 

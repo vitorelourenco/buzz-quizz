@@ -1,5 +1,14 @@
 let newQuizzObj;
 let isEdit;
+let idEditing;
+let keyEditing;
+
+function deleteQuiz(id, key){
+    axios
+    .delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/${id}`, {headers: {'Secret-Key': key}})
+    .then(()=>{console.log(`deleted ${id}`)})
+    .catch((err)=>{console.log(err)})
+}
 
 function selectUnique(domElem, headSelector) {
     const headNode = document.querySelector(headSelector);
@@ -118,11 +127,11 @@ function handleLevelsSubmit() {
         //in case its an edit
         console.log(newQuizzObj);
         axios
-        .post('https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes', newQuizzObj)
+        .put('https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes', newQuizzObj, {headers: {'Secret-Key': keyEditing}})
         .then(({ data }) => {
             console.log(data.key);
             console.log(data.id);
-            buildNewQuizzPageDone(data.id);
+            buildNewQuizzPageDone(data.id, `${data.key}`);
         })
         .catch((error) => {
             console.log(error);
@@ -131,9 +140,7 @@ function handleLevelsSubmit() {
         axios
             .post('https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes', newQuizzObj)
             .then(({ data }) => {
-                console.log(data.key);
-                console.log(data.id);
-                buildNewQuizzPageDone(data.id);
+                buildNewQuizzPageDone(data.id, `${data.key}`);
             })
             .catch((error) => {
                 console.log(error);
@@ -169,7 +176,15 @@ function buildNewQuizzPageStart(id) {
         newQuizzObj = {};
         buildHTML();
     } else {
+        const local = getUserQuizzes();
+        local.forEach(elem=>{
+            if (elem.id === id){
+                keyEditing = elem.key;
+            }
+        })
+
         isEdit = true;
+        idEditing = id;
         const promisse = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/" + id);
         promisse.then(({data})=>{
             buildHTML();
@@ -384,8 +399,9 @@ function buildNewQuizzPageLevels() {
     scrollQuizz(container, 0);
 }
 
-function buildNewQuizzPageDone(id) {
-    storeUserQuizz(id);
+//key must be a strign here
+function buildNewQuizzPageDone(id, key) {
+    storeUserQuizz(id, key);
     let imgSrc;
     let title;
     axios
@@ -413,14 +429,14 @@ function buildNewQuizzPageDone(id) {
     scrollQuizz(container, 0);
 };
 
-
-function storeUserQuizz(id) {
+//key must be a string here
+function storeUserQuizz(id, key) {
     if (idList !== null){
-        idList.push(id);
+        idList.push({id,key});
         let stringId = JSON.stringify(idList);
         localStorage.setItem("ids", stringId);
     } else {
-        localStorage.setItem("ids", `[${id}]`);
+        localStorage.setItem("ids", `[${{id, key}}]`);
     }
 }
 
