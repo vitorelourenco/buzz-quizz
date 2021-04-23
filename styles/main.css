@@ -34,3 +34,17 @@ h1 {
     justify-content: center;
     margin-bottom: 20px;
 }
+
+.loading {
+    text-align: center;
+}
+
+.loading img {
+    position: relative;
+}
+
+.loading p {
+    font-weight: 400;
+    font-size: 25px;
+    color: #ec362d;
+}

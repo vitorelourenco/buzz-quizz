@@ -17,7 +17,7 @@ function scrollQuizz(domElem, delay) {
 
 function buildHomePage() {
     //change this line when i get the function that returns the local IDs list
-    const arrLocalIds = [1,2,3];
+    const arrLocalIds = [1, 2, 3];
     const isThereQuiz = !!arrLocalIds.length;
     const element = document.querySelector(".page-container");
     element.innerHTML = `<div class="home-container">
@@ -41,7 +41,7 @@ function buildHomePage() {
 
 function getQuizzes(arrLocalIds) {
     const promisse = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes");
-    promisse.then((resposta)=>buildQuizzList(resposta, arrLocalIds));
+    promisse.then((resposta) => buildQuizzList(resposta, arrLocalIds));
 }
 
 function buildQuizzList(resposta, arrLocalIds) {
@@ -51,7 +51,7 @@ function buildQuizzList(resposta, arrLocalIds) {
     localQuizzContainer.innerHTML = "";
     quizzContainer.innerHTML = "";
     for (i = 0; i < quizzList.length; i++) {
-        if (arrLocalIds.indexOf(quizzList[i].id) !== -1){
+        if (arrLocalIds.indexOf(quizzList[i].id) !== -1) {
             localQuizzContainer.innerHTML += ` <li onclick="getQuizz(${quizzList[i].id})" class="quizz-thumb">
                                     <div></div>
                                     <img src=${quizzList[i].image}" alt="quizz thumbnail">
@@ -65,6 +65,14 @@ function buildQuizzList(resposta, arrLocalIds) {
                                 </li>`
         }
     }
+}
+
+function toggleLoading() {
+    document.querySelector(".page-container").innerHTML = `
+    <div class="loading">
+        <img src="assets/images/loading2.gif" alt="loading gif">
+        <p>Carregando</p>
+    </div>`
 }
 
 buildHomePage();
