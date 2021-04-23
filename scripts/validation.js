@@ -181,6 +181,8 @@ function checkQuestionsInput(questions){
 
     if (emptyCount === 3){
       passed = false;
+      objAnswers[1].classList.add('error-field');
+      objImages[1].classList.add('error-field');
       objAnswers[1].nextElementSibling.innerHTML = `<p class="error-message">Preencha pelo menos uma resposta incorreta</p>`;
       objImages[1].nextElementSibling.innerHTML = `<p class="error-message">Preencha pelo menos uma resposta incorreta</p>`;
     }

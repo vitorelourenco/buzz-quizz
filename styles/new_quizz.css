@@ -134,7 +134,7 @@
 }
 
 .new-quizz :not(.collapsed) .collapsible {
-    max-height: 1200px;
+    max-height: 1000px;
     padding-bottom: 20px;
 }
 
