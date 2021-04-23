@@ -222,12 +222,6 @@ function storeUserQuizz(id) {
     localStorage.setItem(stringId);
 }
 
-function getUserQuizzes(id) {
-    let stringId = localStorage.getItem("id");
-    idList = JSON.parse(stringId);
-    return idList;
-}
-
 // buildNewQuizzPageStart();
 // buildNewQuizzPageDone(1);
 // buildNewQuizzPageQuestions(newQuizzObj = {title:'a', image:'a', questions:[{},{},{}], levels:[{},{}]});
