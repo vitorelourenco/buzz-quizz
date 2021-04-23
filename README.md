@@ -8,6 +8,9 @@ We've decided not to scroll to the question directly below the current one neces
 
 To achieve this, the project makes use of HTML5, CSS3, vanilla JavaScript and the API provided by respondeAi.
 
+BE SURE TO CLEAR YOUR LOCAL STORAGE IF YOU ACCESSED THE DEPLOYED PAGE BEFORE april/24/2021
+reason: data structure change
+
 ## Built With
 
 - HTML5 , CSS3 , JavaScript
