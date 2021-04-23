@@ -18,12 +18,13 @@ function selectUnique(domElem, headSelector) {
 }
 
 function handleStartSubmit() {
-    function getArrQuestions(){
+    function getArrQuestions(nQuestions){
         const arrQuestions = [];
         let k = 0;
-        if (objNewStart.hasOwnProperty('questions')){
-            while (k < objNewStart.questions.length){
-                arrQuestions.push(objNewStart.questions[k]);
+        if (newQuizzObj.hasOwnProperty('questions')){
+            console.log(objNewStart);
+            while (k < newQuizzObj.questions.length){
+                arrQuestions.push(newQuizzObj.questions[k]);
                 k++;
             }
         }
@@ -32,15 +33,17 @@ function handleStartSubmit() {
             arrQuestions.push({});
             k++;
         }
+
+        console.log(arrQuestions);
         return arrQuestions;
     }
 
-    function getArrLevels(){
+    function getArrLevels(nLevels){
         const arrLevels = [];
         let k = 0;
-        if (objNewStart.hasOwnProperty('levels')){
-            while (k < objNewStart.levels.length){
-                arrLevels.push(objNewStart.levels[k]);
+        if (newQuizzObj.hasOwnProperty('levels')){
+            while (k < newQuizzObj.levels.length){
+                arrLevels.push(newQuizzObj.levels[k]);
                 k++;
             }
         }
@@ -54,17 +57,17 @@ function handleStartSubmit() {
 
     objNewStart = document.querySelector('.new-quizz');
 
-    const title = objNewStart.querySelector('.new-quizz-title');
-    const image = objNewStart.querySelector('.new-quizz-image');
-    const strQuestions = objNewStart.querySelector('.new-quizz-nQuestions');
-    const strLevels = objNewStart.querySelector('.new-quizz-nLevels');
+    const objTitle = objNewStart.querySelector('.new-quizz-title');
+    const objImage = objNewStart.querySelector('.new-quizz-image');
+    const objQuestions = objNewStart.querySelector('.new-quizz-nQuestions');
+    const objLevels = objNewStart.querySelector('.new-quizz-nLevels');
 
-    if (checkStartInput(title, image, strQuestions, strLevels) === false) return;
+    if (checkStartInput(objTitle, objImage, objQuestions, objLevels) === false) return;
 
-    const nQuestions = parseInt(strQuestions, 10);
-    const nLevels = parseInt(strLevels, 10);
+    const nQuestions = parseInt(objQuestions.value, 10);
+    const nLevels = parseInt(objLevels.value, 10);
 
-    newQuizzObj = { title, image, questions: getArrQuestions(), levels: getArrLevels() };
+    newQuizzObj = { title : objTitle.value, image : objImage.value, questions: getArrQuestions(nQuestions), levels: getArrLevels(nLevels) };
 
     buildNewQuizzPageQuestions();
 }
@@ -161,9 +164,9 @@ function buildNewQuizzPageStart(id) {
             newQuizzObj = data;
             title.value = newQuizzObj.title;
             image.value = newQuizzObj.image;
-            //fix this later!!!!
             nQuestions.value = `${newQuizzObj.questions.length}`;
             nLevels.value = `${newQuizzObj.levels.length}`;
+            console.log(newQuizzObj);
         });
     }
 
