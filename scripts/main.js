@@ -15,6 +15,7 @@ function scrollQuizz(domElem, delay) {
     }, delay);
 }
 
+let idList = [];
 function getUserQuizzes() {
     let stringId = localStorage.getItem("ids");
     idList = JSON.parse(stringId);

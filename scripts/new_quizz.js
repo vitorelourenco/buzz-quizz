@@ -1,5 +1,4 @@
 let newQuizzObj;
-let idList = [];
 
 function selectUnique(domElem, headSelector) {
     const headNode = document.querySelector(headSelector);
@@ -220,7 +219,7 @@ function buildNewQuizzPageDone(id) {
 function storeUserQuizz(id) {
     idList.push(id);
     let stringId = JSON.stringify(idList);
-    localStorage.setItem("id", stringId);
+    localStorage.setItem("ids", stringId);
 }
 
 // buildNewQuizzPageStart();
