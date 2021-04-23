@@ -218,9 +218,13 @@ function buildNewQuizzPageDone(id) {
 
 
 function storeUserQuizz(id) {
-    idList.push(id);
-    let stringId = JSON.stringify(idList);
-    localStorage.setItem("ids", stringId);
+    if (idList !== null){
+        idList.push(id);
+        let stringId = JSON.stringify(idList);
+        localStorage.setItem("ids", stringId);
+    } else {
+        localStorage.setItem("ids", `[${id}]`);
+    }
 }
 
 // buildNewQuizzPageStart();
