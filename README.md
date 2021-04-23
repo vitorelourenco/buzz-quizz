@@ -2,7 +2,7 @@
 
 ![screenshot](./app_screenshot.png)
 
-The goal of this project is to create an online Quiz platform where the user can browse and play quizzes submitted by other users, as well as creating their own quizzes. The page connects to the API provided by respondeAi and makes use of local storage to store information on which quizzes were created by the current user instead of the community. As a requirement to this project, when someone is playing a quiz and picks an answer to a question, the page will wait 2seconds and scroll to the next question. Please keep this delay in mind. Another delayed scrolling implementation also happens when the user is creating a quiz.
+The goal of this project is to create an online Quiz platform where the user can browse and play quizzes submitted by other users, as well as creating their own quizzes. The page connects to the API provided by respondeAi and makes use of local storage to store information on which quizzes were created by the current user instead of the community. As a requirement to this project, when someone is playing a quiz and picks an answer to a question, the page will wait 2seconds and scroll to the next question. Please keep this delay in mind. Another delayed scrolling implementation also happens when the user is creating a quiz. The user can also delete and edit their own quizes.
 
 We've decided not to scroll to the question directly below the current one necessarily. Instead, the code will look for the next logical question. Meaning, if a user decides to skip a question, it might scroll up so they can answer the skipped one. Or it might scroll past an already answered question. You can look for the function goToNextQuestion() in play_quizz.js and disable this behavior if you want.
 
