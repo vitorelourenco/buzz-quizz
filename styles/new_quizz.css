@@ -47,8 +47,7 @@
     padding-bottom: 13px;
 }
 
-.new-quizz .question-background,
-.new-quizz .question-image:not(:last-child) {
+.new-quizz .sub-group{
     margin-bottom: 28px;
 }
 
@@ -113,6 +112,16 @@
     padding: 0 20px 20px 20px;
 }
 
+.error-field{
+    background-color: #FFE9E9;
+}
+
+.error-message{
+    font-size: 16px;
+    line-height: 19px;
+    color: #EC362D;
+}
+
 
 /* collapse animation */
 
@@ -125,7 +134,7 @@
 }
 
 .new-quizz :not(.collapsed) .collapsible {
-    max-height: 762px;
+    max-height: 1000px;
     padding-bottom: 20px;
 }
 
