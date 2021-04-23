@@ -26,10 +26,10 @@ function getUserQuizzes() {
 function buildHomePage() {
     const ids = getUserQuizzes();
     const arrLocalIds = [];
-    ids.forEach(elem =>{
+    ids.forEach(elem => {
         arrLocalIds.push(elem.id);
     })
-    
+
     const isThereQuiz = !!arrLocalIds.length;
     const element = document.querySelector(".page-container");
 
@@ -109,18 +109,18 @@ function deleteQuizz(id, event) {
     if (userAnswer === false) return;
     let key;
     const local = getUserQuizzes();
-    local.forEach(elem=>{
-        if (elem.id === id){
+    local.forEach(elem => {
+        if (elem.id === id) {
             key = elem.key;
         }
     })
     axios
-    .delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/${id}`, {headers: {'Secret-Key': key}})
-    .then(()=>{
-        console.log(`deleted ${id}`);
-        buildHomePage();
-    })
-    .catch((err)=>{console.log(err)})
+        .delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/${id}`, { headers: { 'Secret-Key': key } })
+        .then(() => {
+            console.log(`deleted ${id}`);
+            buildHomePage();
+        })
+        .catch((err) => { console.log(err) })
 }
 
 function toggleLoading() {
@@ -130,6 +130,16 @@ function toggleLoading() {
         <p>Carregando</p>
     </div>`
 }
+
+function goToHome() {
+    let confirmHome;
+    if ((document.querySelector(".new-quizz") !== null && !(document.querySelector(".new-quizz").classList.contains("done")))) {
+        confirmHome = window.confirm("Voltar para a Página inicial fará com que você perca todos os dados do seu Quiz.\n\nVoltar mesmo assim?");
+        if (!confirmHome) return;
+        else buildHomePage();
+    } else buildHomePage();
+}
+
 
 buildHomePage();
 // buildNewQuizzPageQuestions(newQuizzObj = { title: 'a', image: 'a', questions: [{}, {}, {}], levels: [{}, {}] });

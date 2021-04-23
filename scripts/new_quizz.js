@@ -20,17 +20,17 @@ function selectUnique(domElem, headSelector) {
 }
 
 function handleStartSubmit() {
-    function getArrQuestions(nQuestions){
+    function getArrQuestions(nQuestions) {
         const arrQuestions = [];
         let k = 0;
-        if (newQuizzObj.hasOwnProperty('questions')){
-            while (k < newQuizzObj.questions.length && k < nQuestions){
+        if (newQuizzObj.hasOwnProperty('questions')) {
+            while (k < newQuizzObj.questions.length && k < nQuestions) {
                 arrQuestions.push(newQuizzObj.questions[k]);
                 k++;
             }
         }
-    
-        while (k < nQuestions){
+
+        while (k < nQuestions) {
             arrQuestions.push({});
             k++;
         }
@@ -38,17 +38,17 @@ function handleStartSubmit() {
         return arrQuestions;
     }
 
-    function getArrLevels(nLevels){
+    function getArrLevels(nLevels) {
         const arrLevels = [];
         let k = 0;
-        if (newQuizzObj.hasOwnProperty('levels')){
-            while (k < newQuizzObj.levels.length && k < nLevels){
+        if (newQuizzObj.hasOwnProperty('levels')) {
+            while (k < newQuizzObj.levels.length && k < nLevels) {
                 arrLevels.push(newQuizzObj.levels[k]);
                 k++;
             }
         }
-    
-        while (k < nLevels){
+
+        while (k < nLevels) {
             arrLevels.push({});
             k++;
         }
@@ -67,7 +67,7 @@ function handleStartSubmit() {
     const nQuestions = parseInt(objQuestions.value, 10);
     const nLevels = parseInt(objLevels.value, 10);
 
-    newQuizzObj = { title : objTitle.value, image : objImage.value, questions: getArrQuestions(nQuestions), levels: getArrLevels(nLevels) };
+    newQuizzObj = { title: objTitle.value, image: objImage.value, questions: getArrQuestions(nQuestions), levels: getArrLevels(nLevels) };
     buildNewQuizzPageQuestions();
 }
 
@@ -116,19 +116,19 @@ function handleLevelsSubmit() {
         newQuizzObj.levels[i] = level;
     }
 
-    if (isEdit){
+    if (isEdit) {
         //in case its an edit
         axios
-        .put(`https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/${idEditing}`, newQuizzObj, {headers: {'Secret-Key': keyEditing}})
-        .then(({ data }) => {
-            console.log(data.key);
-            console.log(data.id);
-            buildNewQuizzPageDone(data.id, `${data.key}`);
-            toggleLoading();
-        })
-        .catch((error) => {
-            console.log(error);
-        })
+            .put(`https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/${idEditing}`, newQuizzObj, { headers: { 'Secret-Key': keyEditing } })
+            .then(({ data }) => {
+                console.log(data.key);
+                console.log(data.id);
+                buildNewQuizzPageDone(data.id, `${data.key}`);
+                toggleLoading();
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     } else {
         axios
             .post('https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes', newQuizzObj)
@@ -143,9 +143,9 @@ function handleLevelsSubmit() {
 
 
 function buildNewQuizzPageStart(id) {
-    function buildHTML(){
+    function buildHTML() {
         container.innerHTML =
-        `
+            `
         <section class="new-quizz">
         <h2>Comece pelo comeco</h2>
         <div class="input-group padding-20">
@@ -170,8 +170,8 @@ function buildNewQuizzPageStart(id) {
         buildHTML();
     } else {
         const local = getUserQuizzes();
-        local.forEach(elem=>{
-            if (elem.id === id){
+        local.forEach(elem => {
+            if (elem.id === id) {
                 keyEditing = `${elem.key}`;
             }
         })
@@ -179,7 +179,7 @@ function buildNewQuizzPageStart(id) {
         isEdit = true;
         idEditing = id;
         const promisse = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/" + id);
-        promisse.then(({data})=>{
+        promisse.then(({ data }) => {
             buildHTML();
             const title = container.querySelector('.new-quizz-title');
             const image = container.querySelector('.new-quizz-image');
@@ -196,32 +196,32 @@ function buildNewQuizzPageStart(id) {
 }
 
 function buildNewQuizzPageQuestions() {
-    function getTitle(i){
-        if (newQuizzObj.questions[i].hasOwnProperty('title')){
+    function getTitle(i) {
+        if (newQuizzObj.questions[i].hasOwnProperty('title')) {
             return newQuizzObj.questions[i].title;
         }
         return '';
     }
 
-    function getColor(i){
-        if (newQuizzObj.questions[i].hasOwnProperty('color')){
+    function getColor(i) {
+        if (newQuizzObj.questions[i].hasOwnProperty('color')) {
             return newQuizzObj.questions[i].color;
         }
         return '';
     }
 
-    function getAnswerText(i,j){
-        if (newQuizzObj.questions[i].hasOwnProperty('answers')){
-            if (newQuizzObj.questions[i].answers[j] !== undefined ){
+    function getAnswerText(i, j) {
+        if (newQuizzObj.questions[i].hasOwnProperty('answers')) {
+            if (newQuizzObj.questions[i].answers[j] !== undefined) {
                 return newQuizzObj.questions[i].answers[j].text;
             }
         }
         return '';
     }
 
-    function getAnswerImage(i,j){
-        if (newQuizzObj.questions[i].hasOwnProperty('answers')){
-            if (newQuizzObj.questions[i].answers[j] !== undefined){
+    function getAnswerImage(i, j) {
+        if (newQuizzObj.questions[i].hasOwnProperty('answers')) {
+            if (newQuizzObj.questions[i].answers[j] !== undefined) {
                 return newQuizzObj.questions[i].answers[j].image;
             }
         }
@@ -238,7 +238,7 @@ function buildNewQuizzPageQuestions() {
     const section = container.querySelector('SECTION');
     for (let i = 0; i < newQuizzObj.questions.length; i++) {
         section.innerHTML +=
-        `
+            `
         <div class="input-group collapsed">
           <header onclick='selectUnique(this, ".new-quizz")'>
             <h3>Pergunta ${i+1}</h3>
@@ -283,7 +283,7 @@ function buildNewQuizzPageQuestions() {
     }
 
     section.innerHTML += `<button onclick='handleQuestionsSubmit()'>Prosseguir para criar niveis</button>`
-    
+
     for (let i = 0; i < newQuizzObj.questions.length; i++) {
 
         const allDivs = section.querySelectorAll('.input-group');
@@ -295,15 +295,15 @@ function buildNewQuizzPageQuestions() {
         questionColor.value = getColor(i);
 
         const answers = currentSection.querySelectorAll('.sub-group');
-        for(let j=1; j<5; j++){
+        for (let j = 1; j < 5; j++) {
             const answer = answers[j].querySelector('.question-answer');
             const image = answers[j].querySelector('.question-image');
-            answer.value = getAnswerText(i, j-1);
-            image.value = getAnswerImage(i, j-1);
+            answer.value = getAnswerText(i, j - 1);
+            image.value = getAnswerImage(i, j - 1);
 
         }
     }
-    
+
     container
         .querySelector('.collapsed')
         .classList
@@ -313,26 +313,29 @@ function buildNewQuizzPageQuestions() {
 }
 
 function buildNewQuizzPageLevels() {
-    function getTitle(i){
-        if (newQuizzObj.levels[i].hasOwnProperty('title')){
+    function getTitle(i) {
+        if (newQuizzObj.levels[i].hasOwnProperty('title')) {
             return newQuizzObj.levels[i].title;
         }
         return '';
     }
-    function getPercentage(i){
-        if (newQuizzObj.levels[i].hasOwnProperty('minValue')){
+
+    function getPercentage(i) {
+        if (newQuizzObj.levels[i].hasOwnProperty('minValue')) {
             return newQuizzObj.levels[i].minValue;
         }
         return '';
     }
-    function getImage(i){
-        if (newQuizzObj.levels[i].hasOwnProperty('image')){
+
+    function getImage(i) {
+        if (newQuizzObj.levels[i].hasOwnProperty('image')) {
             return newQuizzObj.levels[i].image;
         }
         return '';
     }
-    function getDescription(i){
-        if (newQuizzObj.levels[i].hasOwnProperty('text')){
+
+    function getDescription(i) {
+        if (newQuizzObj.levels[i].hasOwnProperty('text')) {
             return newQuizzObj.levels[i].text;
         }
         return '';
@@ -394,7 +397,7 @@ function buildNewQuizzPageLevels() {
 
 //key must be a strign here
 function buildNewQuizzPageDone(id, key) {
-    if (!isEdit){
+    if (!isEdit) {
         storeUserQuizz(id, key);
     }
     let imgSrc;
@@ -405,8 +408,8 @@ function buildNewQuizzPageDone(id, key) {
             imgSrc = data.image;
             title = data.title;
             container.innerHTML =
-            `
-            <section class="new-quizz">
+                `
+            <section class="new-quizz done">
               <h2>Seu quizz esta pronto!</h2>
               <figure>
                 <img src="${imgSrc}" alt=${title}>
@@ -426,12 +429,12 @@ function buildNewQuizzPageDone(id, key) {
 
 //key must be a string here
 function storeUserQuizz(id, key) {
-    if (idList !== null){
-        idList.push({id,key});
+    if (idList !== null) {
+        idList.push({ id, key });
         let stringId = JSON.stringify(idList);
         localStorage.setItem("ids", stringId);
     } else {
-        const obj = [{id, key}];
+        const obj = [{ id, key }];
         const str = JSON.stringify(obj);
         localStorage.setItem("ids", str);
     }
@@ -446,4 +449,3 @@ function editQuizz(id, event) {
 // buildNewQuizzPageDone(1);
 // buildNewQuizzPageQuestions(newQuizzObj = {title:'a', image:'a', questions:[{},{},{}], levels:[{},{}]});
 // buildNewQuizzPageLevels(newQuizzObj = { title: 'a', image: 'a', questions: [{}, {}, {}, {}], levels: [{}, {}, {}, {}] });
-
