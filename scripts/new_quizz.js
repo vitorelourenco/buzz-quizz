@@ -115,11 +115,24 @@ function handleLevelsSubmit() {
     }
 
     if (isEdit){
+        //in case its an edit
         console.log(newQuizzObj);
+        axios
+        .post('https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes', newQuizzObj)
+        .then(({ data }) => {
+            console.log(data.key);
+            console.log(data.id);
+            buildNewQuizzPageDone(data.id);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
     } else {
         axios
             .post('https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes', newQuizzObj)
             .then(({ data }) => {
+                console.log(data.key);
+                console.log(data.id);
                 buildNewQuizzPageDone(data.id);
             })
             .catch((error) => {
