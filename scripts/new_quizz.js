@@ -219,8 +219,8 @@ function buildNewQuizzPageDone(id) {
 
 function storeUserQuizz(id) {
     idList.push(id);
-    let stringId = JSON.stringify("id", idList);
-    localStorage.setItem(stringId);
+    let stringId = JSON.stringify(idList);
+    localStorage.setItem("id", stringId);
 }
 
 // buildNewQuizzPageStart();

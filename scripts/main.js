@@ -66,13 +66,19 @@ function buildQuizzList(resposta, arrLocalIds) {
     quizzContainer.innerHTML = "";
     for (i = 0; i < quizzList.length; i++) {
         if (arrLocalIds.indexOf(quizzList[i].id) !== -1) {
-            localQuizzContainer.innerHTML += ` <li onclick="getQuizz(${quizzList[i].id})" class="quizz-thumb">
+            localQuizzContainer.innerHTML += ` 
+                                <li onclick="getQuizz(${quizzList[i].id})" class="quizz-thumb">
                                     <div></div>
+                                    <span class="label">
+                                        <img class="svg" src="assets/images/edit.svg">
+                                        <ion-icon name="trash"></ion-icon>
+                                    </span>
                                     <img src=${quizzList[i].image}" alt="quizz thumbnail">
                                     <p>${quizzList[i].title}</p>
                                 </li>`
         } else {
-            quizzContainer.innerHTML += ` <li onclick="getQuizz(${quizzList[i].id})" class="quizz-thumb">
+            quizzContainer.innerHTML += ` 
+                                <li onclick="getQuizz(${quizzList[i].id})" class="quizz-thumb">
                                     <div></div>
                                     <img src=${quizzList[i].image}" alt="quizz thumbnail">
                                     <p>${quizzList[i].title}</p>
