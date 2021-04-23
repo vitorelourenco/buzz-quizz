@@ -32,7 +32,7 @@ function buildHomePage() {
                     <button onclick="buildNewQuizzPageStart()">Criar Quizz</button>
                 </div>
                 <div class="not-empty ${isThereQuiz?"":"hidden"}">
-                    <p class="section-title">Seus Quizzes<span><ion-icon onclick="buildNewQuizzPageStart()" name="add-circle"></ion-icon></span></p>
+                    <p class="section-title">Seus Quizzes<span><ion-icon onclick="buildNewQuizzPageStart(-1)" name="add-circle"></ion-icon></span></p>
                     <ul class="quizzes-list user-quizzes">
                     </ul>
                 </div>

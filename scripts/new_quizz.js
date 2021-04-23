@@ -91,25 +91,48 @@ function handleLevelsSubmit() {
 }
 
 
-function buildNewQuizzPageStart() {
-    container.innerHTML =
+function buildNewQuizzPageStart(id) {
+    function buildHTML(){
+        container.innerHTML =
         `
-    <section class="new-quizz">
-      <h2>Comece pelo comeco</h2>
-      <div class="input-group padding-20">
-          <input class="new-quizz-title" type="text" placeholder="Titulo do seu quizz">
-          <div></div>
-          <input class="new-quizz-image" type="text" placeholder="URL da imagem do seu quizz">
-          <div></div>
-          <input class="new-quizz-nQuestions" type="text" placeholder="Quantidade de perguntas do quizz">
-          <div></div>
-          <input class="new-quizz-nLevels" type="text" placeholder="Quantidade de niveis do quizz">
-          <div></div>
-      </div>
-      <button onclick='handleStartSubmit()'>Prosseguir para criar perguntas</button>
-    </section>
-    `;
-    scrollQuizz(container, 0);
+        <section class="new-quizz">
+        <h2>Comece pelo comeco</h2>
+        <div class="input-group padding-20">
+            <input class="new-quizz-title" type="text" placeholder="Titulo do seu quizz">
+            <div></div>
+            <input class="new-quizz-image" type="text" placeholder="URL da imagem do seu quizz">
+            <div></div>
+            <input class="new-quizz-nQuestions" type="text" placeholder="Quantidade de perguntas do quizz">
+            <div></div>
+            <input class="new-quizz-nLevels" type="text" placeholder="Quantidade de niveis do quizz">
+            <div></div>
+        </div>
+        <button onclick='handleStartSubmit()'>Prosseguir para criar perguntas</button>
+        </section>
+        `;
+        scrollQuizz(container, 0);
+    }
+
+    if (id === -1) {
+        newQuizzObj = {};
+        buildHTML();
+    } else {
+        const promisse = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/" + id);
+        promisse.then(({data})=>{
+            buildHTML();
+            const title = container.querySelector('.new-quizz-title');
+            const image = container.querySelector('.new-quizz-image');
+            const nQuestions = container.querySelector('.new-quizz-nQuestions');
+            const nLevels = container.querySelector('.new-quizz-nLevels');
+            newQuizzObj = data;
+            title.value = newQuizzObj.title;
+            image.value = newQuizzObj.image;
+            //fix this later!!!!
+            nQuestions = `${newQuizzObj.questions.length}`;
+            nLevels = `${newQuizzObj.levels.length}`;
+        });
+    }
+
 }
 
 function buildNewQuizzPageQuestions() {
