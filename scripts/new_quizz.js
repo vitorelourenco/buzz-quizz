@@ -84,6 +84,7 @@ function handleLevelsSubmit() {
             toggleLoading();
         })
         .catch((error) => {
+            console.log(error);
             alert(`error ${error.response.status}`);
         })
 }

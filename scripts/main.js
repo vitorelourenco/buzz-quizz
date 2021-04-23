@@ -16,6 +16,7 @@ function scrollQuizz(domElem, delay) {
 }
 
 let idList = [];
+
 function getUserQuizzes() {
     let stringId = localStorage.getItem("ids");
     idList = JSON.parse(stringId);
@@ -71,7 +72,7 @@ function buildQuizzList(resposta, arrLocalIds) {
                                 <li onclick="getQuizz(${quizzList[i].id})" class="quizz-thumb">
                                     <div></div>
                                     <span class="label">
-                                        <img class="svg" src="assets/images/edit.svg">
+                                        <img src="assets/images/edit-white.svg">
                                         <ion-icon name="trash"></ion-icon>
                                     </span>
                                     <img src=${quizzList[i].image}" alt="quizz thumbnail">
@@ -81,10 +82,6 @@ function buildQuizzList(resposta, arrLocalIds) {
             quizzContainer.innerHTML += ` 
                                 <li onclick="getQuizz(${quizzList[i].id})" class="quizz-thumb">
                                     <div></div>
-                                    <span class="label">
-                                        <img class="svg" src="assets/images/edit-white.svg">
-                                        <ion-icon name="trash-outline"></ion-icon>
-                                    </span>
                                     <img src=${quizzList[i].image}" alt="quizz thumbnail">
                                     <p>${quizzList[i].title}</p>
                                 </li>`
