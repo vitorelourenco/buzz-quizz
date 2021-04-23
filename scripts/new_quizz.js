@@ -18,6 +18,40 @@ function selectUnique(domElem, headSelector) {
 }
 
 function handleStartSubmit() {
+    function getArrQuestions(){
+        const arrQuestions = [];
+        let k = 0;
+        if (objNewStart.hasOwnProperty('questions')){
+            while (k < objNewStart.questions.length){
+                arrQuestions.push(objNewStart.questions[k]);
+                k++;
+            }
+        }
+    
+        while (k < nQuestions){
+            arrQuestions.push({});
+            k++;
+        }
+        return arrQuestions;
+    }
+
+    function getArrLevels(){
+        const arrLevels = [];
+        let k = 0;
+        if (objNewStart.hasOwnProperty('levels')){
+            while (k < objNewStart.levels.length){
+                arrLevels.push(objNewStart.levels[k]);
+                k++;
+            }
+        }
+    
+        while (k < nLevels){
+            arrLevels.push({});
+            k++;
+        }
+        return arrLevels;
+    }
+
     objNewStart = document.querySelector('.new-quizz');
 
     const title = objNewStart.querySelector('.new-quizz-title');
@@ -30,35 +64,7 @@ function handleStartSubmit() {
     const nQuestions = parseInt(strQuestions, 10);
     const nLevels = parseInt(strLevels, 10);
 
-    arrQuestions = [];
-    let k = 0;
-    if (objNewStart.hasOwnProperty('questions')){
-        while (k < objNewStart.questions.length){
-            arrQuestions.push(objNewStart.questions[k]);
-            k++;
-        }
-    }
-
-    while (k < nQuestions){
-        arrQuestions.push({});
-        k++;
-    }
-
-    arrLevels = [];
-    k = 0;
-    if (objNewStart.hasOwnProperty('levels')){
-        while (k < objNewStart.levels.length){
-            arrLevels.push(objNewStart.levels[k]);
-            k++;
-        }
-    }
-
-    while (k < nQuestions){
-        arrLevels.push({});
-        k++;
-    }
-
-    newQuizzObj = { title, image, questions: arrQuestions, levels: arrLevels };
+    newQuizzObj = { title, image, questions: getArrQuestions(), levels: getArrLevels() };
 
     buildNewQuizzPageQuestions();
 }
