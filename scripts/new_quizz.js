@@ -23,8 +23,7 @@ function handleStartSubmit() {
         const arrQuestions = [];
         let k = 0;
         if (newQuizzObj.hasOwnProperty('questions')){
-            console.log(objNewStart);
-            while (k < newQuizzObj.questions.length){
+            while (k < newQuizzObj.questions.length && k < nQuestions){
                 arrQuestions.push(newQuizzObj.questions[k]);
                 k++;
             }
@@ -35,7 +34,6 @@ function handleStartSubmit() {
             k++;
         }
 
-        console.log(arrQuestions);
         return arrQuestions;
     }
 
@@ -43,7 +41,7 @@ function handleStartSubmit() {
         const arrLevels = [];
         let k = 0;
         if (newQuizzObj.hasOwnProperty('levels')){
-            while (k < newQuizzObj.levels.length){
+            while (k < newQuizzObj.levels.length && k < nLevels){
                 arrLevels.push(newQuizzObj.levels[k]);
                 k++;
             }
@@ -117,14 +115,17 @@ function handleLevelsSubmit() {
         newQuizzObj.levels[i] = level;
     }
 
-    axios
-        .post('https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes', newQuizzObj)
-        .then(({ data }) => {
-            buildNewQuizzPageDone(data.id);
-        })
-        .catch((error) => {
-            alert(`error ${error.response.status}`);
-        })
+    if (isEdit){
+        console.log(newQuizzObj);
+    } else {
+        axios
+            .post('https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes', newQuizzObj)
+            .then(({ data }) => {
+                buildNewQuizzPageDone(data.id);
+            })
+            .catch((error) => {
+            })
+    }
 }
 
 
@@ -271,16 +272,14 @@ function buildNewQuizzPageQuestions() {
         const questionColor = currentSection.querySelector('.question-background');
         questionTitle.value = getTitle(i);
         questionColor.value = getColor(i);
-        console.log(questionTitle.value);
-        console.log(questionColor.value);
+
         const answers = currentSection.querySelectorAll('.sub-group');
         for(let j=1; j<5; j++){
             const answer = answers[j].querySelector('.question-answer');
             const image = answers[j].querySelector('.question-image');
             answer.value = getAnswerText(i, j-1);
             image.value = getAnswerImage(i, j-1);
-            console.log(answer.value);
-            console.log(image.value);
+
         }
     }
     
