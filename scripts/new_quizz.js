@@ -30,7 +30,35 @@ function handleStartSubmit() {
     const nQuestions = parseInt(strQuestions, 10);
     const nLevels = parseInt(strLevels, 10);
 
-    newQuizzObj = { title, image, questions: new Array(nQuestions), levels: new Array(nLevels) };
+    arrQuestions = [];
+    let k = 0;
+    if (objNewStart.hasOwnProperty('questions')){
+        while (k < objNewStart.questions.length){
+            arrQuestions.push(objNewStart.questions[k]);
+            k++;
+        }
+    }
+
+    while (k < nQuestions){
+        arrQuestions.push({});
+        k++;
+    }
+
+    arrLevels = [];
+    k = 0;
+    if (objNewStart.hasOwnProperty('levels')){
+        while (k < objNewStart.levels.length){
+            arrLevels.push(objNewStart.levels[k]);
+            k++;
+        }
+    }
+
+    while (k < nQuestions){
+        arrLevels.push({});
+        k++;
+    }
+
+    newQuizzObj = { title, image, questions: arrQuestions, levels: arrLevels };
 
     buildNewQuizzPageQuestions();
 }
@@ -128,8 +156,8 @@ function buildNewQuizzPageStart(id) {
             title.value = newQuizzObj.title;
             image.value = newQuizzObj.image;
             //fix this later!!!!
-            nQuestions = `${newQuizzObj.questions.length}`;
-            nLevels = `${newQuizzObj.levels.length}`;
+            nQuestions.value = `${newQuizzObj.questions.length}`;
+            nLevels.value = `${newQuizzObj.levels.length}`;
         });
     }
 
@@ -274,8 +302,3 @@ function storeUserQuizz(id) {
     let stringId = JSON.stringify("id", idList);
     localStorage.setItem(stringId);
 }
-
-// buildNewQuizzPageStart();
-// buildNewQuizzPageDone(1);
-// buildNewQuizzPageQuestions(newQuizzObj = {title:'a', image:'a', questions:[{},{},{}], levels:[{},{}]});
-// buildNewQuizzPageLevels(newQuizzObj = {title:'a', image:'a', questions:[{},{},{},{}], levels:[{},{},{},{}]});
