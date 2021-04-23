@@ -20,10 +20,10 @@ function selectUnique(domElem, headSelector) {
 function handleStartSubmit() {
     objNewStart = document.querySelector('.new-quizz');
 
-    const title = objNewStart.querySelector('.new-quizz-title').value;
-    const image = objNewStart.querySelector('.new-quizz-image').value;
-    const strQuestions = objNewStart.querySelector('.new-quizz-nQuestions').value;
-    const strLevels = objNewStart.querySelector('.new-quizz-nLevels').value;
+    const title = objNewStart.querySelector('.new-quizz-title');
+    const image = objNewStart.querySelector('.new-quizz-image');
+    const strQuestions = objNewStart.querySelector('.new-quizz-nQuestions');
+    const strLevels = objNewStart.querySelector('.new-quizz-nLevels');
 
     if (checkStartInput(title, image, strQuestions, strLevels) === false) return;
 
@@ -47,10 +47,12 @@ function handleQuestionsSubmit() {
         question.title = questions[i].querySelector('.question-title').value;
         question.color = questions[i].querySelector('.question-background').value;
 
+        //populating with the correct answer
         const answers = questions[i].querySelectorAll('.question-answer');
         const images = questions[i].querySelectorAll('.question-image');
         question.answers = [{ text: answers[0].value, image: images[0].value, isCorrectAnswer: true }];
 
+        //populating with the wrong answers
         for (let j = 1; j < 4; j++) {
             if (answers[j].value !== '') {
                 question.answers.push({ text: answers[j].value, image: images[j].value, isCorrectAnswer: false })
@@ -96,9 +98,13 @@ function buildNewQuizzPageStart() {
       <h2>Comece pelo comeco</h2>
       <div class="input-group padding-20">
           <input class="new-quizz-title" type="text" placeholder="Titulo do seu quizz">
+          <div></div>
           <input class="new-quizz-image" type="text" placeholder="URL da imagem do seu quizz">
+          <div></div>
           <input class="new-quizz-nQuestions" type="text" placeholder="Quantidade de perguntas do quizz">
+          <div></div>
           <input class="new-quizz-nLevels" type="text" placeholder="Quantidade de niveis do quizz">
+          <div></div>
       </div>
       <button onclick='handleStartSubmit()'>Prosseguir para criar perguntas</button>
     </section>
@@ -124,18 +130,38 @@ function buildNewQuizzPageQuestions() {
             <img class="svg" src="assets/images/edit.svg">
           </header>
           <div class="collapsible">
-            <input class="question-title" type="text" placeholder="Texto da pergunta">
-            <input class="question-background" type="text" placeholder="Cor de fundo da pergunta">
+            <div class='sub-group'>
+                <input class="question-title" type="text" placeholder="Texto da pergunta">
+                <div></div>
+                <input class="question-background" type="text" placeholder="Cor de fundo da pergunta">
+                <div></div>
+            </div>
             <h3>Resposta correta</h3>
-            <input class="question-answer" type="text" placeholder="Resposta correta">
-            <input class="question-image" type="text" placeholder="URL da imagem">
+            <div class='sub-group'>
+                <input class="question-answer" type="text" placeholder="Resposta correta">
+                <div></div>
+                <input class="question-image" type="text" placeholder="URL da imagem">
+                <div></div>
+            </div>
             <h3>Respostas incorretas</h3>
-            <input class="question-answer" type="text" placeholder="Resposta incorreta 1">
-            <input class="question-image" type="text" placeholder="URL da imagem 1">
-            <input class="question-answer" type="text" placeholder="Resposta incorreta 2">
-            <input class="question-image" type="text" placeholder="URL da imagem 2">
-            <input class="question-answer" type="text" placeholder="Resposta incorreta 3">
-            <input class="question-image" type="text" placeholder="URL da imagem 3">
+            <div class='sub-group'>
+                <input class="question-answer" type="text" placeholder="Resposta incorreta 1">
+                <div></div>
+                <input class="question-image" type="text" placeholder="URL da imagem 1">
+                <div></div>
+            </div>
+            <div class='sub-group'>
+                <input class="question-answer" type="text" placeholder="Resposta incorreta 2">
+                <div></div>
+                <input class="question-image" type="text" placeholder="URL da imagem 2">
+                <div></div>
+            </div>
+            <div class='sub-group'>
+                <input class="question-answer" type="text" placeholder="Resposta incorreta 3">
+                <div></div>
+                <input class="question-image" type="text" placeholder="URL da imagem 3">
+                <div></div>
+            </div>
           </div>
         </div>
         `
@@ -169,9 +195,13 @@ function buildNewQuizzPageLevels() {
         </header>
         <div class="collapsible">
           <input class="level-title" type="text" placeholder="Titulo do nivel">
+          <div></div>
           <input class="level-percentage" type="text" placeholder="% de acerto minima">
+          <div></div>
           <input class="level-image" type="text" placeholder="URL da imagem do nivel">
+          <div></div>
           <textarea class="level-description" type="text" placeholder="Descricao do nivel"></textarea>
+          <div></div>
         </div>
       </div>
       `

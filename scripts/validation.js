@@ -2,182 +2,232 @@ function makeValidationObj(bol, str){
   return {isValid: bol, text: str}
 }
 
-function validate(callback, strValidationType, strSource){
-  const validationObj = callback(strValidationType);
-  if (!validationObj.isValid){
-    if (strSource !== undefined){
-      alert(`${strSource} : ${validationObj.text}`);
-    } else {
-      alert(`${validationObj.text}`);
-    }
+function validate(callback, objSource, str){
+  const arrErr = callback(str);
+  divErr = objSource.nextElementSibling;
+  divErr.innerHTML = "";
+  if (arrErr.length !== 0){
+    objSource.classList.add('error-field')
+    arrErr.forEach((err)=>{
+      divErr.innerHTML+=`<p class="error-message">${err}</p>`
+    })
     return false;
+  }
+  objSource.classList.remove('error-field');
+  if (divErr.querySelector('error-message') !== null){
+    divErr.querySelector('error-message').classList.remove(error-message);
   }
   return true;
 }
 
 function factoryURL(str){
-  if (typeof(str)!=='string') return makeValidationObj(false, 'invalid input source');
+  const arrErr = [];
+  if (typeof(str)!=='string') arrErr.push('invalid input source');
   const urlRegexp =  /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
-  if (!urlRegexp.test(str)) return makeValidationObj(false, 'URL da imagem deve ser valida');
-  return makeValidationObj(true, str);
+  if (!urlRegexp.test(str)) arrErr.push('URL da imagem deve ser valida');
+  return arrErr;
 }
 
 function factoryTitle(str){
-  if (typeof(str)!=='string') return makeValidationObj(false, 'invalid input source');
-  if (str.length < 20) return makeValidationObj(false, 'Titulo tem menos de 20 caracteres');
-  if (str.length > 65) return makeValidationObj(false, 'Titulo tem mais de 65 caracteres');
-  return makeValidationObj(true, str);
+  const arrErr = [];
+  if (typeof(str)!=='string') arrErr.push('invalid input source');
+  if (str.length < 20) arrErr.push('Titulo tem menos de 20 caracteres');
+  if (str.length > 65) arrErr.push('Titulo tem mais de 65 caracteres');
+  return arrErr;
 }
 
 function factoryQuestions(str){
-  if (typeof(str)!=='string') return makeValidationObj(false, 'invalid input source');
-  if (str === '') return makeValidationObj(false, 'Numero de Perguntas esta vazio');
-  if (/\D/.test(str)) return makeValidationObj(false, 'Numero de Perguntas nao e um numero inteiro');
-  if (parseInt(str,10) < 3) return makeValidationObj(false, 'O quizz deve ter pelo menos 3 perguntas');
-  return makeValidationObj(true, str);
+  const arrErr = [];
+  if (typeof(str)!=='string') arrErr.push('invalid input source');
+  if (str === '') arrErr.push('Numero de Perguntas esta vazio');
+  if (/\D/.test(str)) arrErr.push('Numero de Perguntas nao e um numero inteiro');
+  if (parseInt(str,10) < 3) arrErr.push('O quizz deve ter pelo menos 3 perguntas');
+  return arrErr;
 }
 
 function factoryLevels(str){
-  if (typeof(str) !== 'string') return makeValidationObj(false, 'invalid input source');
-  if (str === '') return makeValidationObj(false, 'Numero de Niveis esta vazio');
-  if (/\D/.test(str)) return makeValidationObj(false, 'Numero de Niveis nao e um numero inteiro');
-  if (parseInt(str, 10) < 2) return makeValidationObj(false, 'O quizz deve ter pelo menos 2 niveis');
-  return makeValidationObj(true, str);
+  const arrErr = [];
+  if (typeof(str) !== 'string') arrErr.push('invalid input source');
+  if (str === '') arrErr.push('Numero de Niveis esta vazio');
+  if (/\D/.test(str)) arrErr.push('Numero de Niveis nao e um numero inteiro');
+  if (parseInt(str, 10) < 2) arrErr.push('O quizz deve ter pelo menos 2 niveis');
+  return arrErr;
 }
 
 function factoryQuestionText(str){
-  if (typeof(str)!=='string') return makeValidationObj(false, 'invalid input source');
-  if (str.length < 20) return makeValidationObj(false, 'Texto da pergunta tem menos de 20 caracteres');
-  return makeValidationObj(true, str);
+  const arrErr = [];
+  if (typeof(str)!=='string') arrErr.push('invalid input source');
+  if (str.length < 20) arrErr.push('Texto da pergunta tem menos de 20 caracteres');
+  return arrErr;
 }
 
 function factoryQuestionColor(str){
-  if (typeof(str)!=='string') return makeValidationObj(false, 'invalid input source');
-  if (!/^#[a-f0-9]{6}$/i.test(str)) return makeValidationObj(false, 'Cor invalida, formato esperado: #xxxxxx');
-  return makeValidationObj(true, str);
+  const arrErr = [];
+  if (typeof(str)!=='string') arrErr.push('invalid input source');
+  if (!/^#[a-f0-9]{6}$/i.test(str)) arrErr.push('Cor invalida, formato esperado: #xxxxxx');
+  return arrErr;
 }
 
 function factoryQuestionAnswer(str){
-  if (typeof(str)!=='string') return makeValidationObj(false, 'invalid input source');
-  if (str === '') return makeValidationObj(false, 'Texto esta vazio');
-  return makeValidationObj(true, str);
+  const arrErr = [];
+  if (typeof(str)!=='string') arrErr.push('invalid input source');
+  if (str === '') arrErr.push('Texto esta vazio');
+  return arrErr;
 }
 
 function factoryFakeAnswerCount(int){
-  if (!Number.isInteger(int)) return makeValidationObj(false, 'invalid input source');
-  if (int === 3) return makeValidationObj(false, 'Preencha pelo menos uma resposta incorreta');
-  return makeValidationObj(true, `${int}`);
+  const arrErr = [];
+  if (!Number.isInteger(int)) arrErr.push('invalid input source');
+  if (int === 3) arrErr.push('Preencha pelo menos uma resposta incorreta');
+  return arrErr;
 }
 
 function factoryLevelTitle(str){
-  if (typeof(str)!=='string') return makeValidationObj(false, 'invalid input source');
-  if (str.length < 10) return makeValidationObj(false, 'Titulo do nivel tem menos de 10 caracteres');
-  return makeValidationObj(true, str);
+  const arrErr = [];
+  if (typeof(str)!=='string') arrErr.push('invalid input source');
+  if (str.length < 10) arrErr.push('Titulo do nivel tem menos de 10 caracteres');
+  return arrErr;
 }
 
 function factoryPercentage(str){
-  if (typeof(str) !== 'string') return makeValidationObj(false, 'invalid input source');
-  if (str === '') return makeValidationObj(false, 'Campo de porcentagem esta vazio');
-  if (/\D/.test(str)) return makeValidationObj(false, 'Porcentagem deve ser um numero inteiro');
-  if (parseInt(str, 10) < 0 || parseInt(str, 10) > 100) return makeValidationObj(false, 'A porcentagem deve ser entre 0 e 100');
-  return makeValidationObj(true, str);
+  const arrErr = [];
+  if (typeof(str) !== 'string') arrErr.push('invalid input source');
+  if (str === '') arrErr.push('Campo de porcentagem esta vazio');
+  if (/\D/.test(str)) arrErr.push('Porcentagem deve ser um numero inteiro');
+  if (parseInt(str, 10) < 0 || parseInt(str, 10) > 100) arrErr.push('A porcentagem deve ser entre 0 e 100');
+  return arrErr;
 }
 
 function factoryDescription(str){
-  if (typeof(str)!=='string') return makeValidationObj(false, 'invalid input source');
-  if (str.length < 30) return makeValidationObj(false, 'Descricao tem menos de 30 caracteres');
-  return makeValidationObj(true, str);
+  const arrErr = [];
+  if (typeof(str)!=='string') arrErr.push('invalid input source');
+  if (str.length < 30) arrErr.push('Descricao tem menos de 30 caracteres');
+  return arrErr;
 }
 
 function factoryZeroPercentageCount(bol){
-  if (typeof(bol) !== 'boolean') return makeValidationObj(false, 'invalid input source');
-  if (bol === false) return makeValidationObj(false, 'Ao menos um nivel deve ter porcentagem minima 0');
-  return makeValidationObj(true, `${bol}`);
+  const arrErr = [];
+  if (typeof(bol) !== 'boolean') arrErr.push('invalid input source');
+  if (bol === false) arrErr.push('Ao menos um nivel deve ter porcentagem minima 0');
+  return arrErr;
 }
 
-function factoryAnswersOrder(question){
-  if (typeof(question) !== 'object') return makeValidationObj(false, 'invalid input source');
-  let str = '';
-  const answers = question.querySelectorAll('.question-answer');
-  for (let i = 1; i<4; i++){
-    if (answers[i].value !== '') str+= '1';
-    else str += '0';
-  }
-  if (/01/.test(str)) return makeValidationObj(false, 'Coloque as respostas em ordem');
-  return makeValidationObj(true, str);
+// function factoryAnswersOrder(question){
+//   const arrErr = [];
+//   if (typeof(question) !== 'object') arrErr.push('invalid input source');
+//   let str = '';
+//   const answers = question.querySelectorAll('.question-answer');
+//   for (let i = 1; i<4; i++){
+//     if (answers[i].value !== '') str+= '1';
+//     else str += '0';
+//   }
+//   if (/01/.test(str)) arrErr.push('Coloque as respostas em ordem 1->2->3');
+//   return arrErr;
+// }
+
+function checkStartInput(objTitle, objImage, objQuestions, objLevels){
+  let failed = false;
+  if (!validate(factoryTitle, objTitle, objTitle.value)) failed = true;
+  if (!validate(factoryURL, objImage, objImage.value)) failed = true;
+  if (!validate(factoryQuestions, objQuestions, objQuestions.value)) failed = true;
+  if (!validate(factoryLevels, objLevels, objLevels.value)) failed = true;
+  return failed ? false : true;
 }
 
-function checkStartInput(title, image, strQuestions, strLevels){
-  if (!validate(factoryTitle, title)) return false;
-  if (!validate(factoryURL, image)) return false;
-  if (!validate(factoryQuestions, strQuestions)) return false;
-  if (!validate(factoryLevels, strLevels)) return false;
-  return true;
+function checkQuestionCore(objText, objColor, objAnswerText, objAnswerImage){
+  let failed = false;
+  if (!validate(factoryQuestionText, objText, objText.value)) failed = true;
+  if (!validate(factoryQuestionColor, objColor, objColor.value)) failed = true;
+  if (!validate(factoryQuestionAnswer, objAnswerText, objAnswerText.value)) failed = true;
+  if (!validate(factoryURL, objAnswerImage, objAnswerImage.value)) failed = true;
+  return failed ? false : true;
 }
 
-function checkQuestionCore(i, questionText, questionColor, questionAnswerText, questionAnswerImage){
-  if (!validate(factoryQuestionText, questionText, `Pergunta ${i+1}`)) return false;
-  if (!validate(factoryQuestionColor, questionColor, `Pergunta ${i+1}`)) return false;
-  if (!validate(factoryQuestionAnswer, questionAnswerText, `Pergunta ${i+1} (Resposta correta)`)) return false;
-  if (!validate(factoryURL, questionAnswerImage, `Pergunta ${i+1} (Resposta correta)`)) return false;
-  return true;
+function checkQuestionFakeAnswer(objAnswer, objImage){
+  let failed = false;
+  console.log('entrou')
+  if (!validate(factoryQuestionAnswer, objAnswer, objAnswer.value)) failed = true;
+  if (!validate(factoryURL, objImage, objImage.value)) failed = true;
+  return failed ? false : true;
 }
 
-function checkQuestionFakeAnswer(i, j, answer, image){
-  if (!validate(factoryQuestionAnswer, answer, `Pergunta ${i+1} (Resposta incorreta ${j})`)) return false;
-  if (!validate(factoryURL, image, `Pergunta ${i+1} (Resposta incorreta ${j})`)) return false;
-  return true;
-}
-
-function checkAnswersOrder(i, question){
-  if (!validate(factoryAnswersOrder, question, `Pergunta ${i+1}`)) return false;
-  return true;
-}
+//need to look into this later
+// function checkAnswersOrder(i, question){
+//   if (!validate(factoryAnswersOrder, question, `Pergunta ${i+1}`)) return false;
+//   return true;
+// }
 
 function checkQuestionsInput(questions){
+  let passed = true;
   for (let i=0; i<questions.length;i++){
-    const questionText = questions[i].querySelector('.question-title').value;
-    const questionColor = questions[i].querySelector('.question-background').value;
-    const questionAnswerText = questions[i].querySelector('.question-answer').value;
-    const questionAnswerImage = questions[i].querySelector('.question-image').value;
+    const objText = questions[i].querySelector('.question-title');
+    const objColor = questions[i].querySelector('.question-background');
+    const objAnswerText = questions[i].querySelector('.question-answer');
+    const objAnswerImage = questions[i].querySelector('.question-image');
 
-    if (checkQuestionCore(i, questionText, questionColor, questionAnswerText, questionAnswerImage) === false) return false;
+    passed = checkQuestionCore(objText, objColor, objAnswerText, objAnswerImage) && passed;
 
-    const answers = questions[i].querySelectorAll('.question-answer');
-    const images = questions[i].querySelectorAll('.question-image');
+    const objAnswers = questions[i].querySelectorAll('.question-answer');
+    const objImages = questions[i].querySelectorAll('.question-image');
 
     let emptyCount = 0;
     for (let j=1; j<4; j++){
-      if (answers[j].value === '' && images[j].value === ''){
+      if (objAnswers[j].value === '' && objImages[j].value === ''){
         emptyCount++;
       } else {
-        if (checkQuestionFakeAnswer(i, j, answers[j].value, images[j].value) === false) return false;
-      } 
+        passed = checkQuestionFakeAnswer(objAnswers[j], objImages[j]) && passed;
+      }
     }
 
-    if (!validate(factoryFakeAnswerCount, emptyCount, `Pergunta ${i+1}`)) return false;
-    if (checkAnswersOrder(i, questions[i]) === false) return false;
+    if (emptyCount === 3){
+      passed = false;
+      objAnswers[1].nextElementSibling.innerHTML = `<p class="error-message">Preencha pelo menos uma resposta incorreta</p>`;
+      objImages[1].nextElementSibling.innerHTML = `<p class="error-message">Preencha pelo menos uma resposta incorreta</p>`;
+    }
+
+    // arrOrderError = factoryAnswersOrder(questions[i]);
+    // if (arrOrderError.length > 0){
+    //   passed = false;
+    //   arrOrderError.forEach(err => {
+    //     objAnswers[1].nextElementSibling.innerHTML = `<p class="error-message">${err}</p>`;
+    //     objImages[1].nextElementSibling.innerHTML = `<p class="error-message">${err}</p>`;         
+    //   })
+    // }
   }
-  return true;
+  return passed ? true : false;
 }
 
-function checkLevelInput(i, levelTitle, levelPercentage, levelImage, levelDescription){
-  if (!validate(factoryLevelTitle, levelTitle, `Nivel ${i+1}`)) return false;
-  if (!validate(factoryPercentage, levelPercentage, `Nivel ${i+1}`)) return false;
-  if (!validate(factoryURL, levelImage, `Nivel ${i+1}`)) return false;
-  if (!validate(factoryDescription, levelDescription, `Nivel ${i+1}`)) return false;
+function checkLevelInput(objTitle, objPercentage, objImage, objDescription){
+  let failed = false;
+  if (!validate(factoryLevelTitle, objTitle, objTitle.value)) failed = true;
+  if (!validate(factoryPercentage, objPercentage, objPercentage.value)) failed = true;
+  if (!validate(factoryURL, objImage, objImage.value)) failed = true;
+  if (!validate(factoryDescription, objDescription, objDescription.value)) failed = true;
+  return failed ? false : true;
 }
 
 function checkLevelsInput(levels){
+  let passed = true;
   let foundZero = false;
   for (let i=0;i<levels.length;i++){
-    const levelTitle = levels[i].querySelector('.level-title').value;
-    const levelPercentage = levels[i].querySelector('.level-percentage').value;
-    const levelImage = levels[i].querySelector('.level-image').value;
-    const levelDescription = levels[i].querySelector('.level-description').value;
-    if (checkLevelInput(i, levelTitle, levelPercentage, levelImage, levelDescription) === false) return false;
-    if (levelPercentage === '0') foundZero = true;
+    const objTitle = levels[i].querySelector('.level-title');
+    const objPercentage = levels[i].querySelector('.level-percentage');
+    const objImage = levels[i].querySelector('.level-image');
+    const objDescription = levels[i].querySelector('.level-description');
+    passed = checkLevelInput(objTitle, objPercentage, objImage, objDescription) && passed;
+    if (objPercentage.value === '0') foundZero = true;
   }
-  if (!validate(factoryZeroPercentageCount, foundZero)) return false;
-  return true;
+  if (!foundZero){
+    passed = false;
+    levels.forEach(level => {
+      percentageField = level.querySelector('.level-percentage');
+      percentageField.classList.add('error-field');
+      divErr = percentageField.nextElementSibling;
+      const errRegex = /<p class="error-message">Ao menos um nivel deve ter porcentagem minima 0<\/p>/;
+      if (!errRegex.test(divErr.innerHTML)){
+        divErr.innerHTML += `<p class="error-message">Ao menos um nivel deve ter porcentagem minima 0</p>`;
+      }
+    });  
+  }
+  return passed ? true : false;
 }
