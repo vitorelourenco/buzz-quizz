@@ -28,6 +28,10 @@ h1 {
     z-index: 999;
 }
 
+.main-header p {
+    cursor: pointer;
+}
+
 .page-container {
     margin-top: 69px;
     display: flex;
