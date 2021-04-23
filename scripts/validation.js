@@ -1,7 +1,3 @@
-function makeValidationObj(bol, str){
-  return {isValid: bol, text: str}
-}
-
 function validate(callback, objSource, str){
   const arrErr = callback(str);
   divErr = objSource.nextElementSibling;
@@ -10,19 +6,18 @@ function validate(callback, objSource, str){
     objSource.classList.add('error-field')
     arrErr.forEach((err)=>{
       divErr.innerHTML+=`<p class="error-message">${err}</p>`
+      console.log('a')
+      console.log(err)
+      console.log('a')
     })
     return false;
   }
   objSource.classList.remove('error-field');
-  if (divErr.querySelector('error-message') !== null){
-    divErr.querySelector('error-message').classList.remove(error-message);
-  }
   return true;
 }
 
 function factoryURL(str){
   const arrErr = [];
-  if (typeof(str)!=='string') arrErr.push('invalid input source');
   const urlRegexp =  /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
   if (!urlRegexp.test(str)) arrErr.push('URL da imagem deve ser valida');
   return arrErr;
@@ -30,7 +25,6 @@ function factoryURL(str){
 
 function factoryTitle(str){
   const arrErr = [];
-  if (typeof(str)!=='string') arrErr.push('invalid input source');
   if (str.length < 20) arrErr.push('Titulo tem menos de 20 caracteres');
   if (str.length > 65) arrErr.push('Titulo tem mais de 65 caracteres');
   return arrErr;
@@ -38,8 +32,12 @@ function factoryTitle(str){
 
 function factoryQuestions(str){
   const arrErr = [];
-  if (typeof(str)!=='string') arrErr.push('invalid input source');
-  if (str === '') arrErr.push('Numero de Perguntas esta vazio');
+  if (str === '') {
+    arrErr.push('Numero de Perguntas esta vazio');
+    arrErr.push('Numero de Perguntas nao e um numero inteiro');
+    arrErr.push('O quizz deve ter pelo menos 3 perguntas');
+    return arrErr;
+  }
   if (/\D/.test(str)) arrErr.push('Numero de Perguntas nao e um numero inteiro');
   if (parseInt(str,10) < 3) arrErr.push('O quizz deve ter pelo menos 3 perguntas');
   return arrErr;
@@ -47,8 +45,12 @@ function factoryQuestions(str){
 
 function factoryLevels(str){
   const arrErr = [];
-  if (typeof(str) !== 'string') arrErr.push('invalid input source');
-  if (str === '') arrErr.push('Numero de Niveis esta vazio');
+  if (str === '') {
+    arrErr.push('Numero de Niveis esta vazio');
+    arrErr.push('Numero de Niveis nao e um numero inteiro');
+    arrErr.push('O quizz deve ter pelo menos 2 niveis');
+    return arrErr;
+  }
   if (/\D/.test(str)) arrErr.push('Numero de Niveis nao e um numero inteiro');
   if (parseInt(str, 10) < 2) arrErr.push('O quizz deve ter pelo menos 2 niveis');
   return arrErr;
@@ -56,43 +58,42 @@ function factoryLevels(str){
 
 function factoryQuestionText(str){
   const arrErr = [];
-  if (typeof(str)!=='string') arrErr.push('invalid input source');
   if (str.length < 20) arrErr.push('Texto da pergunta tem menos de 20 caracteres');
   return arrErr;
 }
 
 function factoryQuestionColor(str){
   const arrErr = [];
-  if (typeof(str)!=='string') arrErr.push('invalid input source');
   if (!/^#[a-f0-9]{6}$/i.test(str)) arrErr.push('Cor invalida, formato esperado: #xxxxxx');
   return arrErr;
 }
 
 function factoryQuestionAnswer(str){
   const arrErr = [];
-  if (typeof(str)!=='string') arrErr.push('invalid input source');
   if (str === '') arrErr.push('Texto esta vazio');
   return arrErr;
 }
 
 function factoryFakeAnswerCount(int){
   const arrErr = [];
-  if (!Number.isInteger(int)) arrErr.push('invalid input source');
   if (int === 3) arrErr.push('Preencha pelo menos uma resposta incorreta');
   return arrErr;
 }
 
 function factoryLevelTitle(str){
   const arrErr = [];
-  if (typeof(str)!=='string') arrErr.push('invalid input source');
   if (str.length < 10) arrErr.push('Titulo do nivel tem menos de 10 caracteres');
   return arrErr;
 }
 
 function factoryPercentage(str){
   const arrErr = [];
-  if (typeof(str) !== 'string') arrErr.push('invalid input source');
-  if (str === '') arrErr.push('Campo de porcentagem esta vazio');
+  if (str === '') {
+    arrErr.push('Campo de porcentagem esta vazio');
+    arrErr.push('Porcentagem deve ser um numero inteiro');
+    arrErr.push('A porcentagem deve ser entre 0 e 100');
+    return arrErr;
+  }
   if (/\D/.test(str)) arrErr.push('Porcentagem deve ser um numero inteiro');
   if (parseInt(str, 10) < 0 || parseInt(str, 10) > 100) arrErr.push('A porcentagem deve ser entre 0 e 100');
   return arrErr;
@@ -100,30 +101,15 @@ function factoryPercentage(str){
 
 function factoryDescription(str){
   const arrErr = [];
-  if (typeof(str)!=='string') arrErr.push('invalid input source');
   if (str.length < 30) arrErr.push('Descricao tem menos de 30 caracteres');
   return arrErr;
 }
 
 function factoryZeroPercentageCount(bol){
   const arrErr = [];
-  if (typeof(bol) !== 'boolean') arrErr.push('invalid input source');
   if (bol === false) arrErr.push('Ao menos um nivel deve ter porcentagem minima 0');
   return arrErr;
 }
-
-// function factoryAnswersOrder(question){
-//   const arrErr = [];
-//   if (typeof(question) !== 'object') arrErr.push('invalid input source');
-//   let str = '';
-//   const answers = question.querySelectorAll('.question-answer');
-//   for (let i = 1; i<4; i++){
-//     if (answers[i].value !== '') str+= '1';
-//     else str += '0';
-//   }
-//   if (/01/.test(str)) arrErr.push('Coloque as respostas em ordem 1->2->3');
-//   return arrErr;
-// }
 
 function checkStartInput(objTitle, objImage, objQuestions, objLevels){
   let failed = false;
@@ -145,17 +131,10 @@ function checkQuestionCore(objText, objColor, objAnswerText, objAnswerImage){
 
 function checkQuestionFakeAnswer(objAnswer, objImage){
   let failed = false;
-  console.log('entrou')
   if (!validate(factoryQuestionAnswer, objAnswer, objAnswer.value)) failed = true;
   if (!validate(factoryURL, objImage, objImage.value)) failed = true;
   return failed ? false : true;
 }
-
-//need to look into this later
-// function checkAnswersOrder(i, question){
-//   if (!validate(factoryAnswersOrder, question, `Pergunta ${i+1}`)) return false;
-//   return true;
-// }
 
 function checkQuestionsInput(questions){
   let passed = true;
@@ -186,15 +165,6 @@ function checkQuestionsInput(questions){
       objAnswers[1].nextElementSibling.innerHTML = `<p class="error-message">Preencha pelo menos uma resposta incorreta</p>`;
       objImages[1].nextElementSibling.innerHTML = `<p class="error-message">Preencha pelo menos uma resposta incorreta</p>`;
     }
-
-    // arrOrderError = factoryAnswersOrder(questions[i]);
-    // if (arrOrderError.length > 0){
-    //   passed = false;
-    //   arrOrderError.forEach(err => {
-    //     objAnswers[1].nextElementSibling.innerHTML = `<p class="error-message">${err}</p>`;
-    //     objImages[1].nextElementSibling.innerHTML = `<p class="error-message">${err}</p>`;         
-    //   })
-    // }
   }
   return passed ? true : false;
 }
