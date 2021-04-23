@@ -24,9 +24,15 @@ function getUserQuizzes() {
 }
 
 function buildHomePage() {
-    const arrLocalIds = getUserQuizzes();
+    const ids = getUserQuizzes();
+    const arrLocalIds = [];
+    ids.forEach(elem =>{
+        arrLocalIds.push(elem.id);
+    })
+    
     const isThereQuiz = !!arrLocalIds.length;
     const element = document.querySelector(".page-container");
+
     element.innerHTML = `
         <div class="loading">
             <img src="assets/images/loading2.gif" alt="loading gif">
@@ -36,10 +42,10 @@ function buildHomePage() {
             <div class="created-quizzes">
                 <div class="empty ${isThereQuiz?"hidden":""}">
                     <p>Você não criou nenhum<br> quizz ainda :(</p>
-                    <button onclick="buildNewQuizzPageStart()">Criar Quizz</button>
+                    <button onclick="buildNewQuizzPageStart(-1)">Criar Quizz</button>
                 </div>
                 <div class="not-empty ${isThereQuiz?"":"hidden"}">
-                    <p class="section-title">Seus Quizzes<span><ion-icon onclick="buildNewQuizzPageStart()" name="add-circle"></ion-icon></span></p>
+                    <p class="section-title">Seus Quizzes<span><ion-icon onclick="buildNewQuizzPageStart(-1)" name="add-circle"></ion-icon></span></p>
                     <ul class="quizzes-list user-quizzes">
                     </ul>
                 </div>
@@ -98,8 +104,21 @@ function buildQuizzList(resposta, arrLocalIds) {
 }
 
 function deleteQuizz(id, event) {
-    console.log("deletando quizz");
     event.stopPropagation();
+    let key;
+    const local = getUserQuizzes();
+    local.forEach(elem=>{
+        if (elem.id === id){
+            key = elem.key;
+        }
+    })
+    axios
+    .delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/${id}`, {headers: {'Secret-Key': key}})
+    .then(()=>{
+        console.log(`deleted ${id}`);
+        buildHomePage();
+    })
+    .catch((err)=>{console.log(err)})
 }
 
 function toggleLoading() {
