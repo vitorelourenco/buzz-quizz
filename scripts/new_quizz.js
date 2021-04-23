@@ -132,6 +132,7 @@ function handleLevelsSubmit() {
             console.log(data.key);
             console.log(data.id);
             buildNewQuizzPageDone(data.id, `${data.key}`);
+            toggleLoading();
         })
         .catch((error) => {
             console.log(error);
@@ -438,6 +439,12 @@ function storeUserQuizz(id, key) {
     } else {
         localStorage.setItem("ids", `[${{id, key}}]`);
     }
+}
+
+function editQuizz(id, event) {
+    console.log("editando quizz");
+    event.stopPropagation();
+
 }
 
 // buildNewQuizzPageStart();

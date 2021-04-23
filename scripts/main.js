@@ -78,23 +78,34 @@ function buildQuizzList(resposta, arrLocalIds) {
                                 <li onclick="getQuizz(${quizzList[i].id})" class="quizz-thumb">
                                     <div></div>
                                     <span class="label">
-                                        <span class="edit">
+                                        <span  onclick="editQuizz(${quizzList[i].id}, event)" class="edit">
                                             <img src="assets/images/edit-white.svg">
-                                        </span>
-                                        <ion-icon name="trash-outline"></ion-icon>
+                                        </span> 
+                                        <ion-icon onclick="deleteQuizz(${quizzList[i].id}, event)" name="trash-outline"></ion-icon>
                                     </span>
                                     <img src=${quizzList[i].image}" alt="quizz thumbnail">
                                     <p>${quizzList[i].title}</p>
                                 </li>`
-        } else {
+        } else
             quizzContainer.innerHTML += ` 
                                 <li onclick="getQuizz(${quizzList[i].id})" class="quizz-thumb">
                                     <div></div>
                                     <img src=${quizzList[i].image}" alt="quizz thumbnail">
                                     <p>${quizzList[i].title}</p>
                                 </li>`
-        }
     }
+    element = document.querySelector(".user-quizzes");
+    if (element.innerHTML === "") {
+        element = document.querySelector(".not-empty");
+        element.classList.add("hidden");
+        element = document.querySelector(".empty");
+        element.classList.remove("hidden");
+    }
+}
+
+function deleteQuizz(id, event) {
+    console.log("deletando quizz");
+    event.stopPropagation();
 }
 
 function toggleLoading() {
