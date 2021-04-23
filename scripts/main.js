@@ -15,9 +15,19 @@ function scrollQuizz(domElem, delay) {
     }, delay);
 }
 
+function getUserQuizzes() {
+    let stringId = localStorage.getItem("ids");
+    idList = JSON.parse(stringId);
+    return idList === null ? [] : idList;
+}
+
 function buildHomePage() {
+<<<<<<< HEAD
     //change this line when i get the function that returns the local IDs list
     const arrLocalIds = [1, 2, 3];
+=======
+    const arrLocalIds = getUserQuizzes();
+>>>>>>> 2020ba7e34f4a8842e014108eb332e6d7ee825aa
     const isThereQuiz = !!arrLocalIds.length;
     const element = document.querySelector(".page-container");
     element.innerHTML = `<div class="home-container">
