@@ -113,6 +113,11 @@
     font-size: 24px;
 }
 
+.trash {
+    width: 100%;
+    height: 100%;
+}
+
 .quizz-thumb>div {
     width: 100%;
     height: 100%;
