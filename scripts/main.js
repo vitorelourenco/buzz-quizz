@@ -2,6 +2,7 @@ const container = document.querySelector('.page-container');
 
 //i didnt use scrollintoview because it doesnt
 //take the fixed header into account
+//didnt figure out another way to do it
 function scrollQuizz(domElem, delay) {
     const getY = function(elem) {
         const rect = elem.getBoundingClientRect();

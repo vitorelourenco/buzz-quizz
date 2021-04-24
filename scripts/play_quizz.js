@@ -49,6 +49,12 @@ function buildQuizz(resposta) {
     scrollQuizz(container, 0);
 }
 
+//this is an overly complicated function that takes several parameters
+//its meant to be a generic way to handle that kind of ~pick one~ job
+//ill work more on it later, it calls another function that doesnt even use all
+//the parameters available 
+//goal here is to have a generic ~pick one~ function that also accepts a callback
+//and figures out groups of possible selections and then runs the callback
 function pickOption(callback, domElem, targetSelector, headSelector, superSelector) {
 
     let headNode = domElem;
@@ -69,6 +75,7 @@ function pickOption(callback, domElem, targetSelector, headSelector, superSelect
     callback(domElem, headOptions, superOptions, headNode, superNode, headSelector, targetSelector);
 }
 
+//and this is the callback
 function pickAnswer(picked, arrChoices, arrQuestions, headNode, superNode, headSelector, targetSelector) {
     let callerIndex = 0;
     while (arrQuestions[callerIndex] !== headNode) {
@@ -85,6 +92,11 @@ function pickAnswer(picked, arrChoices, arrQuestions, headNode, superNode, headS
     goToNextQuestion(callerIndex, arrQuestions);
 }
 
+//the code will look for the next unanswered question
+//maybe the user skipped all questions and answered the last one first?
+//well in that case the next unaswered would be the first question
+//it does this through the quizzStatusList[] array and checking zeros and ones
+//zero not answered , one answered
 function goToNextQuestion(callerIndex, arrQuestions) {
     const quizzStatusList = [];
     arrQuestions.forEach(question => {

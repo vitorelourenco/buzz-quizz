@@ -1,8 +1,14 @@
+//newQuizzObj is used for both new quizes and editing quizes
+//this is the main variable (type object) of the script
 let newQuizzObj;
 let isEdit;
 let idEditing;
 let keyEditing;
 
+
+//this function is used on the questions screen of the new quizz
+//and on the levels screen. basically it takes some of element of the dom
+//and a selector and collapses all items except for the one that has been clicked
 function selectUnique(domElem, headSelector) {
     const headNode = document.querySelector(headSelector);
 
@@ -19,10 +25,18 @@ function selectUnique(domElem, headSelector) {
     scrollQuizz(currentNode, 520);
 }
 
+
+//handlestart submit gets called when the user clicks the NEXT button 
+//on the 1st page of creating a new quizz
+//its job is to figure out how to manipulate newQuizzObj
+//and to give directions on how to build the questions page and the levels page
 function handleStartSubmit() {
     function getArrQuestions(nQuestions) {
         const arrQuestions = [];
         let k = 0;
+
+        //this IF is only ever true during an edit. never during the creation of a new quiz
+        //the goal here is to pass forward the original data from the unedited quiz
         if (newQuizzObj.hasOwnProperty('questions')) {
             while (k < newQuizzObj.questions.length && k < nQuestions) {
                 arrQuestions.push(newQuizzObj.questions[k]);
@@ -41,6 +55,9 @@ function handleStartSubmit() {
     function getArrLevels(nLevels) {
         const arrLevels = [];
         let k = 0;
+
+        //this IF is only ever true during an edit. never during the creation of a new quiz
+        //the goal here is to pass forward the original data from the unedited quiz
         if (newQuizzObj.hasOwnProperty('levels')) {
             while (k < newQuizzObj.levels.length && k < nLevels) {
                 arrLevels.push(newQuizzObj.levels[k]);
@@ -117,7 +134,6 @@ function handleLevelsSubmit() {
     }
 
     if (isEdit) {
-        //in case its an edit
         axios
             .put(`https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/${idEditing}`, newQuizzObj, { headers: { 'Secret-Key': keyEditing } })
             .then(({ data }) => {
@@ -164,6 +180,7 @@ function buildNewQuizzPageStart(id) {
         scrollQuizz(container, 0);
     }
 
+    //when a new quizz is being created, the function gets called with id=-1
     if (id === -1) {
         isEdit = false;
         newQuizzObj = {};
@@ -185,6 +202,7 @@ function buildNewQuizzPageStart(id) {
             const image = container.querySelector('.new-quizz-image');
             const nQuestions = container.querySelector('.new-quizz-nQuestions');
             const nLevels = container.querySelector('.new-quizz-nLevels');
+            //this is newQuizzObj, the variable that holds a quiz being created or edited
             newQuizzObj = data;
             title.value = newQuizzObj.title;
             image.value = newQuizzObj.image;
@@ -196,6 +214,11 @@ function buildNewQuizzPageStart(id) {
 }
 
 function buildNewQuizzPageQuestions() {
+    //all these getXXXX functions do is figure out if newQuizzObj 
+    //has the info for some indexes 
+    //if its a new quiz, it wont have the info for sure
+    //if its a quiz being edited, it might have the info
+    //they return either the info or an empty string
     function getTitle(i) {
         if (newQuizzObj.questions[i].hasOwnProperty('title')) {
             return newQuizzObj.questions[i].title;
@@ -284,6 +307,9 @@ function buildNewQuizzPageQuestions() {
 
     section.innerHTML += `<button onclick='handleQuestionsSubmit()'>Prosseguir para criar niveis</button>`
 
+    //this for is putting the info from newQuizzObj into the input fields
+    //of the page. thats really all it does
+    //the getXXXX functions return an empty string if newQuizzObj doesnt have the value
     for (let i = 0; i < newQuizzObj.questions.length; i++) {
 
         const allDivs = section.querySelectorAll('.input-group');
@@ -295,6 +321,10 @@ function buildNewQuizzPageQuestions() {
         questionColor.value = getColor(i);
 
         const answers = currentSection.querySelectorAll('.sub-group');
+        //why j<5? , well, because when i was building the html for the page
+        //i used the .sub-group selector for things that arent questions
+        //like this : <div class='sub-group'><input class="question-title" type="text" placeholder="Texto da pergunta"></input>
+        //thats just a question title...
         for (let j = 1; j < 5; j++) {
             const answer = answers[j].querySelector('.question-answer');
             const image = answers[j].querySelector('.question-image');
@@ -312,6 +342,7 @@ function buildNewQuizzPageQuestions() {
     scrollQuizz(container, 0);
 }
 
+//this function is buildNewQuizzPageQuestions()`s cousin, they work the same . boilerplate copypasta
 function buildNewQuizzPageLevels() {
     function getTitle(i) {
         if (newQuizzObj.levels[i].hasOwnProperty('title')) {
@@ -395,7 +426,7 @@ function buildNewQuizzPageLevels() {
     scrollQuizz(container, 0);
 }
 
-//key must be a strign here
+//key is already a string by this point
 function buildNewQuizzPageDone(id, key) {
     if (!isEdit) {
         storeUserQuizz(id, key);
@@ -427,7 +458,8 @@ function buildNewQuizzPageDone(id, key) {
     scrollQuizz(container, 0);
 };
 
-//key must be a string here
+//key is already a string by this point
+//id is still a number tho, but it should be
 function storeUserQuizz(id, key) {
     if (idList !== null) {
         idList.push({ id, key });
@@ -440,12 +472,14 @@ function storeUserQuizz(id, key) {
     }
 }
 
+//this function gets called when the user clicks the edit icon 
 function editQuizz(id, event) {
     event.stopPropagation();
     buildNewQuizzPageStart(id);
 }
 
-// buildNewQuizzPageStart();
+// these functions can be used for testing stuff from the console
+// buildNewQuizzPageStart(-1);
 // buildNewQuizzPageDone(1);
 // buildNewQuizzPageQuestions(newQuizzObj = {title:'a', image:'a', questions:[{},{},{}], levels:[{},{}]});
 // buildNewQuizzPageLevels(newQuizzObj = { title: 'a', image: 'a', questions: [{}, {}, {}, {}], levels: [{}, {}, {}, {}] });

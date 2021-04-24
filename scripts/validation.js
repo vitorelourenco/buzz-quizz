@@ -1,6 +1,6 @@
 //validate returns either true or false if the input given is valid
 //but it also has side effects that add the reasons why the input is invalid to the screen
-//if there are no issues, previous invalid input messages are deleted
+//if there are no issues, previous error messages are deleted
 function validate(callback, objSource, str){
   const arrErr = callback(str);
   divErr = objSource.nextElementSibling;
@@ -18,7 +18,7 @@ function validate(callback, objSource, str){
 
 
 //all functions that start with factory do some sort of validation against the expected result
-//factory functions are callbacks to the function validate();
+//factory functions are usually callbacks to the function validate();
 function factoryURL(str){
   const arrErr = [];
   const urlRegexp =  /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
@@ -116,6 +116,8 @@ function factoryZeroPercentageCount(bol){
 
 //functions that start with check are used to bundle validations together and return
 //true or false. its false if at least 1 validation fails
+//since the validate() function is the one responsible for the side effects, all 
+//errors will show on the screen as requested
 function checkStartInput(objTitle, objImage, objQuestions, objLevels){
   let failed = false;
   if (!validate(factoryTitle, objTitle, objTitle.value)) failed = true;
