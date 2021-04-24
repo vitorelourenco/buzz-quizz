@@ -477,9 +477,3 @@ function editQuizz(id, event) {
     event.stopPropagation();
     buildNewQuizzPageStart(id);
 }
-
-// these functions can be used for testing stuff from the console
-// buildNewQuizzPageStart(-1);
-// buildNewQuizzPageDone(1);
-// buildNewQuizzPageQuestions(newQuizzObj = {title:'a', image:'a', questions:[{},{},{}], levels:[{},{}]});
-// buildNewQuizzPageLevels(newQuizzObj = { title: 'a', image: 'a', questions: [{}, {}, {}, {}], levels: [{}, {}, {}, {}] });
