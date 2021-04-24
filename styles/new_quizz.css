@@ -47,7 +47,7 @@
     padding-bottom: 13px;
 }
 
-.new-quizz .sub-group{
+.new-quizz .sub-group {
     margin-bottom: 28px;
 }
 
@@ -80,7 +80,6 @@
     background-color: #fafafa;
     margin-top: 9px;
     margin-bottom: 20px;
-    /* margin bottom applied so the button doesn't hug the end of the page */
 }
 
 .new-quizz .go-to-quizz,
@@ -112,11 +111,11 @@
     padding: 0 20px 20px 20px;
 }
 
-.error-field{
+.error-field {
     background-color: #FFE9E9;
 }
 
-.error-message{
+.error-message {
     font-size: 16px;
     line-height: 19px;
     color: #EC362D;
@@ -155,11 +154,6 @@
 .new-quizz .collapsed .svg {
     display: block;
 }
-
-
-/* .new-quizz .collapsed .collapsible{
-  display: none;
-} */
 
 
 /* img with dark overlay */
