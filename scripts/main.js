@@ -80,8 +80,10 @@ function buildQuizzList(resposta, arrLocalIds) {
                                     <span class="label">
                                         <span  onclick="editQuizz(${quizzList[i].id}, event)" class="edit">
                                             <img src="assets/images/edit-white.svg">
-                                        </span> 
-                                        <ion-icon onclick="deleteQuizz(${quizzList[i].id}, event)" name="trash-outline"></ion-icon>
+                                        </span>
+                                        <div onclick="deleteQuizz(${quizzList[i].id}, event)" class="trash"> 
+                                            <ion-icon name="trash-outline"></ion-icon>
+                                        </div>
                                     </span>
                                     <img src=${quizzList[i].image}" alt="quizz thumbnail">
                                     <p>${quizzList[i].title}</p>
