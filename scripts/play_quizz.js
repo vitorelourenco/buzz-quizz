@@ -125,7 +125,6 @@ function goToNextQuestion(callerIndex, arrQuestions) {
 }
 
 function endQuizz() {
-    // console.log(quizz.levels);
     let idLevel = 0;
     const nCorrectAnswers = document.querySelectorAll(".picked.right-choice").length;
     const nQuestions = quizz.questions.length;
@@ -158,5 +157,3 @@ function endQuizz() {
     const scoreSection = document.querySelector('.score-section');
     scrollQuizz(scoreSection, 2000);
 }
-
-// getQuizz(1);
