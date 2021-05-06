@@ -426,7 +426,6 @@ function buildNewQuizzPageLevels() {
     scrollQuizz(container, 0);
 }
 
-//key is already a string by this point
 function buildNewQuizzPageDone(id, key) {
     if (!isEdit) {
         storeUserQuizz(id, key);
@@ -458,8 +457,6 @@ function buildNewQuizzPageDone(id, key) {
     scrollQuizz(container, 0);
 };
 
-//key is already a string by this point
-//id is still a number tho, but it should be
 function storeUserQuizz(id, key) {
     if (idList !== null) {
         idList.push({ id, key });

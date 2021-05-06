@@ -86,14 +86,14 @@ function buildQuizzList(resposta, arrLocalIds) {
                                             <ion-icon name="trash-outline"></ion-icon>
                                         </div>
                                     </span>
-                                    <img src=${quizzList[i].image}" alt="quizz thumbnail">
+                                    <img src="${quizzList[i].image}" alt="quizz thumbnail">
                                     <p>${quizzList[i].title}</p>
                                 </li>`
         } else
             quizzContainer.innerHTML += ` 
                                 <li onclick="getQuizz(${quizzList[i].id})" class="quizz-thumb">
                                     <div></div>
-                                    <img src=${quizzList[i].image}" alt="quizz thumbnail">
+                                    <img src="${quizzList[i].image}" alt="quizz thumbnail">
                                     <p>${quizzList[i].title}</p>
                                 </li>`
     }
